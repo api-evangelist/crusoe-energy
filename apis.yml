@@ -135,6 +135,8 @@ common:
     url: https://crusoe.ai/careers
   - type: LinkedIn
     url: https://www.linkedin.com/company/crusoeenergy/
+  - type: LLMsTxt
+    url: https://docs.crusoecloud.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
