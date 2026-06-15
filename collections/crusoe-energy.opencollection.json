@@ -1,0 +1,3906 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Capacities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists available Crusoe Cloud capacity with optional filters on location and product name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/capacities",
+            "params": [
+              {
+                "name": "product_name",
+                "value": "[l40s-48gb.1x, l40s-48gb.2x]",
+                "type": "query"
+              },
+              {
+                "name": "location",
+                "value": "[us-southcentral1-a, us-east1-a]",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists available Crusoe Cloud capacity with optional filters on location and product name."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all VM images available for use.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/compute/images"
+          },
+          "docs": "Lists all VM images available for use."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a VM image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/compute/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a VM image."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Feature Flags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get feature flags for the currently logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/featureflags"
+          },
+          "docs": "A successful response from this resource will contain a map of\nall feature flags and the value assigned to each of them for the user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all Crusoe Cloud locations usable for resource hosting.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/locations"
+          },
+          "docs": "Lists all Crusoe Cloud locations usable for resource hosting."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all active organizations the logged in user belongs to.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/entities"
+          },
+          "docs": "Retrieve details about all active organizations the logged in user belongs to."
+        },
+        {
+          "info": {
+            "name": "Update details for an organization that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/organizations/entities",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the updated organization details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about projects that the logged in user belongs to or owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/projects",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "ee2a6bc3-aed5-4756-8995-9990a53d3a17",
+                "type": "query"
+              },
+              {
+                "name": "project_name",
+                "value": "default",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "If querying for projects within an organization, the logged in user must be the owner of the organization."
+        },
+        {
+          "info": {
+            "name": "Create a new project that will be owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/organizations/projects"
+          },
+          "docs": "The logged in user must have the permission to create projects within the organization.\nA successful response from this resource contains details of the created project."
+        },
+        {
+          "info": {
+            "name": "Update details for a project that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/organizations/projects",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "f058d0db-2fa4-4cf2-8cf1-dfbcfe05a814",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Requests to this resource must contain the json-encoded representation of the changes they want to make to the project.\nCurrently only the project's name can be changed."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a project that the logged in user belongs to or owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ee2a6bc3-aed5-4756-8995-9990a53d3a17",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a project that the logged in user belongs to or owns."
+        },
+        {
+          "info": {
+            "name": "Delete a project that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/organizations/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete operations cascade to VMs created under that project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get audit logs belonging to the specified organization. User must be part of the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/audit-logs",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "de8f27fe-8438-45e7-a2c2-a2767660625f",
+                "type": "path"
+              },
+              {
+                "name": "project_ids",
+                "value": "f934fbdb-7e3a-4b92-b7d2-da0f91d768e8,8c29f3f3-830f-4a44-9b6b-a51fcf6a6b5d",
+                "type": "query"
+              },
+              {
+                "name": "start_time",
+                "value": "2022-09-01T14:25:36-07:00",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "2022-09-06T14:25:36-07:00",
+                "type": "query"
+              },
+              {
+                "name": "actions",
+                "value": "Create,Update",
+                "type": "query"
+              },
+              {
+                "name": "actor_ids",
+                "value": "f934fbdb-7e3a-4b92-b7d2-da0f91d768e8,8c29f3f3-830f-4a44-9b6b-a51fcf6a6b5d",
+                "type": "query"
+              },
+              {
+                "name": "actor_emails",
+                "value": "hh26@xxx.com,xyz@yyy.ai, only support filter by user email, not by crusoe admin email.",
+                "type": "query"
+              },
+              {
+                "name": "actor_types",
+                "value": "User,Crusoe Admin, please ensure URL encoding for values with space.",
+                "type": "query"
+              },
+              {
+                "name": "target_ids",
+                "value": "f934fbdb-7e3a-4b92-b7d2-da0f91d768e8,8c29f3f3-830f-4a44-9b6b-a51fcf6a6b5d",
+                "type": "query"
+              },
+              {
+                "name": "target_types",
+                "value": "VM,KubernetesCluster",
+                "type": "query"
+              },
+              {
+                "name": "target_names",
+                "value": "my_vm1,my_vm2",
+                "type": "query"
+              },
+              {
+                "name": "locations",
+                "value": "us-east1,us-southcentral1-a",
+                "type": "query"
+              },
+              {
+                "name": "results",
+                "value": "OK,Bad Request",
+                "type": "query"
+              },
+              {
+                "name": "results_not",
+                "value": "OK,Bad Request",
+                "type": "query"
+              },
+              {
+                "name": "surfaces",
+                "value": "Browser,Crusoe Terraform/v0.5.21 please make sure the values are URL encoded.",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query"
+              },
+              {
+                "name": "next_token",
+                "value": "bXktZmlyc3Qtdm0",
+                "type": "query"
+              },
+              {
+                "name": "prev_token",
+                "value": "bXktZmlyc3Qtdm0",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get audit logs belonging to the specified organization. User must be part of the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the daily spend for a specified organization by project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/billing/costs",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the daily spend for a specified organization by project."
+        },
+        {
+          "info": {
+            "name": "Return the daily spend per resource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/billing/export",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "format",
+                "value": "\"json\",\"csv\"",
+                "type": "query"
+              },
+              {
+                "name": "projects",
+                "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb",
+                "type": "query"
+              },
+              {
+                "name": "resources",
+                "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb",
+                "type": "query"
+              },
+              {
+                "name": "resource_types",
+                "value": "persistent-ssd,l40s-48gb.1x",
+                "type": "query"
+              },
+              {
+                "name": "regions",
+                "value": "us-east1,us-southcentral1",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "\"2022-07-01\"",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "\"2023-08-08\"",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Return the daily spend per resource."
+        },
+        {
+          "info": {
+            "name": "Get options which exist for filters for /billing/costs and /billing/export routes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/billing/options",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "\"2025-05-01\"",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "\"2025-05-20\"",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get options which exist for filters for /billing/costs and /billing/export routes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Quotas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List max and currently used organization quotas.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/quotas",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List max and currently used organization quotas."
+        },
+        {
+          "info": {
+            "name": "List max and currently used project quotas.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/quotas",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List max and currently used project quotas."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reservations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all reservations belonging to the specified organization. User must be part of the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/reservations",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "de8f27fe-8438-45e7-a2c2-a2767660625f",
+                "type": "path"
+              },
+              {
+                "name": "status",
+                "value": "effective",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get all reservations belonging to the specified organization. User must be part of the organization."
+        },
+        {
+          "info": {
+            "name": "Get latest GPU tracking data for the specified organization. User must be part of the organization and have reservations feature access.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/reservations/gpu-tracking/latest",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "de8f27fe-8438-45e7-a2c2-a2767660625f",
+                "type": "path"
+              },
+              {
+                "name": "product_line",
+                "value": "gpu-hours",
+                "type": "query"
+              },
+              {
+                "name": "region",
+                "value": "us-east1,us-northcentral1",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get latest GPU tracking data for the specified organization. User must be part of the organization and have reservations feature access."
+        },
+        {
+          "info": {
+            "name": "Get reservation belonging to the specified organization and reservation ID. User must be part of the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/reservations/:reservation_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "de8f27fe-8438-45e7-a2c2-a2767660625f",
+                "type": "path"
+              },
+              {
+                "name": "reservation_id",
+                "value": "de8f27fe-8438-45e7-a2c2-a2767660625f",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get reservation belonging to the specified organization and reservation ID. User must be part of the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project-level usage for products in Crusoe Cloud.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/usage",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "projects",
+                "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb",
+                "type": "query"
+              },
+              {
+                "name": "resource_types",
+                "value": "persistent-ssd,l40s-48gb.1x",
+                "type": "query"
+              },
+              {
+                "name": "regions",
+                "value": "us-east1,us-southcentral1",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "\"2022-07-01\"",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "\"2023-08-08\"",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get project-level usage for products in Crusoe Cloud."
+        },
+        {
+          "info": {
+            "name": "Get resource-level usage for products in Crusoe Cloud.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/usage/export",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "projects",
+                "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb",
+                "type": "query"
+              },
+              {
+                "name": "resources",
+                "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb",
+                "type": "query"
+              },
+              {
+                "name": "resource_types",
+                "value": "persistent-ssd,l40s-48gb.1x",
+                "type": "query"
+              },
+              {
+                "name": "regions",
+                "value": "us-east1,us-southcentral1",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "\"2022-07-01\"",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "\"2023-08-08\"",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get resource-level usage for products in Crusoe Cloud."
+        },
+        {
+          "info": {
+            "name": "Get options which exist for filters for /usage and /usage/export routes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/:organization_id/usage/options",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get options which exist for filters for /usage and /usage/export routes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all custom VM images available for use.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all custom VM images available for use."
+        },
+        {
+          "info": {
+            "name": "Create a custom image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a custom image."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a VM image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a VM image."
+        },
+        {
+          "info": {
+            "name": "Update a custom image's description.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a custom image's description."
+        },
+        {
+          "info": {
+            "name": "Delete a custom image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a custom image."
+        },
+        {
+          "info": {
+            "name": "Update a custom image's tags.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images/:image_id/edit-tags",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a custom image's tags."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Image Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe custom images resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous custom image operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/custom-images/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe custom image resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Instance Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all instance groups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-groups",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all instance groups."
+        },
+        {
+          "info": {
+            "name": "Create an instance group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-groups",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create an instance group."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about an instance group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-groups/:instance_group_id",
+            "params": [
+              {
+                "name": "instance_group_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about an instance group."
+        },
+        {
+          "info": {
+            "name": "Update an instance group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-groups/:instance_group_id",
+            "params": [
+              {
+                "name": "instance_group_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update an instance group."
+        },
+        {
+          "info": {
+            "name": "Delete an instance group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-groups/:instance_group_id",
+            "params": [
+              {
+                "name": "instance_group_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an instance group."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Instance Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all VM instance templates available for use.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-templates",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all VM instance templates available for use."
+        },
+        {
+          "info": {
+            "name": "Create a VM instance template, for use in bulk VM creation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-templates",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a VM instance template, for use in bulk VM creation."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a VM instance template.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-templates/:instance_template_id",
+            "params": [
+              {
+                "name": "instance_template_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a VM instance template."
+        },
+        {
+          "info": {
+            "name": "Delete a VM instance template.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/compute/instance-templates/:instance_template_id",
+            "params": [
+              {
+                "name": "instance_template_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a VM instance template."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VMs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create new VM instances owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/bulk-instances",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create new VM instances owned by the logged in user."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about all VMs that the logged in user owns or has access to.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "ids",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              },
+              {
+                "name": "names",
+                "value": "my-first-vm",
+                "type": "query"
+              },
+              {
+                "name": "types",
+                "value": "l40s-48gb.2x,l40s-48gb.8x",
+                "type": "query"
+              },
+              {
+                "name": "locations",
+                "value": "us-east1,us-southcentral1",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "STATE_RUNNING",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "name",
+                "type": "query"
+              },
+              {
+                "name": "next_token",
+                "value": "bXktZmlyc3Qtdm0",
+                "type": "query"
+              },
+              {
+                "name": "prev_token",
+                "value": "bXktZmlyc3Qtdm0",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve details about all VMs that the logged in user owns or has access to."
+        },
+        {
+          "info": {
+            "name": "Create a new VM instance owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a new VM instance owned by the logged in user."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a particular VM.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/:vm_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vm_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a particular VM."
+        },
+        {
+          "info": {
+            "name": "Change the state of a VM the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/:vm_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vm_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Change the state of a VM the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Delete a VM that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/:vm_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vm_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a VM that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Attach disks to a VM the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/:vm_id/attach-disks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vm_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Attach disks to a VM the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Detach disks from a VM the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/:vm_id/detach-disks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vm_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Detach disks from a VM the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about the types of VMs that are available.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/types",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about the types of VMs that are available."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VM Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "lower_time_bound",
+                "value": "2021-12-03T19:58:34Z",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe instances resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get the status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/compute/vms/instances/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe instances resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AutoCluster Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about a specific AutoCluster operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/autocluster-operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "e384a1de-81f8-4cb2-b312-a7d88a9bf9cb",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a specific AutoCluster operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kubernetes Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about Kubernetes clusters belonged to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              },
+              {
+                "name": "cluster_name",
+                "value": "my-first-cluster",
+                "type": "query"
+              },
+              {
+                "name": "cluster_search_names",
+                "value": "a40.2x,a100.8x",
+                "type": "query"
+              },
+              {
+                "name": "locations",
+                "value": "us-east1,us-northcentral1",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "STATE_RUNNING",
+                "type": "query"
+              },
+              {
+                "name": "versions",
+                "value": "1.30",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "name, -name",
+                "type": "query"
+              },
+              {
+                "name": "show_inactive",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "next_token",
+                "value": "bXktZmlyc3Qtdm0",
+                "type": "query"
+              },
+              {
+                "name": "prev_token",
+                "value": "bXktZmlyc3Qtdm0",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about Kubernetes clusters belonged to the project."
+        },
+        {
+          "info": {
+            "name": "Create a new Kubernetes cluster owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about a particular Kubernetes cluster belonged to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a particular Kubernetes cluster belonged to the project."
+        },
+        {
+          "info": {
+            "name": "Update a cluster that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a cluster that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Delete a cluster that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a cluster that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Retrieve credentials for the user to authenticate to the specified cluster.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id/get-credentials",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "auth_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve credentials for the user to authenticate to the specified cluster."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kubernetes Cluster Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe Kubernetes Cluster resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe Kubernetes Cluster resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AutoClusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the AutoClusters configuration for a specific cluster.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id/autoclusters/config",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "cluster_id",
+                "value": "e384a1de-81f8-4cb2-b312-a7d88a9bf9cb",
+                "type": "path",
+                "description": "Cluster ID"
+              }
+            ]
+          },
+          "docs": "Returns the cluster's Autoclusters configuration including alert handling defaults and any customer overrides."
+        },
+        {
+          "info": {
+            "name": "Update the AutoClusters configuration for a specific cluster.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id/autoclusters/config",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "cluster_id",
+                "value": "e384a1de-81f8-4cb2-b312-a7d88a9bf9cb",
+                "type": "path",
+                "description": "Cluster ID"
+              }
+            ]
+          },
+          "docs": "Allows setting or removing remediation overrides and configuring project reservation fallback."
+        },
+        {
+          "info": {
+            "name": "Trigger VM remediation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/clusters/:cluster_id/autoclusters/vms/:vm_id/remediate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "e384a1de-81f8-4cb2-b312-a7d88a9bf9cb",
+                "type": "path"
+              },
+              {
+                "name": "vm_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Trigger remediation for a VM within a Kubernetes cluster with AutoClusters add-on enabled. This creates an AutoClusters operation and returns an\nasynchronous operation handle. Currently, this defaults to performing a replace node operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kubernetes Node Pools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about Kubernetes node pools belonging to a project or cluster.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "created_at, -created_at",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about Kubernetes node pools belonging to a project or cluster."
+        },
+        {
+          "info": {
+            "name": "Create a new Kubernetes node pool owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about a particular Kubernetes node pool belonging to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a particular Kubernetes node pool belonging to the project."
+        },
+        {
+          "info": {
+            "name": "Update a node pool that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a node pool that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Delete a node pool that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a node pool that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Cancel an in-progress rotation of the specified Kubernetes node pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id/cancel-rotate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel an in-progress rotation of the specified Kubernetes node pool."
+        },
+        {
+          "info": {
+            "name": "Get the rotate status of the specified Kubernetes ndoe pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id/rotate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the rotate status of the specified Kubernetes ndoe pool."
+        },
+        {
+          "info": {
+            "name": "Start a rotation of the specified Kubernetes node pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id/rotate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response returns an async operation you can poll."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kubernetes Node Pool Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/operations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe Kubernetes Node Pool resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe Kubernetes Node Pool resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kubernetes Versions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about available Kubernetes versions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/versions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "show_deprecated",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "product_name",
+                "value": "a100.2x",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about available Kubernetes versions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "IB Networks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details for all Infiniband networks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/ib-networks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for all Infiniband networks."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for an Infiniband network.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/ib-networks/:ib_network_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "ib_network_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for an Infiniband network."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "IB Partitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details for all Infiniband partitions that belongs to the user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/ib-partitions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for all Infiniband partitions that belongs to the user."
+        },
+        {
+          "info": {
+            "name": "Create a new Infiniband partition owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/networking/ib-partitions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a new Infiniband partition owned by the logged in user."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for an Infiniband partition that belongs to the user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/ib-partitions/:ib_partition_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "ib_partition_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for an Infiniband partition that belongs to the user."
+        },
+        {
+          "info": {
+            "name": "Delete an Infiniband partition owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/networking/ib-partitions/:ib_partition_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "ib_partition_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an Infiniband partition owned by the logged in user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Internal Load Balancers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all load balancers that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about all load balancers that belong to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new load balancer owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for a load balancer that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers/:load_balancer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "load_balancer_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a load balancer that belongs to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Patch (update) a load balancer owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers/:load_balancer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "load_balancer_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation.\nTo disable health checking, pass \"health_check\": {\"port\": 0}"
+        },
+        {
+          "info": {
+            "name": "Delete a load balancer owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers/:load_balancer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "load_balancer_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Internal Load Balancer Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe Load Balancers resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/internal-load-balancers/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe Load Balancer resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Load Balancers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about External Load Balancer belonging to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "us-east1",
+                "type": "query"
+              },
+              {
+                "name": "vpc_network_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "my-loadbalancer-test",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about External Load Balancer belonging to the project."
+        },
+        {
+          "info": {
+            "name": "Create a new external load balancer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "The project ID to which the external load balancer belongs."
+              }
+            ]
+          },
+          "docs": "This endpoint creates a new external load balancer in the specified project. The request must include the VPC ID, name, location, and at least one listen port with its associated backends."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about a particular external load balancer belonging to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers/:load_balancer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "load_balancer_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a particular external load balancer belonging to the project."
+        },
+        {
+          "info": {
+            "name": "Update an existing external load balancer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers/:load_balancer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "The project ID to which the external load balancer belongs."
+              },
+              {
+                "name": "load_balancer_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "The ID of the external load balancer to update."
+              }
+            ]
+          },
+          "docs": "This endpoint updates the configuration of an existing external load balancer. The request must include the load balancer ID and optionally the health check options and/or listen ports and associated backends."
+        },
+        {
+          "info": {
+            "name": "Delete an external load balancer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers/:load_balancer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "The project ID to which the external load balancer belongs."
+              },
+              {
+                "name": "load_balancer_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path",
+                "description": "The ID of the external load balancer to delete."
+              }
+            ]
+          },
+          "docs": "This endpoint deletes an external load balancer identified by its ID within the specified project. No request body or query parameters are required."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Load Balancer Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations for\nexternal load balancers. Query parameters can be used to filter results by external\nload balancer ID or operation state."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/load-balancers/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation\nfor an external load balancer. Only information about the operation specified in\nthe path will be returned."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Firewall Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all VPC firewall rules that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about all VPC firewall rules that belong to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new VPC firewall rule owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for a VPC firewall rule that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules/:vpc_firewall_rule_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_firewall_rule_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a VPC firewall rule that belongs to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Patch (update) a VPC firewall rule owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules/:vpc_firewall_rule_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_firewall_rule_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC firewall rule owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules/:vpc_firewall_rule_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_firewall_rule_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Firewall Rule Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe snapshots resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-firewall-rules/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe snapshots resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Networks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all VPC networks that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about all VPC networks that belong to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new VPC network owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain information regarding the created VPC network."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for a VPC network that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks/:vpc_network_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_network_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a VPC network that belongs to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Patch (update) a VPC network owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks/:vpc_network_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_network_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC network owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks/:vpc_network_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_network_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Network Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe VPC Networks resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-networks/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe VPC Network resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Subnets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all VPC subnets that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about all VPC subnets that belong to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new VPC subnet owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain information regarding the created subnet."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for a VPC subnet that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets/:vpc_subnet_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_subnet_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a VPC subnet that belongs to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Patch (update) a VPC subnet owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets/:vpc_subnet_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_subnet_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Delete a VPC subnet owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets/:vpc_subnet_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "vpc_subnet_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VPC Subnet Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe VPC Networks resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/networking/vpc-subnets/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe VPC Subnet resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Slurm Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about slurm clusters belonged to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/clusters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "my-slurm-cluster",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about slurm clusters belonged to the project."
+        },
+        {
+          "info": {
+            "name": "Create a new slurm cluster owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/clusters",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about a particular slurm cluster belonged to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/clusters/:cluster_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "my-slurm-cluster",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a particular slurm cluster belonged to the project."
+        },
+        {
+          "info": {
+            "name": "Delete a slurm cluster that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/clusters/:cluster_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a slurm cluster that the logged in user owns."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Slurm Node Pools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about slurm node pools belonging to a project or cluster.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/nodepools",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "my-slurm-node-pool",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about slurm node pools belonging to a project or cluster."
+        },
+        {
+          "info": {
+            "name": "Create a new slurm node pool owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/nodepools",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about a particular slurm node pool belonging to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a particular slurm node pool belonging to the project."
+        },
+        {
+          "info": {
+            "name": "Update a node pool that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a node pool that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Delete a node pool that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/slurm/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a node pool that the logged in user owns."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Disks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all disks that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "disk_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "disk_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_os",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Size of disks will be in gibibytes (GiB)"
+        },
+        {
+          "info": {
+            "name": "Create a new disk owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Requires either a disk snapshot ID, or size and location, where size of disk\nshould be in gibibytes (GiB) or tebibytes (TiB) in the format [Size][Unit].\nE.g. 10GiB. Disk type must be one of: DISK_TYPE_PERSISTENT_SSD.\nA successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for a disk that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/:disk_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "disk_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Size of disk will be in gibibytes (GiB)"
+        },
+        {
+          "info": {
+            "name": "Resize a disk that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/:disk_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "disk_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Size should be in gibibytes (GiB) or tebibytes (TiB) in the format\n[Size][Unit]. E.g. 10GiB A successful response from this resource will\ncontain the async operation."
+        },
+        {
+          "info": {
+            "name": "Delete a disk owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/:disk_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "disk_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Disk Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe disks resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe disks resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all disk snapshots that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Size of snapshots will be in bytes."
+        },
+        {
+          "info": {
+            "name": "Create a new snapshot for a disk owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a disk snapshot that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots/:snapshot_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Size of snapshot will be in bytes."
+        },
+        {
+          "info": {
+            "name": "Rename a disk snapshot owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots/:snapshot_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the updated snapshot."
+        },
+        {
+          "info": {
+            "name": "Delete a disk snapshot owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots/:snapshot_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshot Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status of asynchronous operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots/operations",
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "452580d7-41d1-4b63-b4d7-4e4e21e95f96",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "IN_PROGRESS",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of asynchronous operations initiated by\nthe snapshots resource. All operations that are either in-flight or completed but not yet\nqueried will be returned."
+        },
+        {
+          "info": {
+            "name": "Get status of a single asynchronous operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/snapshots/operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about the status of an asynchronous operation initiated by\nthe snapshots resource. Only information about the operation specified in the path will be returned,\nor an HTTP 403 will be returned if the operation does not exist, was not initiated by the logged\nin user, or has expired."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Identities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve user details for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/identities"
+          },
+          "docs": "Retrieve user details for the logged in user."
+        },
+        {
+          "info": {
+            "name": "Update user details for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/users/identities"
+          },
+          "docs": "A successful response from this resource wil contain the updated user details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "InferenceAPIKey",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all active/expired Inference API Keys for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/inference-api-key"
+          },
+          "docs": "Retrieve all active/expired Inference API Keys for the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new inference api key owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/inference-api-key"
+          },
+          "docs": "A successful response from this resource will contain json-encoded details of the inference API key.\nThis is the only time the customer will be able to view the api key associated with the API key id."
+        },
+        {
+          "info": {
+            "name": "Delete an Inference API Key owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/inference-api-key",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "WTUzcGibQ82y9_01h4MCdQ",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete an Inference API Key owned by the logged in user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SSH Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of SSH public keys registered to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/ssh-keys"
+          },
+          "docs": "Retrieve the list of SSH public keys registered to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Register a new SSH public key to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/ssh-keys"
+          },
+          "docs": "A successful response from this resource wil contain the created SSH key details."
+        },
+        {
+          "info": {
+            "name": "Delete an SSH public key registered to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/ssh-keys",
+            "params": [
+              {
+                "name": "id",
+                "value": "6e28cad3-98e6-47a9-a9fc-1cd83a7f25c1",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete an SSH public key registered to the logged in user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all active/expired API tokens for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/tokens"
+          },
+          "docs": "Retrieve all active/expired API tokens for the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new token owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/tokens"
+          },
+          "docs": "A successful response from this resource will contain json-encoded details of API token.\nThis is the only time the customer will be able to view the secret key associated with the token."
+        },
+        {
+          "info": {
+            "name": "Delete an API token owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/tokens",
+            "params": [
+              {
+                "name": "access_key",
+                "value": "WTUzcGibQ82y9_01h4MCdQ",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete an API token owned by the logged in user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists role bindings visible to the caller.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/iam/role-bindings",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scope_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scope_object_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists role bindings visible to the caller."
+        },
+        {
+          "info": {
+            "name": "Lists role associated with the caller's organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/iam/roles"
+          },
+          "docs": "Lists role associated with the caller's organization."
+        },
+        {
+          "info": {
+            "name": "Creates and deletes role bindings for a user in a single atomic operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/iam/users/:user_id/role-bindings",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If any creation or deletion fails, no changes are applied."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
