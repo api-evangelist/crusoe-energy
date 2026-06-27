@@ -2,20 +2,13 @@
   "repo": "crusoe-energy",
   "feeds": [
     {
-      "source": "https://crusoe.ai/resources/blog/",
-      "feed_url": "https://crusoe.ai/resources/blog/",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://github.com/crusoecloud",
-      "feed_url": "https://github.com/crusoecloud",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "source": "https://crusoe.ai/blog",
+      "feed_url": "",
+      "saved": 3,
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 3,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 6,
+  "fetched": "2026-06-27T12:34:49Z",
+  "agent_pulled": "2026-06-27"
 }

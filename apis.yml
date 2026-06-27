@@ -135,7 +135,7 @@ common:
     url: https://crusoe.ai/careers
   - type: LinkedIn
     url: https://www.linkedin.com/company/crusoeenergy/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.crusoecloud.com/llms.txt
 maintainers:
   - FN: Kin Lane
