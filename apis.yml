@@ -109,6 +109,10 @@ apis:
       - type: APIKey
         description: API tokens issued via /users/tokens and managed in the Crusoe Cloud console.
 common:
+  - type: VulnerabilityDisclosure
+    url: security/crusoe-energy-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/crusoe-energy-domain-security.yml
   - type: Website
     url: https://crusoe.ai/
   - type: Cloud
