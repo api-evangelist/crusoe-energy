@@ -109,6 +109,8 @@ apis:
       - type: APIKey
         description: API tokens issued via /users/tokens and managed in the Crusoe Cloud console.
 common:
+  - type: AgenticAccess
+    url: agentic-access/crusoe-energy-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/crusoe-energy-vulnerability-disclosure.yml
   - type: DomainSecurity
