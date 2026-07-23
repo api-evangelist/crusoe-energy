@@ -1,0 +1,134 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Locations API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Locations
+paths:
+  /locations:
+    get:
+      tags:
+      - Locations
+      summary: Lists all Crusoe Cloud locations usable for resource hosting.
+      operationId: listLocations
+      responses:
+        '200':
+          $ref: '#/responses/locationsResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  ListLocationsResponseV1Alpha5:
+    type: object
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          type: string
+        x-go-name: Items
+        example:
+        - us-southcentral1-a
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  locationsResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ListLocationsResponseV1Alpha5'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

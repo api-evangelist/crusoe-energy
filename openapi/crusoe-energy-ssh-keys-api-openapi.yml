@@ -1,0 +1,280 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs SSH Keys API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: SSH Keys
+paths:
+  /users/ssh-keys:
+    get:
+      tags:
+      - SSH Keys
+      summary: Retrieve the list of SSH public keys registered to the logged in user.
+      operationId: getSSHKeys
+      responses:
+        '200':
+          $ref: '#/responses/getSSHKeysResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: A successful response from this resource wil contain the created SSH key details.
+      tags:
+      - SSH Keys
+      summary: Register a new SSH public key to the logged in user.
+      operationId: createSSHKey
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateSSHKeyRequest'
+      responses:
+        '200':
+          $ref: '#/responses/createSSHKeysResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    delete:
+      tags:
+      - SSH Keys
+      summary: Delete an SSH public key registered to the logged in user.
+      operationId: deleteSSHKey
+      parameters:
+      - type: string
+        example: 6e28cad3-98e6-47a9-a9fc-1cd83a7f25c1
+        x-go-name: ID
+        name: id
+        in: query
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/emptyResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '404':
+          $ref: '#/responses/notFoundError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  ListSSHKeysResponseV1Alpha5:
+    type: object
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/SSHKey'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  CreateSSHKeyResponse:
+    type: object
+    required:
+    - ssh_key
+    properties:
+      ssh_key:
+        $ref: '#/definitions/SSHKey'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  SSHKey:
+    type: object
+    required:
+    - id
+    - name
+    - public_key
+    - created_at
+    - fingerprints
+    properties:
+      created_at:
+        type: string
+        x-go-name: CreatedAt
+        example: '2022-01-24T20:13:35.328Z'
+      fingerprints:
+        $ref: '#/definitions/Fingerprints'
+      id:
+        type: string
+        x-go-name: ID
+        example: 0b880f48-6a97-408f-8351-3cc30871e010
+      name:
+        type: string
+        x-go-name: Name
+        example: public key 1
+      public_key:
+        type: string
+        x-go-name: PublicKey
+        example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpuH/fqCFLbAConChyVH6rZzSaxlnHSwQk6qvtPsf5E
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  Fingerprints:
+    type: object
+    required:
+    - md5
+    - sha256
+    properties:
+      md5:
+        type: string
+        x-go-name: MD5
+        example: bf:60:fa:cc:9f:42:1f:5e:23:9e:ed:d2:69:d8:76:93
+      sha256:
+        type: string
+        x-go-name: SHA256
+        example: tARFxQkVHeqm6TzqpI897QsHVdgZlxgL2/YhVltmEUk
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  CreateSSHKeyRequest:
+    type: object
+    required:
+    - name
+    - public_key
+    properties:
+      name:
+        type: string
+        x-go-name: Name
+        example: John Doe
+      public_key:
+        type: string
+        x-go-name: PublicKey
+        example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpuH/fqCFLbAConChyVH6rZzSaxlnHSwQk6qvtPsf5E
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  createSSHKeysResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/CreateSSHKeyResponse'
+  emptyResponse:
+    description: Empty Response
+  getSSHKeysResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ListSSHKeysResponseV1Alpha5'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  notFoundError:
+    description: Error Not Found
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '404'
+        message:
+          type: string
+          x-go-name: Message
+          example: not_found
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

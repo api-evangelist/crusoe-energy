@@ -1,0 +1,385 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Usage API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Usage
+paths:
+  /organizations/{organization_id}/usage:
+    get:
+      tags:
+      - Usage
+      summary: Get project-level usage for products in Crusoe Cloud.
+      operationId: getUsage
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: OrgID
+        name: organization_id
+        in: path
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
+        x-go-name: Projects
+        name: projects
+        in: query
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - persistent-ssd
+        - l40s-48gb.1x
+        x-go-name: ResourceTypes
+        name: resource_types
+        in: query
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - us-east1
+        - us-southcentral1
+        x-go-name: Regions
+        name: regions
+        in: query
+        required: true
+      - type: string
+        example: '"2022-07-01"'
+        x-go-name: StartDate
+        name: start_date
+        in: query
+        required: true
+      - type: string
+        example: '"2023-08-08"'
+        x-go-name: EndDate
+        name: end_date
+        in: query
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/usageGetResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '500':
+          $ref: '#/responses/serverError'
+  /organizations/{organization_id}/usage/export:
+    get:
+      produces:
+      - text/csv
+      tags:
+      - Usage
+      summary: Get resource-level usage for products in Crusoe Cloud.
+      operationId: getUsageExport
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: OrgID
+        name: organization_id
+        in: path
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
+        x-go-name: Projects
+        name: projects
+        in: query
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
+        x-go-name: Resources
+        name: resources
+        in: query
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - persistent-ssd
+        - l40s-48gb.1x
+        x-go-name: ResourceTypes
+        name: resource_types
+        in: query
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - us-east1
+        - us-southcentral1
+        x-go-name: Regions
+        name: regions
+        in: query
+        required: true
+      - type: string
+        example: '"2022-07-01"'
+        x-go-name: StartDate
+        name: start_date
+        in: query
+        required: true
+      - type: string
+        example: '"2023-08-08"'
+        x-go-name: EndDate
+        name: end_date
+        in: query
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/usageExportGetResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '500':
+          $ref: '#/responses/serverError'
+  /organizations/{organization_id}/usage/options:
+    get:
+      tags:
+      - Usage
+      summary: Get options which exist for filters for /usage and /usage/export routes.
+      operationId: getUsageOptions
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: OrgID
+        name: organization_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/usageOptionsGetResponse'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  UsageByProjectGetResponse:
+    type: object
+    title: UsageByProjectGetResponse is the response type for GET requests to the usage.usageByProject endpoint.
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/ProjectUsageResponse'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ProjectUsageResponse:
+    type: object
+    required:
+    - resource_type
+    - project_id
+    - reservation_id
+    - region
+    - date
+    - quantity
+    - billable_metric
+    properties:
+      billable_metric:
+        type: string
+        x-go-name: Metric
+        example: '"gpu-hours"'
+      date:
+        type: string
+        x-go-name: Date
+        example: '"2022-07-01"'
+      project_id:
+        type: string
+        x-go-name: ProjectID
+        example: '"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"'
+      quantity:
+        type: number
+        format: double
+        x-go-name: Quantity
+        example: 2.123
+      region:
+        type: string
+        x-go-name: Region
+        example: '"us-southcentral1"'
+      reservation_id:
+        type: string
+        x-go-name: ReservationID
+        example: '"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"'
+      resource_type:
+        type: string
+        x-go-name: ResourceType
+        example: '"l40s-48gb.1x"'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  UsageOptions:
+    description: 'UsageOptions contains the values which exist for the fields which we allow filtering
+
+      on for the usageByProjectGet endpoint.'
+    type: object
+    required:
+    - projects
+    - resource_types
+    - regions
+    - start_date
+    - end_date
+    properties:
+      end_date:
+        type: string
+        x-go-name: EndDate
+        example: '"2023-08-08"'
+      projects:
+        type: array
+        items:
+          type: string
+        x-go-name: Projects
+        example:
+        - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
+      regions:
+        type: array
+        items:
+          type: string
+        x-go-name: Regions
+        example:
+        - us-east1
+        - us-southcentral1
+      resource_types:
+        type: array
+        items:
+          type: string
+        x-go-name: ResourceTypes
+        example:
+        - persistent-ssd
+        - l40s-48gb.1x
+      start_date:
+        type: string
+        x-go-name: StartDate
+        example: '"2022-07-01"'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  usageGetResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/UsageByProjectGetResponse'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  usageExportGetResponse:
+    description: ''
+    headers:
+      metric:
+        type: string
+        example: instance-hours
+      project_id:
+        type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      quantity:
+        type: number
+        format: double
+        example: '261.271111'
+      region:
+        type: string
+        example: us-east1
+      resource_id:
+        type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      resource_type:
+        type: string
+        example: l40s-48gb.1x
+      usage_date:
+        type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+  usageOptionsGetResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/UsageOptions'
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

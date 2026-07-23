@@ -1,0 +1,483 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Slurm Node Pools API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Slurm Node Pools
+paths:
+  /projects/{project_id}/slurm/nodepools:
+    get:
+      tags:
+      - Slurm Node Pools
+      summary: Retrieve information about slurm node pools belonging to a project or cluster.
+      operationId: listSlurmNodePools
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ClusterID
+        name: cluster_id
+        in: query
+      - type: string
+        example: my-slurm-node-pool
+        x-go-name: Name
+        name: name
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/listSlurmNodePoolsResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - Slurm Node Pools
+      summary: Create a new slurm node pool owned by the logged in user.
+      operationId: createSlurmNodePool
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlurmNodePoolPostRequest'
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /projects/{project_id}/slurm/nodepools/{node_pool_id}:
+    get:
+      tags:
+      - Slurm Node Pools
+      summary: Retrieve information about a particular slurm node pool belonging to the project.
+      operationId: getSlurmNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/getSlurmNodePoolResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    delete:
+      tags:
+      - Slurm Node Pools
+      summary: Delete a node pool that the logged in user owns.
+      operationId: deleteSlurmNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    patch:
+      tags:
+      - Slurm Node Pools
+      summary: Update a node pool that the logged in user owns.
+      operationId: updateSlurmNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlurmNodePoolPatchRequest'
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  Operation:
+    description: 'Individual resources that use Operations should populate the `metadata` field
+
+      with resource-specific information.'
+    type: object
+    title: Operation contains the common fields for all Operation API objects.
+    required:
+    - operation_id
+    - state
+    - metadata
+    - started_at
+    - completed_at
+    properties:
+      completed_at:
+        type: string
+        x-go-name: CompletedAt
+        example: '2021-12-03T19:59:34Z'
+      metadata:
+        x-go-name: Metadata
+        example: '{}'
+      operation_id:
+        type: string
+        x-go-name: ID
+        example: F6EF489C-086E-458D-B812-7962964A28C9
+      result:
+        x-go-name: Result
+        example: '{}'
+      started_at:
+        type: string
+        x-go-name: StartedAt
+        example: '2021-12-03T19:58:34Z'
+      state:
+        type: string
+        enum:
+        - IN_PROGRESS
+        - SUCCEEDED
+        - FAILED
+        x-go-name: State
+        example: IN_PROGRESS
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  AsyncOperationResponse:
+    type: object
+    title: AsyncOperationResponse is the response type for endpoints which return async operations.
+    required:
+    - operation
+    properties:
+      operation:
+        $ref: '#/definitions/Operation'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  SlurmNodePool:
+    type: object
+    required:
+    - id
+    - name
+    - type
+    - running_count
+    - desired_count
+    - ib_partition_id
+    - project_id
+    - cluster_id
+    - image_id
+    - instance_ids
+    - partition_name
+    properties:
+      cluster_id:
+        description: The ID of the slurm cluster this node pool belongs to.
+        type: string
+        x-go-name: ClusterID
+        example: 9c8b7d6e-5f4a-3b2c-1e0f-2a3b4c5d6e7f
+      desired_count:
+        description: Desired number of nodes within the node pool.
+        type: integer
+        format: int64
+        x-go-name: DesiredCount
+        example: 4
+      ib_partition_id:
+        description: IB Partition ID of the node pool.
+        type: string
+        x-go-name: IBPartitionID
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+      id:
+        description: ID of the node pool.
+        type: string
+        x-go-name: ID
+        example: 0a1b3c2d-5e6f-8b9c-4d7e-1a2b3c4d5e6f
+      image_id:
+        description: Image ID for the slurm node pool.
+        type: string
+        x-go-name: ImageID
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      instance_ids:
+        description: List of IDs of instances within the node pool.
+        type: array
+        items:
+          type: string
+        x-go-name: InstanceIDs
+        example:
+        - ca39e669-47ee-456b-968d-303234fbf99f
+      name:
+        description: Name of the node pool.
+        type: string
+        x-go-name: Name
+        example: crusoe-node-pool
+      partition_name:
+        description: Slurm partition name of the node pool.
+        type: string
+        x-go-name: SlurmPartitionName
+        example: my-slurm-partition
+      project_id:
+        description: The ID of the project this slurm node pool belongs to.
+        type: string
+        x-go-name: ProjectID
+        example: 9c8b7d6e-5f4a-3b2c-1e0f-2a3b4c5d6e7f
+      running_count:
+        description: Number of nodes within the node pool.
+        type: integer
+        format: int64
+        x-go-name: RunningCount
+        example: 4
+      type:
+        description: VM type of the node pool
+        type: string
+        x-go-name: Type
+        example: a100.2x
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  SlurmNodePoolPatchRequest:
+    type: object
+    required:
+    - desired_count
+    properties:
+      desired_count:
+        description: The desired number of nodes to be created.
+        type: integer
+        format: int64
+        x-go-name: DesiredCount
+        example: 4
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  SlurmNodePoolPostRequest:
+    type: object
+    required:
+    - name
+    - product_name
+    - desired_count
+    - cluster_id
+    - partition_name
+    properties:
+      cluster_id:
+        description: Cluster ID of the cluster this node pool belongs to.
+        type: string
+        x-go-name: ClusterID
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+      desired_count:
+        description: The desired number of nodes to be created.
+        type: integer
+        format: int64
+        x-go-name: DesiredCount
+        example: 4
+      ib_partition_id:
+        description: 'The ID of the Infiniband partition to create node pool in. Must be in the location
+
+          of the cluster if specified.'
+        type: string
+        x-go-name: IBPartitionID
+        example: b1f86d1b-42d2-490d-adb0-cc1029abf653
+      name:
+        description: Name of the slurm node pool.
+        type: string
+        x-go-name: Name
+        example: my-slurm-node-pool
+      partition_name:
+        description: Name of the slurm partition.
+        type: string
+        x-go-name: SlurmPartitionName
+        example: my-slurm-partition
+      product_name:
+        description: Product name of the VM type to be created within this node pool.
+        type: string
+        x-go-name: ProductName
+        example: a100.2x
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ListSlurmNodePoolsResponse:
+    type: object
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/SlurmNodePool'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  listSlurmNodePoolsResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ListSlurmNodePoolsResponse'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  getSlurmNodePoolResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/SlurmNodePool'
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+  asyncOperationResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/AsyncOperationResponse'
+  permissionsError:
+    description: Error Permissions
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '403'
+        message:
+          type: string
+          x-go-name: Message
+          example: unauthorized
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

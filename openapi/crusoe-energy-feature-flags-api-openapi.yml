@@ -1,0 +1,138 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Feature Flags API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Feature Flags
+paths:
+  /featureflags:
+    get:
+      description: 'A successful response from this resource will contain a map of
+
+        all feature flags and the value assigned to each of them for the user.'
+      tags:
+      - Feature Flags
+      summary: Get feature flags for the currently logged in user.
+      operationId: getFeatureFlags
+      responses:
+        '200':
+          $ref: '#/responses/featureFlagsGetResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  FeatureFlagsGetResponse:
+    type: object
+    title: FeatureFlagsGetResponse is the response type for GET requests to the feature flags endpoint.
+    required:
+    - feature_flags
+    properties:
+      feature_flags:
+        type: object
+        additionalProperties: {}
+        x-go-name: FeatureFlags
+        example:
+          curated-images: true
+          infiniband: false
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  featureFlagsGetResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/FeatureFlagsGetResponse'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

@@ -1,0 +1,548 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs VPC Firewall Rules API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: VPC Firewall Rules
+paths:
+  /projects/{project_id}/networking/vpc-firewall-rules:
+    get:
+      tags:
+      - VPC Firewall Rules
+      summary: Retrieve details about all VPC firewall rules that belong to the logged in user.
+      operationId: listVPCFirewallRules
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/listVpcFirewallRulesResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - VPC Firewall Rules
+      summary: Create a new VPC firewall rule owned by the logged in user.
+      operationId: createVPCFirewallRule
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/VPCFirewallRulesPostRequestV1Alpha5'
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /projects/{project_id}/networking/vpc-firewall-rules/{vpc_firewall_rule_id}:
+    get:
+      tags:
+      - VPC Firewall Rules
+      summary: Retrieve details for a VPC firewall rule that belongs to the logged in user.
+      operationId: getVPCFirewallRule
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: VPCFirewallRuleID
+        name: vpc_firewall_rule_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/getVpcFirewallRuleResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    delete:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - VPC Firewall Rules
+      summary: Delete a VPC firewall rule owned by the logged in user.
+      operationId: deleteVPCFirewallRule
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: VPCFirewallRuleID
+        name: vpc_firewall_rule_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    patch:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - VPC Firewall Rules
+      summary: Patch (update) a VPC firewall rule owned by the logged in user.
+      operationId: patchVPCFirewallRule
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: VPCFirewallRuleID
+        name: vpc_firewall_rule_id
+        in: path
+        required: true
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/VPCFirewallRulesPatchRequest'
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  Operation:
+    description: 'Individual resources that use Operations should populate the `metadata` field
+
+      with resource-specific information.'
+    type: object
+    title: Operation contains the common fields for all Operation API objects.
+    required:
+    - operation_id
+    - state
+    - metadata
+    - started_at
+    - completed_at
+    properties:
+      completed_at:
+        type: string
+        x-go-name: CompletedAt
+        example: '2021-12-03T19:59:34Z'
+      metadata:
+        x-go-name: Metadata
+        example: '{}'
+      operation_id:
+        type: string
+        x-go-name: ID
+        example: F6EF489C-086E-458D-B812-7962964A28C9
+      result:
+        x-go-name: Result
+        example: '{}'
+      started_at:
+        type: string
+        x-go-name: StartedAt
+        example: '2021-12-03T19:58:34Z'
+      state:
+        type: string
+        enum:
+        - IN_PROGRESS
+        - SUCCEEDED
+        - FAILED
+        x-go-name: State
+        example: IN_PROGRESS
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  AsyncOperationResponse:
+    type: object
+    title: AsyncOperationResponse is the response type for endpoints which return async operations.
+    required:
+    - operation
+    properties:
+      operation:
+        $ref: '#/definitions/Operation'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  FirewallRuleObject:
+    description: 'It has two fields: CIDR and ResourceID. The CIDR field may either be a
+
+      CIDR or an IP address. If an IP, it will be converted to a CIDR. Resource ids
+
+      of VPC networks, Subnets, and VMs are the only allowed. Only one of the two
+
+      fields can be non empty.'
+    type: object
+    title: FirewallRuleObject specifies the source or destination of a firewall rule.
+    properties:
+      cidr:
+        type: string
+        x-go-name: CIDR
+        example: 10.1.2.3/24
+      resource_id:
+        type: string
+        x-go-name: ResourceID
+        example: 306aa10d-5570-4e47-88c9-46bf11bd8737
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ListVPCFirewallRulesResponseV1Alpha5:
+    type: object
+    title: ListVPCFirewallRulesResponseV1Alpha5 is the response type for GET requests to the VPC Firewall Rules endpoint.
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/VPCFirewallRule'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  VPCFirewallRule:
+    type: object
+    required:
+    - id
+    - name
+    - direction
+    - action
+    - vpc_network_id
+    - state
+    - sources
+    - source_ports
+    - destinations
+    - destination_ports
+    - protocols
+    properties:
+      action:
+        type: string
+        enum:
+        - allow
+        - deny
+        x-go-name: Action
+        example: allow
+      destination_ports:
+        type: array
+        items:
+          type: string
+        x-go-name: DestinationPorts
+        example: '[80, 443, 3000-8080]'
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/FirewallRuleObject'
+        x-go-name: Destinations
+      direction:
+        type: string
+        enum:
+        - ingress
+        - egress
+        x-go-name: Direction
+        example: ingress
+      id:
+        type: string
+        x-go-name: ID
+        example: 1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc
+      name:
+        type: string
+        x-go-name: Name
+        example: my-firewall-rule
+      protocols:
+        type: array
+        items:
+          type: string
+        x-go-name: Protocols
+        example: '[tcp, udp]'
+      source_ports:
+        type: array
+        items:
+          type: string
+        x-go-name: SourcePorts
+        example: '[80, 443, 3000-8080]'
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/FirewallRuleObject'
+        x-go-name: Sources
+      state:
+        type: string
+        enum:
+        - active
+        - inactive
+        x-go-name: State
+        example: active
+      vpc_network_id:
+        type: string
+        x-go-name: VPCNetworkID
+        example: 74927f69-f6f6-43f4-bc0d-7bb2e864250e
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  VPCFirewallRulesPostRequestV1Alpha5:
+    type: object
+    title: VPCFirewallRulesPostRequest is the request type for POST requests to the VPC networks endpoint.
+    required:
+    - name
+    - direction
+    - action
+    - sources
+    - destinations
+    - protocols
+    - vpc_network_id
+    properties:
+      action:
+        type: string
+        enum:
+        - allow
+        - deny
+        x-go-name: Action
+        example: allow
+      destination_ports:
+        type: array
+        items:
+          type: string
+        x-go-name: DestinationPorts
+        example: '[80, 443, 3000-8080]'
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/FirewallRuleObject'
+        x-go-name: Destinations
+      direction:
+        type: string
+        enum:
+        - ingress
+        - egress
+        x-go-name: Direction
+        example: ingress
+      name:
+        type: string
+        x-go-name: Name
+        example: my-firewall-rule
+      protocols:
+        type: array
+        items:
+          type: string
+        x-go-name: Protocols
+        example: '[tcp, udp]'
+      source_ports:
+        type: array
+        items:
+          type: string
+        x-go-name: SourcePorts
+        example: '[80, 443, 3000-8080]'
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/FirewallRuleObject'
+        x-go-name: Sources
+      vpc_network_id:
+        type: string
+        x-go-name: VPCNetworkID
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  VPCFirewallRulesPatchRequest:
+    type: object
+    title: VPCFirewallRulesPatchRequest is the request type for PATCH requests to the VPC networks endpoint.
+    properties:
+      destination_ports:
+        type: array
+        items:
+          type: string
+        x-go-name: DestinationPorts
+        example: '[80, 443, 3000-8080]'
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/FirewallRuleObject'
+        x-go-name: Destinations
+      name:
+        type: string
+        x-go-name: Name
+        example: my-firewall-rule
+      protocols:
+        type: array
+        items:
+          type: string
+        x-go-name: Protocols
+        example: '[tcp, udp]'
+      source_ports:
+        type: array
+        items:
+          type: string
+        x-go-name: SourcePorts
+        example: '[80, 443, 3000-8080]'
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/FirewallRuleObject'
+        x-go-name: Sources
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  getVpcFirewallRuleResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/VPCFirewallRule'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  listVpcFirewallRulesResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ListVPCFirewallRulesResponseV1Alpha5'
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+  asyncOperationResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/AsyncOperationResponse'
+  permissionsError:
+    description: Error Permissions
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '403'
+        message:
+          type: string
+          x-go-name: Message
+          example: unauthorized
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

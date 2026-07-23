@@ -1,0 +1,392 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Reservations API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Reservations
+paths:
+  /organizations/{organization_id}/reservations:
+    get:
+      tags:
+      - Reservations
+      summary: Get all reservations belonging to the specified organization. User must be part of the organization.
+      operationId: getReservations
+      parameters:
+      - type: string
+        example: de8f27fe-8438-45e7-a2c2-a2767660625f
+        x-go-name: OrganizationID
+        name: organization_id
+        in: path
+        required: true
+      - type: string
+        example: effective
+        x-go-name: Status
+        name: status
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/reservationsResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /organizations/{organization_id}/reservations/gpu-tracking/latest:
+    get:
+      tags:
+      - Reservations
+      summary: Get latest GPU tracking data for the specified organization. User must be part of the organization and have reservations feature access.
+      operationId: getLatestGPUTracking
+      parameters:
+      - type: string
+        example: de8f27fe-8438-45e7-a2c2-a2767660625f
+        x-go-name: OrganizationID
+        name: organization_id
+        in: path
+        required: true
+      - type: array
+        items:
+          type: string
+        example:
+        - gpu-hours
+        x-go-name: ProductLine
+        name: product_line
+        in: query
+      - type: array
+        items:
+          type: string
+        example:
+        - us-east1
+        - us-northcentral1
+        x-go-name: Region
+        name: region
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/latestGPUTrackingResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /organizations/{organization_id}/reservations/{reservation_id}:
+    get:
+      tags:
+      - Reservations
+      summary: Get reservation belonging to the specified organization and reservation ID. User must be part of the organization.
+      operationId: getReservation
+      parameters:
+      - type: string
+        example: de8f27fe-8438-45e7-a2c2-a2767660625f
+        x-go-name: OrganizationID
+        name: organization_id
+        in: path
+        required: true
+      - type: string
+        example: de8f27fe-8438-45e7-a2c2-a2767660625f
+        x-go-name: ReservationID
+        name: reservation_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/reservationsResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  Reservation:
+    type: object
+    title: Reservation contains information about a customer reservation.
+    required:
+    - id
+    - reservation_type
+    - product_line
+    - duration
+    - quantity
+    - used_quantity
+    - locations
+    - projects
+    - contract_start_date
+    - contract_end_date
+    - delivery_deadline
+    - date_delivered
+    - vm_ids
+    - price
+    properties:
+      contract_end_date:
+        type: string
+        x-go-name: ContractEndDate
+        example: '2025-08-14T09:00:35Z'
+      contract_start_date:
+        type: string
+        x-go-name: ContractStartDate
+        example: '2024-08-14T09:00:35Z'
+      date_delivered:
+        type: string
+        x-go-name: DateDelivered
+        example: '2024-07-14T09:00:35Z'
+      delivery_deadline:
+        type: string
+        x-go-name: DeliveryDeadline
+        example: '2024-08-14T09:00:35Z'
+      duration:
+        type: number
+        format: float
+        x-go-name: Duration
+        example: 12
+      id:
+        description: 'TODO: follow new format for giving descriptions to fields for apis'
+        type: string
+        x-go-name: ID
+        example: e384a1de-81f8-4cb2-b312-a7d88a9bf9cb
+      locations:
+        type: array
+        items:
+          type: string
+        x-go-name: Locations
+        example: '"us-east1"'
+      price:
+        type: string
+        x-go-name: Price
+        example: '6.25'
+      product_line:
+        type: string
+        x-go-name: ProductLine
+        example: h100
+      projects:
+        type: array
+        items:
+          type: string
+        x-go-name: Projects
+        example: '"1a8ebda8-3c68-4ba6-adf6-961c3ec53748"'
+      quantity:
+        type: integer
+        format: int64
+        x-go-name: Quantity
+        example: 64
+      reservation_type:
+        type: string
+        x-go-name: ReservationType
+        example: RIPA
+      used_quantity:
+        type: integer
+        format: int64
+        x-go-name: UsedQuantity
+        example: 32
+      vm_ids:
+        type: array
+        items:
+          type: string
+        x-go-name: VMIDs
+        example: 1a8ebda8-3c68-4ba6-adf6-961c3ec53748,6f70a988-fac6-4a9c-ae26-cb016d7bec72
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ReservationsGetResponse:
+    type: object
+    title: ReservationsGetResponse is the response type for GET requests to the reservations endpoint.
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Reservation'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  GPUTrackingDatumMod:
+    type: object
+    properties:
+      event_time:
+        type: string
+        x-go-name: EventTime
+      global_reservation_capacity:
+        type: integer
+        format: int64
+        x-go-name: GlobalCapacity
+      organization_id:
+        type: string
+        x-go-name: OrganizationID
+      overage_count:
+        type: integer
+        format: int64
+        x-go-name: OnDemandCount
+      price:
+        type: number
+        format: double
+        x-go-name: Price
+      product_line:
+        type: string
+        x-go-name: ProductLine
+      region:
+        type: string
+        x-go-name: Region
+      regional_reservation_capacity:
+        type: integer
+        format: int64
+        x-go-name: RegionalCapacity
+      running_compute_unit_count:
+        type: integer
+        format: int64
+        x-go-name: GPUUsage
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  LatestGPUTracking:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/GPUTrackingDatumMod'
+        x-go-name: Data
+      reservation_id:
+        type: array
+        items:
+          type: string
+        x-go-name: ReservationID
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  latestGPUTrackingResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/LatestGPUTracking'
+  reservationsResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ReservationsGetResponse'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+  permissionsError:
+    description: Error Permissions
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '403'
+        message:
+          type: string
+          x-go-name: Message
+          example: unauthorized
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

@@ -1,0 +1,559 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Internal Load Balancers API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Internal Load Balancers
+paths:
+  /projects/{project_id}/networking/internal-load-balancers:
+    get:
+      tags:
+      - Internal Load Balancers
+      summary: Retrieve details about all load balancers that belong to the logged in user.
+      operationId: listLoadBalancers
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/listLoadBalancersResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - Internal Load Balancers
+      summary: Create a new load balancer owned by the logged in user.
+      operationId: createLoadBalancer
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LoadBalancersPostRequest'
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /projects/{project_id}/networking/internal-load-balancers/{load_balancer_id}:
+    get:
+      tags:
+      - Internal Load Balancers
+      summary: Retrieve details for a load balancer that belongs to the logged in user.
+      operationId: getLoadBalancer
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: LoadBalancerID
+        name: load_balancer_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/getLoadBalancerResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    delete:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - Internal Load Balancers
+      summary: Delete a load balancer owned by the logged in user.
+      operationId: deleteLoadBalancer
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: LoadBalancerID
+        name: load_balancer_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    patch:
+      description: 'A successful response from this resource will contain the async operation.
+
+        To disable health checking, pass "health_check": {"port": 0}'
+      tags:
+      - Internal Load Balancers
+      summary: Patch (update) a load balancer owned by the logged in user.
+      operationId: patchLoadBalancer
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: LoadBalancerID
+        name: load_balancer_id
+        in: path
+        required: true
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LoadBalancersPatchRequestV1Alpha5'
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  PrivateIPv4Address:
+    type: object
+    required:
+    - address
+    properties:
+      address:
+        type: string
+        x-go-name: Address
+        example: 10.1.2.3
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  LoadBalancersPostRequest:
+    type: object
+    required:
+    - name
+    - destinations
+    - location
+    - protocols
+    - network_interfaces
+    - algorithm
+    properties:
+      algorithm:
+        type: string
+        x-go-name: Algorithm
+        example: random
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/NetworkTarget'
+        x-go-name: Destinations
+      health_check:
+        $ref: '#/definitions/HealthCheckOptions'
+      location:
+        type: string
+        x-go-name: Location
+        example: us-northcentraleast1-a
+      name:
+        type: string
+        x-go-name: Name
+        example: my-load-balancer
+      network_interfaces:
+        type: array
+        items:
+          $ref: '#/definitions/LoadBalancerNetworkInterface'
+        x-go-name: NetworkInterfaces
+      protocols:
+        type: array
+        items:
+          type: string
+        x-go-name: Protocols
+        example: '[tcp]'
+      type:
+        type: string
+        x-go-name: Type
+        example: internal_ipv4
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  NetworkTarget:
+    type: object
+    properties:
+      cidr:
+        type: string
+        x-go-name: CIDR
+        example: 10.1.2.3/24
+      resource_id:
+        type: string
+        x-go-name: ResourceID
+        example: 306aa10d-5570-4e47-88c9-46bf11bd8737
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  LoadBalancerNetworkInterface:
+    type: object
+    properties:
+      network:
+        type: string
+        x-go-name: Network
+        example: dbaafd53-96ea-4754-9cce-78e7f08ac151
+      subnet:
+        type: string
+        x-go-name: Subnet
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  AsyncOperationResponse:
+    type: object
+    title: AsyncOperationResponse is the response type for endpoints which return async operations.
+    required:
+    - operation
+    properties:
+      operation:
+        $ref: '#/definitions/Operation'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  LoadBalancer:
+    type: object
+    required:
+    - id
+    - name
+    - network_interfaces
+    - destinations
+    - location
+    - protocols
+    - algorithm
+    - ips
+    properties:
+      algorithm:
+        type: string
+        x-go-name: Algorithm
+        example: random
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/NetworkTarget'
+        x-go-name: Destinations
+      health_check:
+        $ref: '#/definitions/HealthCheckOptions'
+      id:
+        type: string
+        x-go-name: ID
+        example: 1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc
+      ips:
+        type: array
+        items:
+          $ref: '#/definitions/IPAddresses'
+        x-go-name: IPs
+      location:
+        type: string
+        x-go-name: Location
+        example: us-northcentraleast1-a
+      name:
+        type: string
+        x-go-name: Name
+        example: my-subnet
+      network_interfaces:
+        type: array
+        items:
+          $ref: '#/definitions/LoadBalancerNetworkInterface'
+        x-go-name: NetworkInterfaces
+      protocols:
+        type: array
+        items:
+          type: string
+        x-go-name: Protocols
+        example: '[tcp]'
+      type:
+        type: string
+        x-go-name: Type
+        example: internal_ipv4,
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  PublicIPv4Address:
+    type: object
+    required:
+    - address
+    - id
+    - type
+    properties:
+      address:
+        type: string
+        x-go-name: Address
+        example: 121.0.0.0
+      id:
+        type: string
+        x-go-name: ID
+        example: 1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc
+      type:
+        type: string
+        x-go-name: Type
+        example: dynamic
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  IPAddresses:
+    type: object
+    required:
+    - private_ipv4
+    - public_ipv4
+    properties:
+      private_ipv4:
+        $ref: '#/definitions/PrivateIPv4Address'
+      public_ipv4:
+        $ref: '#/definitions/PublicIPv4Address'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ListLoadBalancersResponseV1Alpha5:
+    type: object
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/LoadBalancer'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  Operation:
+    description: 'Individual resources that use Operations should populate the `metadata` field
+
+      with resource-specific information.'
+    type: object
+    title: Operation contains the common fields for all Operation API objects.
+    required:
+    - operation_id
+    - state
+    - metadata
+    - started_at
+    - completed_at
+    properties:
+      completed_at:
+        type: string
+        x-go-name: CompletedAt
+        example: '2021-12-03T19:59:34Z'
+      metadata:
+        x-go-name: Metadata
+        example: '{}'
+      operation_id:
+        type: string
+        x-go-name: ID
+        example: F6EF489C-086E-458D-B812-7962964A28C9
+      result:
+        x-go-name: Result
+        example: '{}'
+      started_at:
+        type: string
+        x-go-name: StartedAt
+        example: '2021-12-03T19:58:34Z'
+      state:
+        type: string
+        enum:
+        - IN_PROGRESS
+        - SUCCEEDED
+        - FAILED
+        x-go-name: State
+        example: IN_PROGRESS
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  LoadBalancersPatchRequestV1Alpha5:
+    type: object
+    properties:
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/NetworkTarget'
+        x-go-name: Destinations
+      health_check:
+        $ref: '#/definitions/HealthCheckOptions'
+      name:
+        type: string
+        x-go-name: Name
+        example: my-load-balancer
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  HealthCheckOptions:
+    type: object
+    required:
+    - port
+    properties:
+      failure_count:
+        type: string
+        x-go-name: FailureCount
+        example: '3'
+      interval:
+        type: string
+        x-go-name: Interval
+        example: '60'
+      port:
+        type: string
+        x-go-name: Port
+        example: '8080'
+      success_count:
+        type: string
+        x-go-name: SuccessCount
+        example: '2'
+      timeout:
+        type: string
+        x-go-name: Timeout
+        example: '20'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+  asyncOperationResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/AsyncOperationResponse'
+  getLoadBalancerResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/LoadBalancer'
+  listLoadBalancersResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ListLoadBalancersResponseV1Alpha5'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  permissionsError:
+    description: Error Permissions
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '403'
+        message:
+          type: string
+          x-go-name: Message
+          example: unauthorized
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

@@ -1,0 +1,831 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Kubernetes Node Pools API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Kubernetes Node Pools
+paths:
+  /projects/{project_id}/kubernetes/nodepools:
+    get:
+      tags:
+      - Kubernetes Node Pools
+      summary: Retrieve information about Kubernetes node pools belonging to a project or cluster.
+      operationId: listNodePools
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ClusterID
+        name: cluster_id
+        in: query
+      - type: string
+        example: created_at, -created_at
+        x-go-name: SortBy
+        name: sort
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/listKubernetesNodePoolsResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: A successful response from this resource will contain the async operation.
+      tags:
+      - Kubernetes Node Pools
+      summary: Create a new Kubernetes node pool owned by the logged in user.
+      operationId: createNodePool
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/KubernetesNodePoolPostRequest'
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /projects/{project_id}/kubernetes/nodepools/{node_pool_id}:
+    get:
+      tags:
+      - Kubernetes Node Pools
+      summary: Retrieve information about a particular Kubernetes node pool belonging to the project.
+      operationId: getNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/getKubernetesNodePoolResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    delete:
+      tags:
+      - Kubernetes Node Pools
+      summary: Delete a node pool that the logged in user owns.
+      operationId: deleteNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    patch:
+      tags:
+      - Kubernetes Node Pools
+      summary: Update a node pool that the logged in user owns.
+      operationId: updateNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/KubernetesNodePoolPatchRequest'
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+  /projects/{project_id}/kubernetes/nodepools/{node_pool_id}/cancel-rotate:
+    post:
+      tags:
+      - Kubernetes Node Pools
+      summary: Cancel an in-progress rotation of the specified Kubernetes node pool.
+      operationId: cancelNodePoolRotate
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/cancelNodePoolRotateResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '404':
+          $ref: '#/responses/notFoundError'
+        '500':
+          $ref: '#/responses/serverError'
+  /projects/{project_id}/kubernetes/nodepools/{node_pool_id}/rotate:
+    get:
+      tags:
+      - Kubernetes Node Pools
+      summary: Get the rotate status of the specified Kubernetes ndoe pool.
+      operationId: getNodePoolRotateStatus
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/getNodePoolRotateStatusResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: A successful response returns an async operation you can poll.
+      tags:
+      - Kubernetes Node Pools
+      summary: Start a rotation of the specified Kubernetes node pool.
+      operationId: rotateNodePool
+      parameters:
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: ProjectID
+        name: project_id
+        in: path
+        required: true
+      - type: string
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        x-go-name: NodePoolID
+        name: node_pool_id
+        in: path
+        required: true
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/KubernetesNodePoolRotateStartRequest'
+      responses:
+        '200':
+          $ref: '#/responses/asyncOperationResponse'
+        '400':
+          $ref: '#/responses/badReqError'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '404':
+          $ref: '#/responses/notFoundError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  ReservationSpecification:
+    type: object
+    properties:
+      id:
+        description: 'Reservation ID to use for the VM. Incompatible with
+
+          SelectionStrategy specification.'
+        type: string
+        x-go-name: ID
+        example: 804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8
+      selection_strategy:
+        description: 'Strategy for automatically selecting a reservation. Defaults to lowest cost selection.
+
+          On-demand may be specified opt out of reservation usages. Incompatible with ID specification.'
+        type: string
+        default: lowest_cost
+        enum:
+        - lowest_cost
+        - on_demand
+        x-go-name: SelectionStrategy
+        example: lowest_cost
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ListKubernetesNodePoolsResponse:
+    type: object
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/KubernetesNodePool'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  KubernetesCancelNodePoolRotateResponse:
+    type: object
+    required:
+    - no_rotate_in_progress
+    properties:
+      no_rotate_in_progress:
+        description: True if there is no rotate operation to cancel.
+        type: boolean
+        x-go-name: NoRotateInProgress
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  KubernetesGetNodePoolRotateStatusResponse:
+    type: object
+    required:
+    - state
+    - out_of_sync_instances
+    properties:
+      out_of_sync_instances:
+        description: List of out of sync instance ids.
+        type: array
+        items:
+          type: string
+        x-go-name: OutOfSyncInstances
+      state:
+        description: Current state of the node pool.
+        type: string
+        x-go-name: State
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  KubernetesNodePoolPatchRequest:
+    type: object
+    properties:
+      action:
+        description: 'The action to perform on the NodePool. RESERVE and UNRESERVE operations are done synchronously,
+
+          and so will have succeeded with a 200 response. Defaults to UPDATE if no action specified.'
+        type: string
+        default: UPDATE
+        enum:
+        - RESERVE
+        - UNRESERVE
+        - UPDATE
+        x-go-name: Action
+        x-redocly-optional: true
+        example: UPDATE
+      count:
+        description: The desired number of nodes in the node pool.
+        type: integer
+        format: int64
+        x-go-name: Count
+        x-redocly-optional: true
+        example: 4
+      ephemeral_storage_for_containerd:
+        description: Indicates whether local ephemeral NVMe disks should be used for containerd storage.
+        type: boolean
+        x-go-name: EphemeralStorageForContainerd
+        x-redocly-optional: true
+        example: true
+      node_labels:
+        description: 'Labels assigned to the node pool. Labels provided in the PATCH request will not modify existing nodes,
+
+          but will apply to any newly created nodes.'
+        type: object
+        additionalProperties:
+          type: string
+        x-go-name: NodeLabels
+        x-redocly-optional: true
+        example:
+          label: my_node
+      node_pool_version:
+        description: Version of the Kubernetes node pool for newly created vms.
+        type: string
+        x-go-name: NodePoolVersion
+        x-redocly-optional: true
+        example: '1.30'
+      reservation_id:
+        description: The reservation ID of the node pool.
+        type: string
+        x-go-name: ReservationID
+        x-redocly-optional: true
+        example: ca39e669-47ee-456b-968d-303234fbf99f
+      ssh_public_key:
+        description: SSH public key to use for all VMs created from this node pool.
+        type: string
+        x-go-name: SSHPublicKey
+        x-redocly-optional: true
+        example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  KubernetesNodePoolPostRequest:
+    type: object
+    required:
+    - name
+    - product_name
+    - count
+    - cluster_id
+    properties:
+      cluster_id:
+        description: Cluster ID of the cluster this node pool belongs to.
+        type: string
+        x-go-name: ClusterID
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+      count:
+        description: The number of nodes to be created.
+        type: integer
+        format: int64
+        x-go-name: Count
+        example: 4
+      ephemeral_storage_for_containerd:
+        description: Indicates whether local ephemeral NVMe disks should be used for containerd storage.
+        type: boolean
+        x-go-name: EphemeralStorageForContainerd
+        example: true
+      ib_partition_id:
+        description: 'Deprecated: Use transport_partition_id instead.'
+        type: string
+        x-go-name: IBPartitionID
+      name:
+        description: Name of the Kubernetes node pool.
+        type: string
+        x-go-name: Name
+        example: my-kubernetes-node-pool
+      node_labels:
+        description: Labels assigned to the node pool
+        type: object
+        additionalProperties:
+          type: string
+        x-go-name: NodeLabels
+        example:
+          label: my_node
+      node_pool_version:
+        description: Version of the Kubernetes node pool.
+        type: string
+        x-go-name: NodePoolVersion
+        example: '1.30'
+      nvlink_domain_id:
+        description: Optional NVLink domain ID to assign to nodes in this node pool
+        type: string
+        x-go-name: NvlinkDomainID
+        example: 550e8400-e29b-41d4-a716-446655440000
+      product_name:
+        description: Product name of the VM type to be created within this node pool.
+        type: string
+        x-go-name: ProductName
+        example: a100.2x
+      public_ip_type:
+        description: 'Public IP type for nodepool nodes. Possible values: dynamic, static, none'
+        type: string
+        default: dynamic
+        x-go-name: PublicIPType
+        example: dynamic
+      reservation_specification:
+        $ref: '#/definitions/ReservationSpecification'
+      ssh_public_key:
+        description: SSH public key to use for all VMs created from this node pool.
+        type: string
+        x-go-name: SSHPublicKey
+        example: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D
+      subnet_id:
+        description: 'The ID of the subnet to create the node pool in. Must be in the location
+
+          of the cluster if specified. If not provided, the default subnet for the
+
+          location will be used, if there is one.'
+        type: string
+        x-go-name: SubnetID
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+      transport_partition_id:
+        description: 'The ID of the Infiniband or RoCE partition to create node pool in. Must be in the location
+
+          of the cluster if specified.'
+        type: string
+        x-go-name: TransportPartitionID
+        example: b1f86d1b-42d2-490d-adb0-cc1029abf653
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  AsyncOperationResponse:
+    type: object
+    title: AsyncOperationResponse is the response type for endpoints which return async operations.
+    required:
+    - operation
+    properties:
+      operation:
+        $ref: '#/definitions/Operation'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  KubernetesNodePool:
+    type: object
+    required:
+    - id
+    - name
+    - count
+    - project_id
+    - cluster_id
+    - image_id
+    - node_labels
+    - subnet_id
+    - instance_ids
+    - state
+    - type
+    - created_at
+    - updated_at
+    - reservation_id
+    - ephemeral_storage_for_containerd
+    properties:
+      cluster_id:
+        description: The ID of the Kubernetes cluster this node pool belongs to.
+        type: string
+        x-go-name: ClusterID
+        example: 9c8b7d6e-5f4a-3b2c-1e0f-2a3b4c5d6e7f
+      count:
+        description: Number of nodes within the node pool.
+        type: integer
+        format: int64
+        x-go-name: Count
+        example: 4
+      created_at:
+        description: The time when the cluster was created
+        type: string
+        x-go-name: CreatedAt
+        example: '2021-12-03T19:58:34Z'
+      ephemeral_storage_for_containerd:
+        description: Indicates whether local ephemeral NVMe disks should be used for containerd storage.
+        type: boolean
+        x-go-name: EphemeralStorageForContainerd
+        example: true
+      id:
+        description: ID of the node pool.
+        type: string
+        x-go-name: ID
+        example: 0a1b3c2d-5e6f-8b9c-4d7e-1a2b3c4d5e6f
+      image_id:
+        description: Image Unique identifier for the Kubernetes node pool.
+        type: string
+        x-go-name: ImageID
+        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      instance_details:
+        description: Details about instances within the Kubernetes node pool.
+        type: array
+        items:
+          $ref: '#/definitions/InstanceDetails'
+        x-go-name: InstanceDetails
+      instance_ids:
+        description: List of IDs of instances within the node pool.
+        type: array
+        items:
+          type: string
+        x-go-name: InstanceIDs
+        example:
+        - ca39e669-47ee-456b-968d-303234fbf99f
+      name:
+        description: Name of the node pool.
+        type: string
+        x-go-name: Name
+        example: crusoe-node-pool
+      node_labels:
+        description: Labels associated with the node pool.
+        type: object
+        additionalProperties:
+          type: string
+        x-go-name: NodeLabels
+        example: '"nvidia.a100"'
+      nvlink_domain_id:
+        description: NVLink domain ID assigned to this node pool
+        type: string
+        x-go-name: NvlinkDomainID
+        example: 550e8400-e29b-41d4-a716-446655440000
+      project_id:
+        description: The ID of the project this Kubernetes node pool belongs to.
+        type: string
+        x-go-name: ProjectID
+        example: 9c8b7d6e-5f4a-3b2c-1e0f-2a3b4c5d6e7f
+      public_ip_type:
+        description: 'Public IP type for nodepool nodes. Possible values: dynamic, static, none'
+        type: string
+        default: dynamic
+        x-go-name: PublicIPType
+        example: dynamic
+      reservation_id:
+        description: The ID of the billing reservation associated with the node pool
+        type: string
+        x-go-name: ReservationID
+        example: ca39e669-47ee-456b-968d-303234fbf99f
+      state:
+        description: State of the node pool
+        type: string
+        x-go-name: State
+        example: STATE_RUNNING
+      subnet_id:
+        description: The ID of the subnet this node pool belongs to.
+        type: string
+        x-go-name: SubnetID
+        example: 09ae8411-0fbb-411c-898c-2b8f19622ae1
+      type:
+        description: VM type of the node pool
+        type: string
+        x-go-name: Type
+        example: a100.2x
+      updated_at:
+        description: The time when the cluster was last updated
+        type: string
+        x-go-name: UpdatedAt
+        example: '2021-12-03T19:58:34Z'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  Operation:
+    description: 'Individual resources that use Operations should populate the `metadata` field
+
+      with resource-specific information.'
+    type: object
+    title: Operation contains the common fields for all Operation API objects.
+    required:
+    - operation_id
+    - state
+    - metadata
+    - started_at
+    - completed_at
+    properties:
+      completed_at:
+        type: string
+        x-go-name: CompletedAt
+        example: '2021-12-03T19:59:34Z'
+      metadata:
+        x-go-name: Metadata
+        example: '{}'
+      operation_id:
+        type: string
+        x-go-name: ID
+        example: F6EF489C-086E-458D-B812-7962964A28C9
+      result:
+        x-go-name: Result
+        example: '{}'
+      started_at:
+        type: string
+        x-go-name: StartedAt
+        example: '2021-12-03T19:58:34Z'
+      state:
+        type: string
+        enum:
+        - IN_PROGRESS
+        - SUCCEEDED
+        - FAILED
+        x-go-name: State
+        example: IN_PROGRESS
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  InstanceDetails:
+    type: object
+    required:
+    - id
+    - using_latest_config
+    properties:
+      id:
+        description: Unique identifier (UUID) of the instance.
+        type: string
+        x-go-name: ID
+      using_latest_config:
+        description: Whether or not the instance was created with the current node pool configuration.
+        type: boolean
+        x-go-name: UsingLatestConfig
+        example: true
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  KubernetesNodePoolRotateStartRequest:
+    type: object
+    required:
+    - strategy
+    - count
+    - percentage
+    properties:
+      count:
+        description: Number of nodes to replace at a time if the strategy is 'count'.
+        type: integer
+        format: int64
+        x-go-name: Count
+        example: 2
+      percentage:
+        description: Percentage of nodes to replace at a time if the strategy is 'percentage'.
+        type: integer
+        format: int64
+        x-go-name: Percentage
+        example: 20
+      strategy:
+        description: Strategy of the rotation to perform.
+        type: string
+        enum:
+        - count
+        - percentage
+        x-go-name: Strategy
+        example: '''count'''
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+responses:
+  badReqError:
+    description: Error Bad Request
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '400'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_request
+  asyncOperationResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/AsyncOperationResponse'
+  cancelNodePoolRotateResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/KubernetesCancelNodePoolRotateResponse'
+  getNodePoolRotateStatusResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/KubernetesGetNodePoolRotateStatusResponse'
+  notFoundError:
+    description: Error Not Found
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '404'
+        message:
+          type: string
+          x-go-name: Message
+          example: not_found
+  getKubernetesNodePoolResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/KubernetesNodePool'
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  listKubernetesNodePoolsResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/ListKubernetesNodePoolsResponse'
+  permissionsError:
+    description: Error Permissions
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '403'
+        message:
+          type: string
+          x-go-name: Message
+          example: unauthorized
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities

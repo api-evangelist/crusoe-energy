@@ -1,0 +1,281 @@
+swagger: '2.0'
+info:
+  description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
+  title: Crusoe Cloud API Gateway Audit Logs Tokens API
+  version: v1alpha5
+host: api.crusoecloud.com
+basePath: /v1alpha5
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Tokens
+paths:
+  /users/tokens:
+    get:
+      tags:
+      - Tokens
+      summary: Retrieve all active/expired API tokens for the logged in user.
+      operationId: getTokens
+      responses:
+        '200':
+          $ref: '#/responses/tokensGetResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    post:
+      description: 'A successful response from this resource will contain json-encoded details of API token.
+
+        This is the only time the customer will be able to view the secret key associated with the token.'
+      tags:
+      - Tokens
+      summary: Create a new token owned by the logged in user.
+      operationId: createToken
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateTokenRequest'
+      responses:
+        '200':
+          $ref: '#/responses/tokensPostResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '500':
+          $ref: '#/responses/serverError'
+    delete:
+      tags:
+      - Tokens
+      summary: Delete an API token owned by the logged in user.
+      operationId: deleteToken
+      parameters:
+      - type: string
+        example: WTUzcGibQ82y9_01h4MCdQ
+        x-go-name: AccessKey
+        name: access_key
+        in: query
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/emptyResponse'
+        '401':
+          $ref: '#/responses/authError'
+        '403':
+          $ref: '#/responses/permissionsError'
+        '500':
+          $ref: '#/responses/serverError'
+definitions:
+  TokenInfo:
+    description: These are the fields returned from a GET request.
+    type: object
+    title: TokenInfo contains the Traits Island stores for a Token inside of Kratos.
+    required:
+    - alias
+    - access_key
+    - created_at
+    - expires_at
+    - last_used
+    properties:
+      access_key:
+        type: string
+        x-go-name: AccessKey
+        example: Hm11C1coQZm2+Aihn9ofYg
+      alias:
+        type: string
+        x-go-name: Alias
+        example: token1
+      created_at:
+        type: string
+        x-go-name: CreatedAt
+        example: '2021-11-03T22:16:27Z'
+      expires_at:
+        type: string
+        x-go-name: ExpiresAt
+        example: '2021-12-03T19:58:34Z'
+      last_used:
+        type: string
+        x-go-name: LastUsed
+        example: '2021-11-03T22:22:55Z'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  CreateTokenRequest:
+    type: object
+    required:
+    - expires_at
+    properties:
+      alias:
+        type: string
+        x-go-name: Alias
+        example: token1
+      expires_at:
+        type: string
+        x-go-name: ExpiresAt
+        example: '2021-12-03T19:58:34Z'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  GeneratedToken:
+    description: These are the fields returned from a PUT request.
+    type: object
+    title: GeneratedToken contains the Traits Island stores for a Token inside of Kratos.
+    required:
+    - access_key
+    - secret_key
+    - created_at
+    - expires_at
+    properties:
+      access_key:
+        type: string
+        x-go-name: AccessKey
+        example: R7p5XctCQMuGlpVBmVdqzA
+      alias:
+        type: string
+        x-go-name: Alias
+        example: newtoken
+      created_at:
+        type: string
+        x-go-name: CreatedAt
+        example: '2021-11-03T22:16:27Z'
+      expires_at:
+        type: string
+        x-go-name: ExpiresAt
+        example: '2021-12-03T19:58:34Z'
+      secret_key:
+        type: string
+        x-go-name: SecretKey
+        example: HrbZ3VTUb2YNAq53Md1EsA
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  ListTokensResponseV1Alpha5:
+    type: object
+    required:
+    - items
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/TokenInfo'
+        x-go-name: Items
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  TokensPostResponse:
+    type: object
+    required:
+    - token
+    properties:
+      token:
+        $ref: '#/definitions/GeneratedToken'
+    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+responses:
+  emptyResponse:
+    description: Empty Response
+  serverError:
+    description: Error Internal Server
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '500'
+        message:
+          type: string
+          x-go-name: Message
+          example: internal_error
+  tokensPostResponse:
+    description: ''
+    schema:
+      $ref: '#/definitions/TokensPostResponse'
+  tokensGetResponse:
+    description: A successful response from this resource will contain json-encoded array of token details, excluding the secret key.
+    schema:
+      $ref: '#/definitions/ListTokensResponseV1Alpha5'
+  permissionsError:
+    description: Error Permissions
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '403'
+        message:
+          type: string
+          x-go-name: Message
+          example: unauthorized
+  authError:
+    description: Error Authentication Failed
+    schema:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+          example: '401'
+        message:
+          type: string
+          x-go-name: Message
+          example: bad_credential
+x-tagGroups:
+- name: Compute
+  tags:
+  - VMs
+  - VM Operations
+  - Images
+  - Instance Templates
+  - Custom Images
+  - Custom Image Operations
+- name: Organizations
+  tags:
+  - Projects
+  - Entities
+  - Prospects
+  - Billing
+  - Usage
+  - Quotas
+  - Audit Logs
+  - Reservations
+- name: Users
+  tags:
+  - Identities
+  - Roles
+  - SSH Keys
+  - Tokens
+- name: Storage
+  tags:
+  - Disks
+  - Disk Operations
+  - Snapshots
+  - Snapshot Operations
+- name: Networking
+  tags:
+  - VPC Firewall Rules
+  - VPC Firewall Rule Operations
+  - VPC Networks
+  - VPC Subnets
+  - IB Partitions
+  - Load Balancers
+- name: Orchestration
+  tags:
+  - Kubernetes Clusters
+  - Kubernetes Cluster Operations
+  - Kubernetes Node Pools
+  - Kubernetes Node Pool Operations
+  - Kubernetes Versions
+  - AutoClusters
+  - AutoCluster Operations
+- name: Locations
+  tags:
+  - Locations
+- name: Capacities
+  tags:
+  - Capacities
