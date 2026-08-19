@@ -1,0 +1,1064 @@
+{
+  "item": [
+    {
+      "id": "417ac4a6-36e8-4c70-b914-83ec2352d48a",
+      "name": "Instance Templates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c7d3d4f0-9985-4f68-8902-e667697e16a0",
+          "name": "Lists all VM instance templates available for use.",
+          "request": {
+            "name": "Lists all VM instance templates available for use.",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "compute",
+                "instance-templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64bf7697-2633-4d61-9877-738fbf175f80",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"name\": \"my-instance-template\",\n      \"id\": \"ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab\",\n      \"type\": \"a100.2x\",\n      \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n      \"startup_script\": \"#!/bin/bash\\\\necho'hello'\",\n      \"shutdown_script\": \"#!/bin/bash\\\\necho'goodbye'\",\n      \"image_name\": \"ubuntu:20.04\",\n      \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n      \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n      \"location\": \"us-southcentral1-a\",\n      \"project_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n      \"created_at\": \"2024-01-01T00:00:00Z\",\n      \"public_ip_address_type\": \"static\",\n      \"placement_policy\": \"unspecified\",\n      \"maintenance_policy\": \"stop-vm\",\n      \"custom_image_name\": \"ubuntu:20.04\",\n      \"disks\": [\n        {\n          \"size\": \"10GiB\",\n          \"type\": \"persistent-ssd\"\n        },\n        {\n          \"size\": \"10GiB\",\n          \"type\": \"persistent-ssd\"\n        }\n      ],\n      \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n      \"virtualization_features\": {\n        \"nested_virtualization\": true\n      }\n    },\n    {\n      \"name\": \"my-instance-template\",\n      \"id\": \"ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab\",\n      \"type\": \"a100.2x\",\n      \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n      \"startup_script\": \"#!/bin/bash\\\\necho'hello'\",\n      \"shutdown_script\": \"#!/bin/bash\\\\necho'goodbye'\",\n      \"image_name\": \"ubuntu:20.04\",\n      \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n      \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n      \"location\": \"us-southcentral1-a\",\n      \"project_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n      \"created_at\": \"2024-01-01T00:00:00Z\",\n      \"public_ip_address_type\": \"static\",\n      \"placement_policy\": \"spread\",\n      \"maintenance_policy\": \"unspecified\",\n      \"custom_image_name\": \"ubuntu:20.04\",\n      \"disks\": [\n        {\n          \"size\": \"10GiB\",\n          \"type\": \"persistent-ssd\"\n        },\n        {\n          \"size\": \"10GiB\",\n          \"type\": \"persistent-ssd\"\n        }\n      ],\n      \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n      \"virtualization_features\": {\n        \"nested_virtualization\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a26ee8cb-4091-4cbd-b139-423ebffb3612",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d8f760e-ccf9-4450-a1be-3e0f87879e65",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "703aa6e6-66d9-45fb-b137-1e4f4b4d9850",
+          "name": "Create a VM instance template, for use in bulk VM creation.",
+          "request": {
+            "name": "Create a VM instance template, for use in bulk VM creation.",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "compute",
+                "instance-templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"template_name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"ssh_public_key\": \"<string>\",\n  \"custom_image_name\": \"<string>\",\n  \"disks\": [\n    {\n      \"size\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"size\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"ib_partition_id\": \"<string>\",\n  \"image_name\": \"<string>\",\n  \"location\": \"<string>\",\n  \"maintenance_policy\": \"<string>\",\n  \"placement_policy\": \"<string>\",\n  \"public_ip_address_type\": \"<string>\",\n  \"reservation_id\": \"<string>\",\n  \"shutdown_script\": \"<string>\",\n  \"startup_script\": \"<string>\",\n  \"subnet_id\": \"<string>\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9717db70-f303-4f1d-a8ea-4fe7d6b10f02",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template_name\": \"my-instance-template\",\n  \"type\": \"a100.2x\",\n  \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n  \"custom_image_name\": \"ubuntu:20.04\",\n  \"disks\": [\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    },\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    }\n  ],\n  \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"image_name\": \"ubuntu:20.04\",\n  \"location\": \"us-southcentral1-a\",\n  \"maintenance_policy\": \"stop-vm\",\n  \"placement_policy\": \"spread\",\n  \"public_ip_address_type\": \"static\",\n  \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n  \"shutdown_script\": \"\\\"#!/bin/bash\\\\necho'goodbye'\\\"\",\n  \"startup_script\": \"\\\"#!/bin/bash\\\\necho'hello'\\\"\",\n  \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"my-instance-template\",\n  \"id\": \"ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab\",\n  \"type\": \"a100.2x\",\n  \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n  \"startup_script\": \"#!/bin/bash\\\\necho'hello'\",\n  \"shutdown_script\": \"#!/bin/bash\\\\necho'goodbye'\",\n  \"image_name\": \"ubuntu:20.04\",\n  \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"location\": \"us-southcentral1-a\",\n  \"project_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"created_at\": \"2024-01-01T00:00:00Z\",\n  \"public_ip_address_type\": \"static\",\n  \"placement_policy\": \"unspecified\",\n  \"maintenance_policy\": \"unspecified\",\n  \"custom_image_name\": \"ubuntu:20.04\",\n  \"disks\": [\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    },\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    }\n  ],\n  \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a4b5126-a211-4c17-8121-a6ec88de9500",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template_name\": \"my-instance-template\",\n  \"type\": \"a100.2x\",\n  \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n  \"custom_image_name\": \"ubuntu:20.04\",\n  \"disks\": [\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    },\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    }\n  ],\n  \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"image_name\": \"ubuntu:20.04\",\n  \"location\": \"us-southcentral1-a\",\n  \"maintenance_policy\": \"stop-vm\",\n  \"placement_policy\": \"spread\",\n  \"public_ip_address_type\": \"static\",\n  \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n  \"shutdown_script\": \"\\\"#!/bin/bash\\\\necho'goodbye'\\\"\",\n  \"startup_script\": \"\\\"#!/bin/bash\\\\necho'hello'\\\"\",\n  \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8effed5b-f1e7-49b5-bb04-ef4a2fed6611",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template_name\": \"my-instance-template\",\n  \"type\": \"a100.2x\",\n  \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n  \"custom_image_name\": \"ubuntu:20.04\",\n  \"disks\": [\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    },\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    }\n  ],\n  \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"image_name\": \"ubuntu:20.04\",\n  \"location\": \"us-southcentral1-a\",\n  \"maintenance_policy\": \"stop-vm\",\n  \"placement_policy\": \"spread\",\n  \"public_ip_address_type\": \"static\",\n  \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n  \"shutdown_script\": \"\\\"#!/bin/bash\\\\necho'goodbye'\\\"\",\n  \"startup_script\": \"\\\"#!/bin/bash\\\\necho'hello'\\\"\",\n  \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e25730-3a67-4a0c-8640-b940957b5be2",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template_name\": \"my-instance-template\",\n  \"type\": \"a100.2x\",\n  \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n  \"custom_image_name\": \"ubuntu:20.04\",\n  \"disks\": [\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    },\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    }\n  ],\n  \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"image_name\": \"ubuntu:20.04\",\n  \"location\": \"us-southcentral1-a\",\n  \"maintenance_policy\": \"stop-vm\",\n  \"placement_policy\": \"spread\",\n  \"public_ip_address_type\": \"static\",\n  \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n  \"shutdown_script\": \"\\\"#!/bin/bash\\\\necho'goodbye'\\\"\",\n  \"startup_script\": \"\\\"#!/bin/bash\\\\necho'hello'\\\"\",\n  \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b1ae804-230b-4bf7-b4b2-ef92114d479d",
+          "name": "Retrieve details about a VM instance template.",
+          "request": {
+            "name": "Retrieve details about a VM instance template.",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "compute",
+                "instance-templates",
+                ":instance_template_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_template_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70e28cff-0dd4-41a6-9f19-efb601473685",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"my-instance-template\",\n  \"id\": \"ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab\",\n  \"type\": \"a100.2x\",\n  \"ssh_public_key\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCspdG97nTS/h4PEPq2QD2RYVK1jxFXLFZuSDMI8Rtxpucl6LDZLOghEYoj13lxKQnGtcsM3Iu68lh+4YgZe7CbI6cc/TxPbeAX2HJTqDh0J7+GAlLBHK9tsepC0QlhIDiazJptOPDZ3cesCBXdxSnzEbhDaqgYOfl393cp1fCeOKRIDWEP3H9CM25dCbWF66sTDziLsojJ9dMnxhgKm9/JkZc5gYncLT/2Ey+VWfV9Fs65mGUrBbQOn3c8S/nEk6WRcYn4PFOnIp0Mz+Chb50iCJrW677pllLnkTGSU+4c0H9J5z4HDG0I+91RoiQ0QsayFTYO1JtSn+THLuq98V+D\",\n  \"startup_script\": \"#!/bin/bash\\\\necho'hello'\",\n  \"shutdown_script\": \"#!/bin/bash\\\\necho'goodbye'\",\n  \"image_name\": \"ubuntu:20.04\",\n  \"ib_partition_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"subnet_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"location\": \"us-southcentral1-a\",\n  \"project_id\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\",\n  \"created_at\": \"2024-01-01T00:00:00Z\",\n  \"public_ip_address_type\": \"static\",\n  \"placement_policy\": \"unspecified\",\n  \"maintenance_policy\": \"unspecified\",\n  \"custom_image_name\": \"ubuntu:20.04\",\n  \"disks\": [\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    },\n    {\n      \"size\": \"10GiB\",\n      \"type\": \"persistent-ssd\"\n    }\n  ],\n  \"reservation_id\": \"804bf3a2-81f2-4d78-9a9e-dc6a55ed33d8\",\n  \"virtualization_features\": {\n    \"nested_virtualization\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7e2c5c3-fa83-4a69-b115-d809bd56317e",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1be54bb-543b-47b8-afe3-cca618cca420",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06032bc9-6ebd-42bb-bb2d-e9dbde2f26be",
+              "name": "Error Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"404\",\n  \"message\": \"not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "951fbe86-65fc-42f9-ab36-f095d1311ebd",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d0a405d-2289-4c97-91fc-8a3d0db50963",
+          "name": "Delete a VM instance template.",
+          "request": {
+            "name": "Delete a VM instance template.",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "compute",
+                "instance-templates",
+                ":instance_template_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance_template_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "642d8f09-2bbd-4204-acb4-9c2d4dbf5567",
+              "name": "Empty Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "76987e92-7123-4ab2-a7b5-9fe5765110dd",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61b4fbe7-772a-477f-b216-e02d1fca3943",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fb17b39-92a5-465d-bb77-571c716917d3",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "compute",
+                    "instance-templates",
+                    ":instance_template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance_template_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.crusoecloud.com/v1alpha5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "258ae3c2-07d5-4660-8c30-c0f0780a82bf",
+    "name": "Crusoe Cloud API Gateway Audit Logs Instance Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.",
+      "type": "text/plain"
+    }
+  }
+}

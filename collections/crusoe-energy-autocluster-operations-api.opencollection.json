@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs AutoCluster Operations API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AutoCluster Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about a specific AutoCluster operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/autocluster-operations/:operation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "e384a1de-81f8-4cb2-b312-a7d88a9bf9cb",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a specific AutoCluster operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

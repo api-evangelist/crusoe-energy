@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Disks API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about all disks that belong to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "disk_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "disk_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_os",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Size of disks will be in gibibytes (GiB)"
+        },
+        {
+          "info": {
+            "name": "Create a new disk owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Requires either a disk snapshot ID, or size and location, where size of disk\nshould be in gibibytes (GiB) or tebibytes (TiB) in the format [Size][Unit].\nE.g. 10GiB. Disk type must be one of: DISK_TYPE_PERSISTENT_SSD.\nA successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve details for a disk that belongs to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/:disk_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "disk_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Size of disk will be in gibibytes (GiB)"
+        },
+        {
+          "info": {
+            "name": "Resize a disk that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/:disk_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "disk_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Size should be in gibibytes (GiB) or tebibytes (TiB) in the format\n[Size][Unit]. E.g. 10GiB A successful response from this resource will\ncontain the async operation."
+        },
+        {
+          "info": {
+            "name": "Delete a disk owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/storage/disks/:disk_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "disk_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs InferenceAPIKey API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "InferenceAPIKey",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all active/expired Inference API Keys for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/inference-api-key"
+          },
+          "docs": "Retrieve all active/expired Inference API Keys for the logged in user."
+        },
+        {
+          "info": {
+            "name": "Create a new inference api key owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/inference-api-key"
+          },
+          "docs": "A successful response from this resource will contain json-encoded details of the inference API key.\nThis is the only time the customer will be able to view the api key associated with the API key id."
+        },
+        {
+          "info": {
+            "name": "Delete an Inference API Key owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/inference-api-key",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "WTUzcGibQ82y9_01h4MCdQ",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete an Inference API Key owned by the logged in user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs SSH Keys API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SSH Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of SSH public keys registered to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/ssh-keys"
+          },
+          "docs": "Retrieve the list of SSH public keys registered to the logged in user."
+        },
+        {
+          "info": {
+            "name": "Register a new SSH public key to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/ssh-keys"
+          },
+          "docs": "A successful response from this resource wil contain the created SSH key details."
+        },
+        {
+          "info": {
+            "name": "Delete an SSH public key registered to the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/ssh-keys",
+            "params": [
+              {
+                "name": "id",
+                "value": "6e28cad3-98e6-47a9-a9fc-1cd83a7f25c1",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete an SSH public key registered to the logged in user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

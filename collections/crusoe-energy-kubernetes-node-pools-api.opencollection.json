@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Kubernetes Node Pools API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kubernetes Node Pools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about Kubernetes node pools belonging to a project or cluster.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "cluster_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "created_at, -created_at",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about Kubernetes node pools belonging to a project or cluster."
+        },
+        {
+          "info": {
+            "name": "Create a new Kubernetes node pool owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response from this resource will contain the async operation."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about a particular Kubernetes node pool belonging to the project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a particular Kubernetes node pool belonging to the project."
+        },
+        {
+          "info": {
+            "name": "Update a node pool that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a node pool that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Delete a node pool that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a node pool that the logged in user owns."
+        },
+        {
+          "info": {
+            "name": "Cancel an in-progress rotation of the specified Kubernetes node pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id/cancel-rotate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel an in-progress rotation of the specified Kubernetes node pool."
+        },
+        {
+          "info": {
+            "name": "Get the rotate status of the specified Kubernetes ndoe pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id/rotate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the rotate status of the specified Kubernetes ndoe pool."
+        },
+        {
+          "info": {
+            "name": "Start a rotation of the specified Kubernetes node pool.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/nodepools/:node_pool_id/rotate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "node_pool_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A successful response returns an async operation you can poll."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,764 @@
+{
+  "item": [
+    {
+      "id": "9a767445-f64f-4b84-96cd-4a6e15d05b42",
+      "name": "Usage",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "374d5655-16b1-47e7-ac65-eaa76b6933bd",
+          "name": "Get project-level usage for products in Crusoe Cloud.",
+          "request": {
+            "name": "Get project-level usage for products in Crusoe Cloud.",
+            "description": {},
+            "url": {
+              "path": [
+                "organizations",
+                ":organization_id",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "projects",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_types",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "regions",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47d480ff-0e62-4a31-a7d4-658f15599ebe",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projects",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resource_types",
+                      "value": "persistent-ssd,l40s-48gb.1x"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "us-east1,us-southcentral1"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "\"2022-07-01\""
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "\"2023-08-08\""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"resource_type\": \"\\\"l40s-48gb.1x\\\"\",\n      \"project_id\": \"\\\"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb\\\"\",\n      \"reservation_id\": \"\\\"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb\\\"\",\n      \"region\": \"\\\"us-southcentral1\\\"\",\n      \"date\": \"\\\"2022-07-01\\\"\",\n      \"quantity\": 2.123,\n      \"billable_metric\": \"\\\"gpu-hours\\\"\"\n    },\n    {\n      \"resource_type\": \"\\\"l40s-48gb.1x\\\"\",\n      \"project_id\": \"\\\"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb\\\"\",\n      \"reservation_id\": \"\\\"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb\\\"\",\n      \"region\": \"\\\"us-southcentral1\\\"\",\n      \"date\": \"\\\"2022-07-01\\\"\",\n      \"quantity\": 2.123,\n      \"billable_metric\": \"\\\"gpu-hours\\\"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad2bc154-36bf-40e2-822d-18abda29553e",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projects",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resource_types",
+                      "value": "persistent-ssd,l40s-48gb.1x"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "us-east1,us-southcentral1"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "\"2022-07-01\""
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "\"2023-08-08\""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "090811ec-09fe-4e14-940c-867355e1fc65",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projects",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resource_types",
+                      "value": "persistent-ssd,l40s-48gb.1x"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "us-east1,us-southcentral1"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "\"2022-07-01\""
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "\"2023-08-08\""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab20b84a-0d97-48d9-8b84-10e237fcad29",
+          "name": "Get resource-level usage for products in Crusoe Cloud.",
+          "request": {
+            "name": "Get resource-level usage for products in Crusoe Cloud.",
+            "description": {},
+            "url": {
+              "path": [
+                "organizations",
+                ":organization_id",
+                "usage",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "projects",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "resources",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_types",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "regions",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "838b0af4-4bf9-426c-9b1f-5376ed866dd4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projects",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resources",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resource_types",
+                      "value": "persistent-ssd,l40s-48gb.1x"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "us-east1,us-southcentral1"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "\"2022-07-01\""
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "\"2023-08-08\""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "metric",
+                  "value": "instance-hours",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "quantity",
+                  "value": "1203.3826155969596",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "us-east1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "l40s-48gb.1x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "usage_date",
+                  "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a92ce46b-f510-484f-a091-e9e7183f1d1b",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projects",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resources",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resource_types",
+                      "value": "persistent-ssd,l40s-48gb.1x"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "us-east1,us-southcentral1"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "\"2022-07-01\""
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "\"2023-08-08\""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bd4a8ca-55d7-413a-b701-585239f5da8f",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projects",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resources",
+                      "value": "d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"
+                    },
+                    {
+                      "key": "resource_types",
+                      "value": "persistent-ssd,l40s-48gb.1x"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "us-east1,us-southcentral1"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "\"2022-07-01\""
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "\"2023-08-08\""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83deba5f-fdd6-45ff-b8a2-13ba9e5bfc8c",
+          "name": "Get options which exist for filters for /usage and /usage/export routes.",
+          "request": {
+            "name": "Get options which exist for filters for /usage and /usage/export routes.",
+            "description": {},
+            "url": {
+              "path": [
+                "organizations",
+                ":organization_id",
+                "usage",
+                "options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f02f5091-0d4a-4479-9353-915c450f0b3a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage",
+                    "options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projects\": [\n    \"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb\"\n  ],\n  \"resource_types\": [\n    \"persistent-ssd\",\n    \"l40s-48gb.1x\"\n  ],\n  \"regions\": [\n    \"us-east1\",\n    \"us-southcentral1\"\n  ],\n  \"start_date\": \"\\\"2022-07-01\\\"\",\n  \"end_date\": \"\\\"2023-08-08\\\"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d73774ea-59fc-4ae0-934f-e5f4af8a274e",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "usage",
+                    "options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.crusoecloud.com/v1alpha5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "50022f07-33c2-448e-8187-f7885d9815ef",
+    "name": "Crusoe Cloud API Gateway Audit Logs Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.",
+      "type": "text/plain"
+    }
+  }
+}

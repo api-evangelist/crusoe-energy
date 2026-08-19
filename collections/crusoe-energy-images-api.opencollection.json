@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Images API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all VM images available for use.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/compute/images"
+          },
+          "docs": "Lists all VM images available for use."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a VM image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/compute/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a VM image."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

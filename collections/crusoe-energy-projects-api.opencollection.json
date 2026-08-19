@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Projects API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details about projects that the logged in user belongs to or owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/projects",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "ee2a6bc3-aed5-4756-8995-9990a53d3a17",
+                "type": "query"
+              },
+              {
+                "name": "project_name",
+                "value": "default",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "If querying for projects within an organization, the logged in user must be the owner of the organization."
+        },
+        {
+          "info": {
+            "name": "Create a new project that will be owned by the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/organizations/projects"
+          },
+          "docs": "The logged in user must have the permission to create projects within the organization.\nA successful response from this resource contains details of the created project."
+        },
+        {
+          "info": {
+            "name": "Update details for a project that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/organizations/projects",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "f058d0db-2fa4-4cf2-8cf1-dfbcfe05a814",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Requests to this resource must contain the json-encoded representation of the changes they want to make to the project.\nCurrently only the project's name can be changed."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a project that the logged in user belongs to or owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/organizations/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ee2a6bc3-aed5-4756-8995-9990a53d3a17",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details about a project that the logged in user belongs to or owns."
+        },
+        {
+          "info": {
+            "name": "Delete a project that the logged in user owns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/organizations/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete operations cascade to VMs created under that project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,729 @@
+{
+  "item": [
+    {
+      "id": "d2a9a725-04c7-41ba-9372-823074792138",
+      "name": "Audit Logs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0d05df9-06d0-4401-90f0-dfb865422b9d",
+          "name": "Get audit logs belonging to the specified organization. User must be part of the organization.",
+          "request": {
+            "name": "Get audit logs belonging to the specified organization. User must be part of the organization.",
+            "description": {},
+            "url": {
+              "path": [
+                "organizations",
+                ":organization_id",
+                "audit-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project_ids",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_time",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_time",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "actions",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "actor_ids",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "actor_emails",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "actor_types",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "target_ids",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "target_types",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "target_names",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locations",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "results",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "results_not",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "surfaces",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "next_token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "prev_token",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94c507f5-f7ae-4db3-af75-a8c7709ce011",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "2022-09-01T14:25:36-07:00"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "2022-09-06T14:25:36-07:00"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_emails",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_names",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results_not",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "surfaces",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    },
+                    {
+                      "key": "prev_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"action\": \"Create\",\n      \"actor_id\": \"e384a1de-81f8-4cb2-b312-a7d88a9bf9cb || \\\"system\\\"\",\n      \"actor_email\": \"xxxx@gmail.coom\",\n      \"actor_type\": \"user || admin || system\",\n      \"client_ip\": \"10.2.5.355\",\n      \"end_time\": \"\\\"2024-08-24T05:25:33.860Z\\\"\",\n      \"result\": \"OK\",\n      \"start_time\": \"\\\"2024-08-24T05:25:30.954Z\\\"\",\n      \"surface\": \"browser\",\n      \"action_detail\": \"Attach Disk\",\n      \"error_message\": \"\\\"The requested resource is out of stock. Please try again later.\\\"\",\n      \"locations\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization_id\": \"d10efcc0-7dba-4163-a3f0-f48aae20712a\",\n      \"organization_name\": \"crusoe.ai\",\n      \"project_id\": \"e384a1de-81f8-4cb2-b312-a7d88a9bf9cb\",\n      \"project_name\": \"e384a1de-81f8-4cb2-b312-a7d88a9bf9cb\",\n      \"target_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"target_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"target_type\": \"VM\"\n    },\n    {\n      \"action\": \"Create\",\n      \"actor_id\": \"e384a1de-81f8-4cb2-b312-a7d88a9bf9cb || \\\"system\\\"\",\n      \"actor_email\": \"xxxx@gmail.coom\",\n      \"actor_type\": \"user || admin || system\",\n      \"client_ip\": \"10.2.5.355\",\n      \"end_time\": \"\\\"2024-08-24T05:25:33.860Z\\\"\",\n      \"result\": \"OK\",\n      \"start_time\": \"\\\"2024-08-24T05:25:30.954Z\\\"\",\n      \"surface\": \"browser\",\n      \"action_detail\": \"Attach Disk\",\n      \"error_message\": \"\\\"The requested resource is out of stock. Please try again later.\\\"\",\n      \"locations\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization_id\": \"d10efcc0-7dba-4163-a3f0-f48aae20712a\",\n      \"organization_name\": \"crusoe.ai\",\n      \"project_id\": \"e384a1de-81f8-4cb2-b312-a7d88a9bf9cb\",\n      \"project_name\": \"e384a1de-81f8-4cb2-b312-a7d88a9bf9cb\",\n      \"target_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"target_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"target_type\": \"VM\"\n    }\n  ],\n  \"next_page_token\": \"bXktbGFzdC12bQ\",\n  \"prev_page_token\": \"bXktZmlyc3Qtdm0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2860813-6ae9-4e8e-99f9-8d8487699bfc",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "2022-09-01T14:25:36-07:00"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "2022-09-06T14:25:36-07:00"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_emails",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_names",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results_not",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "surfaces",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    },
+                    {
+                      "key": "prev_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66a280f1-5f0e-4e3a-bea4-cee1a65fb506",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "2022-09-01T14:25:36-07:00"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "2022-09-06T14:25:36-07:00"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_emails",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_names",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results_not",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "surfaces",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    },
+                    {
+                      "key": "prev_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "caa60afd-f312-4581-a4c5-4eb582256429",
+              "name": "Error Permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "2022-09-01T14:25:36-07:00"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "2022-09-06T14:25:36-07:00"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_emails",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_names",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results_not",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "surfaces",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    },
+                    {
+                      "key": "prev_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc8c8ac6-9e6c-4721-955a-0732e60343c5",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization_id",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "2022-09-01T14:25:36-07:00"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "2022-09-06T14:25:36-07:00"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_emails",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "actor_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "target_names",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "locations",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "results_not",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "surfaces",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    },
+                    {
+                      "key": "prev_token",
+                      "value": "bXktZmlyc3Qtdm0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.crusoecloud.com/v1alpha5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "818b6d72-9c78-4b92-8f37-4351bf631b8c",
+    "name": "Crusoe Cloud API Gateway Audit Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.",
+      "type": "text/plain"
+    }
+  }
+}

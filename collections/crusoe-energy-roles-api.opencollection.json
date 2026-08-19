@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Roles API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists role bindings visible to the caller.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/iam/role-bindings",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scope_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scope_object_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists role bindings visible to the caller."
+        },
+        {
+          "info": {
+            "name": "Lists role associated with the caller's organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/iam/roles"
+          },
+          "docs": "Lists role associated with the caller's organization."
+        },
+        {
+          "info": {
+            "name": "Creates and deletes role bindings for a user in a single atomic operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/iam/users/:user_id/role-bindings",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If any creation or deletion fails, no changes are applied."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

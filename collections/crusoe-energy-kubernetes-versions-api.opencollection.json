@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Kubernetes Versions API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kubernetes Versions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve information about available Kubernetes versions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:project_id/kubernetes/versions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab",
+                "type": "path"
+              },
+              {
+                "name": "show_deprecated",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "product_name",
+                "value": "a100.2x",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about available Kubernetes versions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

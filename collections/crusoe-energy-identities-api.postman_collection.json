@@ -1,0 +1,352 @@
+{
+  "item": [
+    {
+      "id": "4a2fde98-be9e-41a8-a41d-10c6a4877dfe",
+      "name": "Identities",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "13fe0e4c-38d2-49a2-9426-af21847e3416",
+          "name": "Retrieve user details for the logged in user.",
+          "request": {
+            "name": "Retrieve user details for the logged in user.",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                "identities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "caf00088-6065-4565-984b-e9c6e60b9106",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "identities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"identity\": {\n    \"id\": \"string\",\n    \"email\": \"john.doe@crusoeenergy.com\",\n    \"name\": \"John Doe\",\n    \"role\": \"Admin\",\n    \"accepted_tos\": true,\n    \"company_name\": \"Crusoe\",\n    \"is_recovery\": true,\n    \"registration_type\": \"waitlist\",\n    \"user_state\": \"string\"\n  },\n  \"credentials\": [\n    \"string\",\n    \"string\"\n  ],\n  \"credentials_map\": {\n    \"key_0\": {\n      \"type\": \"string\",\n      \"created_at\": \"1957-01-29T09:17:49.040Z\",\n      \"updated_at\": \"1980-01-30T12:16:43.932Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bac65d5-5d43-42d4-9952-9261bbc15879",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "identities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fe53d90-7569-40e9-aad1-c94ef5270526",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "identities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0ef1c39-3a1e-4ea2-bdf3-e2746bca8ceb",
+          "name": "Update user details for the logged in user.",
+          "request": {
+            "name": "Update user details for the logged in user.",
+            "description": {
+              "content": "A successful response from this resource wil contain the updated user details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "identities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2f0d89f-f1ec-4a4f-8ed4-48969d5b76db",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "identities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"John Doe\",\n  \"role\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"identity\": {\n    \"id\": \"string\",\n    \"email\": \"john.doe@crusoeenergy.com\",\n    \"name\": \"John Doe\",\n    \"role\": \"Admin\",\n    \"accepted_tos\": true,\n    \"company_name\": \"Crusoe\",\n    \"is_recovery\": true,\n    \"registration_type\": \"waitlist\",\n    \"user_state\": \"string\"\n  },\n  \"credentials\": [\n    \"string\",\n    \"string\"\n  ],\n  \"credentials_map\": {\n    \"key_0\": {\n      \"type\": \"string\",\n      \"created_at\": \"2009-11-11T08:58:08.756Z\",\n      \"updated_at\": \"1995-02-18T09:58:23.732Z\"\n    },\n    \"key_1\": {\n      \"type\": \"string\",\n      \"created_at\": \"2014-03-26T06:46:01.226Z\",\n      \"updated_at\": \"1979-04-14T16:09:19.080Z\"\n    },\n    \"key_2\": {\n      \"type\": \"string\",\n      \"created_at\": \"2003-03-09T04:18:52.621Z\",\n      \"updated_at\": \"1999-04-23T23:19:55.231Z\"\n    },\n    \"key_3\": {\n      \"type\": \"string\",\n      \"created_at\": \"1972-03-17T23:00:36.695Z\",\n      \"updated_at\": \"1985-11-10T16:52:22.326Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88c7f803-989d-4a8b-b599-9e6c73432eda",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "identities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"John Doe\",\n  \"role\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37eea204-b747-4240-9b03-c45da8548e07",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "identities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"John Doe\",\n  \"role\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.crusoecloud.com/v1alpha5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f07ec930-39da-44c7-9b12-be8931785e5b",
+    "name": "Crusoe Cloud API Gateway Audit Logs Identities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.",
+      "type": "text/plain"
+    }
+  }
+}

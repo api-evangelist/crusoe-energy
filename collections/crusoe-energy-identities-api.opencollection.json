@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Identities API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Identities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve user details for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/identities"
+          },
+          "docs": "Retrieve user details for the logged in user."
+        },
+        {
+          "info": {
+            "name": "Update user details for the logged in user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/users/identities"
+          },
+          "docs": "A successful response from this resource wil contain the updated user details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

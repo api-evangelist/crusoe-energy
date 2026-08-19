@@ -1,0 +1,1497 @@
+{
+  "item": [
+    {
+      "id": "dfc6538d-3dd4-4860-b7c4-2a0ce84ba5c9",
+      "name": "Internal Load Balancers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef602f3f-8c1e-4dd0-96ce-68e0e625fcc4",
+          "name": "Retrieve details about all load balancers that belong to the logged in user.",
+          "request": {
+            "name": "Retrieve details about all load balancers that belong to the logged in user.",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "networking",
+                "internal-load-balancers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84e0fa10-9d73-4d1c-bb55-5ee4334a6b02",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n      \"name\": \"my-subnet\",\n      \"network_interfaces\": [\n        {\n          \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n          \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n        },\n        {\n          \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n          \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n        }\n      ],\n      \"destinations\": [\n        {\n          \"cidr\": \"10.1.2.3/24\",\n          \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n        },\n        {\n          \"cidr\": \"10.1.2.3/24\",\n          \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n        }\n      ],\n      \"location\": \"us-northcentraleast1-a\",\n      \"protocols\": [\n        \"string\",\n        \"string\"\n      ],\n      \"algorithm\": \"random\",\n      \"ips\": [\n        {\n          \"private_ipv4\": {\n            \"address\": \"10.1.2.3\"\n          },\n          \"public_ipv4\": {\n            \"address\": \"121.0.0.0\",\n            \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n            \"type\": \"dynamic\"\n          }\n        },\n        {\n          \"private_ipv4\": {\n            \"address\": \"10.1.2.3\"\n          },\n          \"public_ipv4\": {\n            \"address\": \"121.0.0.0\",\n            \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n            \"type\": \"dynamic\"\n          }\n        }\n      ],\n      \"health_check\": {\n        \"port\": \"8080\",\n        \"failure_count\": \"3\",\n        \"interval\": \"60\",\n        \"success_count\": \"2\",\n        \"timeout\": \"20\"\n      },\n      \"type\": \"internal_ipv4,\"\n    },\n    {\n      \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n      \"name\": \"my-subnet\",\n      \"network_interfaces\": [\n        {\n          \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n          \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n        },\n        {\n          \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n          \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n        }\n      ],\n      \"destinations\": [\n        {\n          \"cidr\": \"10.1.2.3/24\",\n          \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n        },\n        {\n          \"cidr\": \"10.1.2.3/24\",\n          \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n        }\n      ],\n      \"location\": \"us-northcentraleast1-a\",\n      \"protocols\": [\n        \"string\",\n        \"string\"\n      ],\n      \"algorithm\": \"random\",\n      \"ips\": [\n        {\n          \"private_ipv4\": {\n            \"address\": \"10.1.2.3\"\n          },\n          \"public_ipv4\": {\n            \"address\": \"121.0.0.0\",\n            \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n            \"type\": \"dynamic\"\n          }\n        },\n        {\n          \"private_ipv4\": {\n            \"address\": \"10.1.2.3\"\n          },\n          \"public_ipv4\": {\n            \"address\": \"121.0.0.0\",\n            \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n            \"type\": \"dynamic\"\n          }\n        }\n      ],\n      \"health_check\": {\n        \"port\": \"8080\",\n        \"failure_count\": \"3\",\n        \"interval\": \"60\",\n        \"success_count\": \"2\",\n        \"timeout\": \"20\"\n      },\n      \"type\": \"internal_ipv4,\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ab46b52-204d-4541-80ca-5531d90eb600",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df8226c4-5603-48fa-ba50-155802fad029",
+              "name": "Error Permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84bc09eb-a883-4cf6-a72b-792f7ca73995",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b698cf5-0492-4370-8cee-7ad630dfadd6",
+          "name": "Create a new load balancer owned by the logged in user.",
+          "request": {
+            "name": "Create a new load balancer owned by the logged in user.",
+            "description": {
+              "content": "A successful response from this resource will contain the async operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "networking",
+                "internal-load-balancers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"destinations\": [\n    {\n      \"cidr\": \"<string>\",\n      \"resource_id\": \"<string>\"\n    },\n    {\n      \"cidr\": \"<string>\",\n      \"resource_id\": \"<string>\"\n    }\n  ],\n  \"location\": \"<string>\",\n  \"protocols\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"network_interfaces\": [\n    {\n      \"network\": \"<string>\",\n      \"subnet\": \"<string>\"\n    },\n    {\n      \"network\": \"<string>\",\n      \"subnet\": \"<string>\"\n    }\n  ],\n  \"algorithm\": \"<string>\",\n  \"health_check\": {\n    \"port\": \"<string>\",\n    \"failure_count\": \"<string>\",\n    \"interval\": \"<string>\",\n    \"success_count\": \"<string>\",\n    \"timeout\": \"<string>\"\n  },\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b46d3a02-fe54-43c9-94d2-56af30e8f4b6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-load-balancer\",\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"location\": \"us-northcentraleast1-a\",\n  \"protocols\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"network_interfaces\": [\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    },\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    }\n  ],\n  \"algorithm\": \"random\",\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"type\": \"internal_ipv4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operation\": {\n    \"operation_id\": \"F6EF489C-086E-458D-B812-7962964A28C9\",\n    \"state\": \"IN_PROGRESS\",\n    \"metadata\": {},\n    \"started_at\": \"2021-12-03T19:58:34Z\",\n    \"completed_at\": \"2021-12-03T19:59:34Z\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfe3ac9b-897a-4b98-9247-d908605e07ac",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-load-balancer\",\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"location\": \"us-northcentraleast1-a\",\n  \"protocols\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"network_interfaces\": [\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    },\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    }\n  ],\n  \"algorithm\": \"random\",\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"type\": \"internal_ipv4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bc129f8-c87a-4809-9ae0-499fd74678ec",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-load-balancer\",\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"location\": \"us-northcentraleast1-a\",\n  \"protocols\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"network_interfaces\": [\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    },\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    }\n  ],\n  \"algorithm\": \"random\",\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"type\": \"internal_ipv4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f421e3b-0071-4483-8fc3-6cf1e053395a",
+              "name": "Error Permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-load-balancer\",\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"location\": \"us-northcentraleast1-a\",\n  \"protocols\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"network_interfaces\": [\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    },\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    }\n  ],\n  \"algorithm\": \"random\",\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"type\": \"internal_ipv4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "057d8aa8-3d66-4b1d-aed3-6f8cf1bd245f",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-load-balancer\",\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"location\": \"us-northcentraleast1-a\",\n  \"protocols\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"network_interfaces\": [\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    },\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    }\n  ],\n  \"algorithm\": \"random\",\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"type\": \"internal_ipv4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea243006-6305-438f-ac6b-fc116b40d33e",
+          "name": "Retrieve details for a load balancer that belongs to the logged in user.",
+          "request": {
+            "name": "Retrieve details for a load balancer that belongs to the logged in user.",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "networking",
+                "internal-load-balancers",
+                ":load_balancer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "load_balancer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e17b12e-aaf8-449f-a2d5-b2b7833faf9b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n  \"name\": \"my-subnet\",\n  \"network_interfaces\": [\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    },\n    {\n      \"network\": \"dbaafd53-96ea-4754-9cce-78e7f08ac151\",\n      \"subnet\": \"09ae8411-0fbb-411c-898c-2b8f19622ae1\"\n    }\n  ],\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"location\": \"us-northcentraleast1-a\",\n  \"protocols\": [\n    \"string\",\n    \"string\"\n  ],\n  \"algorithm\": \"random\",\n  \"ips\": [\n    {\n      \"private_ipv4\": {\n        \"address\": \"10.1.2.3\"\n      },\n      \"public_ipv4\": {\n        \"address\": \"121.0.0.0\",\n        \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n        \"type\": \"dynamic\"\n      }\n    },\n    {\n      \"private_ipv4\": {\n        \"address\": \"10.1.2.3\"\n      },\n      \"public_ipv4\": {\n        \"address\": \"121.0.0.0\",\n        \"id\": \"1ce839b7-3fab-46f9-8e54-7a6bb4ac1ffc\",\n        \"type\": \"dynamic\"\n      }\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"type\": \"internal_ipv4,\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7faeaf39-db01-4597-a77d-102b618e3cf2",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd3d5d40-d164-4580-9683-4cd5486ca25a",
+              "name": "Error Permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97517743-1b12-4c27-b960-feb70b4b5bd2",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40715d07-ee1d-405d-ade0-a201d7a0b1fc",
+          "name": "Delete a load balancer owned by the logged in user.",
+          "request": {
+            "name": "Delete a load balancer owned by the logged in user.",
+            "description": {
+              "content": "A successful response from this resource will contain the async operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "networking",
+                "internal-load-balancers",
+                ":load_balancer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "load_balancer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "057e7669-7a90-463b-b11b-e2b2bec2352b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operation\": {\n    \"operation_id\": \"F6EF489C-086E-458D-B812-7962964A28C9\",\n    \"state\": \"IN_PROGRESS\",\n    \"metadata\": {},\n    \"started_at\": \"2021-12-03T19:58:34Z\",\n    \"completed_at\": \"2021-12-03T19:59:34Z\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf8e28c9-d087-4011-9cde-3ada8ff27e55",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f893b80-d5a6-49a8-9741-b731eed9fcf4",
+              "name": "Error Permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b8d7b74-461d-44f2-aee2-5d23d5c45bea",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d35280ae-537b-4d6c-b43c-130f71f310a1",
+          "name": "Patch (update) a load balancer owned by the logged in user.",
+          "request": {
+            "name": "Patch (update) a load balancer owned by the logged in user.",
+            "description": {
+              "content": "A successful response from this resource will contain the async operation.\nTo disable health checking, pass \"health_check\": {\"port\": 0}",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_id",
+                "networking",
+                "internal-load-balancers",
+                ":load_balancer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "load_balancer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destinations\": [\n    {\n      \"cidr\": \"<string>\",\n      \"resource_id\": \"<string>\"\n    },\n    {\n      \"cidr\": \"<string>\",\n      \"resource_id\": \"<string>\"\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"<string>\",\n    \"failure_count\": \"<string>\",\n    \"interval\": \"<string>\",\n    \"success_count\": \"<string>\",\n    \"timeout\": \"<string>\"\n  },\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84d2e0de-4a9b-4a6c-aa64-9f0b975d11a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"name\": \"my-load-balancer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operation\": {\n    \"operation_id\": \"F6EF489C-086E-458D-B812-7962964A28C9\",\n    \"state\": \"IN_PROGRESS\",\n    \"metadata\": {},\n    \"started_at\": \"2021-12-03T19:58:34Z\",\n    \"completed_at\": \"2021-12-03T19:59:34Z\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c5f3a53-f40d-4e64-b001-6ac37ec6fedb",
+              "name": "Error Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"name\": \"my-load-balancer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"message\": \"bad_request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d022ab43-bbd7-4f1d-b7ec-89c5f17293be",
+              "name": "Error Authentication Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"name\": \"my-load-balancer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"message\": \"bad_credential\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a438aca9-4958-42d3-9794-2952788fb978",
+              "name": "Error Permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"name\": \"my-load-balancer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65367c23-96e4-4e4d-85fe-b3ccfc99ff10",
+              "name": "Error Internal Server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_id",
+                    "networking",
+                    "internal-load-balancers",
+                    ":load_balancer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "load_balancer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinations\": [\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    },\n    {\n      \"cidr\": \"10.1.2.3/24\",\n      \"resource_id\": \"306aa10d-5570-4e47-88c9-46bf11bd8737\"\n    }\n  ],\n  \"health_check\": {\n    \"port\": \"8080\",\n    \"failure_count\": \"3\",\n    \"interval\": \"60\",\n    \"success_count\": \"2\",\n    \"timeout\": \"20\"\n  },\n  \"name\": \"my-load-balancer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"message\": \"internal_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.crusoecloud.com/v1alpha5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9c8cd016-e410-4dfb-af69-614b9d8cc0e8",
+    "name": "Crusoe Cloud API Gateway Audit Logs Internal Load Balancers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.",
+      "type": "text/plain"
+    }
+  }
+}

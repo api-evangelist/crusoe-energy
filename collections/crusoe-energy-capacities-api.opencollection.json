@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crusoe Cloud API Gateway Audit Logs Capacities API",
+    "version": "v1alpha5"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Capacities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists available Crusoe Cloud capacity with optional filters on location and product name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/capacities",
+            "params": [
+              {
+                "name": "product_name",
+                "value": "[l40s-48gb.1x, l40s-48gb.2x]",
+                "type": "query"
+              },
+              {
+                "name": "location",
+                "value": "[us-southcentral1-a, us-east1-a]",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists available Crusoe Cloud capacity with optional filters on location and product name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
