@@ -626,6 +626,9 @@ apis:
   - type: OpenAPI
     url: openapi/crusoe-energy-vpc-subnets-api-openapi.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/crusoe-energy-capability-edges.yml
+    name: Crusoe Business Capability Map
   - type: AgenticAccess
     url: agentic-access/crusoe-energy-agentic-access.yml
   - type: VulnerabilityDisclosure
