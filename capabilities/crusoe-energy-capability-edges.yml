@@ -3,7 +3,7 @@ provider: Crusoe
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Telecommunications
+- Electrical Components & Equipment
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,202 +11,208 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 20
+edge_count: 21
 edges:
 - tag: Roles
   spec_file: crusoe-energy-roles-api-openapi.yml
   capability_id: BC-620.20
   capability_id_l1: BC-620
   capability_name: Identity & Access Management
-  confidence: 0.88
-  evidence: '"GET /iam/role-bindings  listRoleBindings"; "applyRoleBindings  Creates and deletes role
-    bindings for a user"'
-  reason: IAM role and role-binding administration is identity and access management.
-- tag: Kubernetes Node Pools
-  spec_file: crusoe-energy-kubernetes-node-pools-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.85
-  evidence: '"createNodePool  Create a new Kubernetes node pool owned by the logged in user"; schema "KubernetesNodePool"'
-  reason: CRUD and rotation of Kubernetes compute node pools is provisioning and stewardship of cloud
-    compute infrastructure.
-- tag: Load Balancers
-  spec_file: crusoe-energy-load-balancers-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.85
-  evidence: '"createExternalLoadBalancer  Create a new external load balancer" under /networking/load-balancers'
-  reason: Lifecycle management of cloud network load balancers is IT network/cloud infrastructure management;
-    not telecom network element management by a carrier.
-- tag: Slurm Clusters
-  spec_file: crusoe-energy-slurm-clusters-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.85
-  evidence: '"createSlurmCluster  Create a new slurm cluster owned by the logged in user"'
-  reason: Provisioning and deletion of HPC compute clusters is management of cloud compute infrastructure.
+  confidence: 0.9
+  evidence: applyRoleBindings 'Creates and deletes role bindings for a user in a single atomic operation.'
+    under /iam/
+  reason: IAM roles and role bindings are identity and access management.
 - tag: VMs
   spec_file: crusoe-energy-vms-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
+  confidence: 0.9
+  evidence: POST /projects/{project_id}/compute/vms/instances createInstance 'Create a new VM instance
+    owned by the logged in user.'
+  reason: Provisioning, state change, disk attachment and deletion of virtual machine instances — core
+    compute/cloud infrastructure management.
+- tag: Disks
+  spec_file: crusoe-energy-disks-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
   confidence: 0.85
-  evidence: POST /projects/{project_id}/compute/vms/instances createInstance "Create a new VM instance
-    owned by the logged in user."; "Attach disks to a VM"
-  reason: Lifecycle of virtual machine instances, types and attached disks — cloud compute infrastructure
-    provisioning, squarely IT Infrastructure Management.
+  evidence: createDisk  Create a new disk owned by the logged in user ... resizeDisk  Resize a disk that
+    the logged in user owns.
+  reason: CRUD plus resize over block storage volumes attached to VMs (schemas DiskV1Alpha5, VMAttachment)
+    — storage infrastructure provisioning, i.e. IT Infrastructure Management.
+- tag: Slurm Node Pools
+  spec_file: crusoe-energy-slurm-node-pools-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /projects/{project_id}/slurm/nodepools createSlurmNodePool 'Create a new slurm node pool
+    owned by the logged in user.'
+  reason: Lifecycle CRUD over Slurm compute node pools — provisioning and managing compute infrastructure,
+    i.e. IT Infrastructure Management (compute/cloud).
+- tag: VPC Networks
+  spec_file: crusoe-energy-vpc-networks-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: POST /projects/{project_id}/networking/vpc-networks createVPCNetwork 'Create a new VPC network
+    owned by the logged in user.'
+  reason: Lifecycle management of virtual private cloud networks — cloud network infrastructure management.
 - tag: VPC Subnets
   spec_file: crusoe-energy-vpc-subnets-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.85
-  evidence: GET /projects/{project_id}/networking/vpc-subnets — "Retrieve details about all VPC subnets";
-    createVPCSubnet, deleteVPCSubnet
-  reason: 'Cloud IaaS networking primitives (VPC subnet CRUD) — this is compute/network infrastructure
-    provisioning, i.e. IT Infrastructure Management. Not telecom network inventory: these are virtual
-    cloud constructs inside a project, not carrier network elements.'
+  evidence: POST /projects/{project_id}/networking/vpc-subnets  createVPCSubnet  Create a new VPC subnet
+    owned by the logged in user.
+  reason: Operations create, patch and delete VPC subnets under a /networking/ path on a cloud compute
+    platform — this is provisioning of network infrastructure, i.e. IT Infrastructure Management (compute,
+    storage, network, cloud). No business-domain reading fits.
+- tag: Internal Load Balancers
+  spec_file: crusoe-energy-internal-load-balancers-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.82
+  evidence: POST /projects/{project_id}/networking/internal-load-balancers createLoadBalancer 'Create
+    a new load balancer owned by the logged in user.'; schemas HealthCheckOptions, PrivateIPv4Address
+  reason: Provisioning and configuration of network load balancers in the cloud platform — network infrastructure
+    management.
 - tag: Kubernetes Clusters
   spec_file: crusoe-energy-kubernetes-clusters-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.82
-  evidence: POST /projects/{project_id}/kubernetes/clusters  'Create a new Kubernetes cluster owned by
-    the logged in user.'
-  reason: Full lifecycle of managed Kubernetes clusters including credential retrieval — provisioning
-    and operation of container compute infrastructure, i.e. IT Infrastructure Management.
+  evidence: POST /projects/{project_id}/kubernetes/clusters createCluster 'Create a new Kubernetes cluster
+    owned by the logged in user.'
+  reason: Lifecycle management of managed Kubernetes clusters (create, patch, delete, fetch credentials)
+    — cloud compute infrastructure management.
+- tag: Custom Images
+  spec_file: crusoe-energy-custom-images-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: listCustomImages  List all custom VM images available for use ... customImagePost  Create
+    a custom image.
+  reason: Lifecycle management of custom virtual machine images used to provision compute — cloud infrastructure
+    asset management. 'Images' here are VM boot images, not marketing or product media.
+- tag: IB Networks
+  spec_file: crusoe-energy-ib-networks-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: GET /projects/{project_id}/networking/ib-networks listIBNetworks 'Retrieve details for all
+    Infiniband networks.' with schema IBNetworkCapacity
+  reason: Operations expose Infiniband network inventory and capacity in a cloud compute platform — network
+    infrastructure management.
+- tag: IB Partitions
+  spec_file: crusoe-energy-ib-partitions-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /projects/{project_id}/networking/ib-partitions createIBPartition 'Create a new Infiniband
+    partition owned by the logged in user.'
+  reason: CRUD over Infiniband network partitions — provisioning and management of network infrastructure
+    resources.
 - tag: Instance Groups
   spec_file: crusoe-energy-instance-groups-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.8
-  evidence: POST /projects/{project_id}/compute/instance-groups  'Create an instance group.' schema DesiredCount
-  reason: Create/scale/delete groups of cloud compute instances with a desired count — provisioning and
-    management of compute infrastructure.
+  evidence: POST /projects/{project_id}/compute/instance-groups createInstanceGroup 'Create an instance
+    group.'; schema DesiredCount
+  reason: Lifecycle management of groups of compute instances with desired counts — cloud compute infrastructure
+    provisioning and scaling.
 - tag: Instance Templates
   spec_file: crusoe-energy-instance-templates-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.8
-  evidence: POST /projects/{project_id}/compute/instance-templates  'Create a VM instance template, for
-    use in bulk VM creation.'
-  reason: Templates describing VM shape and disks for bulk provisioning — cloud compute infrastructure
-    management, not product configuration or catalogue.
-- tag: Internal Load Balancers
-  spec_file: crusoe-energy-internal-load-balancers-api-openapi.yml
+  evidence: POST /projects/{project_id}/compute/instance-templates createInstanceTemplate 'Create a VM
+    instance template, for use in bulk VM creation.'
+  reason: Templates for bulk VM provisioning — configuration of cloud compute infrastructure.
+- tag: Kubernetes Node Pools
+  spec_file: crusoe-energy-kubernetes-node-pools-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.8
-  evidence: POST /projects/{project_id}/networking/internal-load-balancers  'Create a new load balancer
-    owned by the logged in user.' schemas HealthCheckOptions, NetworkTarget
-  reason: Lifecycle management of internal load balancers with health checks and IP targets — cloud network
-    infrastructure provisioning under IT Infrastructure Management.
+  evidence: createNodePool 'Create a new Kubernetes node pool owned by the logged in user.'
+  reason: Provisioning and lifecycle of Kubernetes compute node pools is cloud/compute infrastructure
+    management.
+- tag: Load Balancers
+  spec_file: crusoe-energy-load-balancers-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: createExternalLoadBalancer 'Create a new external load balancer.'
+  reason: CRUD over network load balancers is cloud network infrastructure management.
 - tag: SSH Keys
   spec_file: crusoe-energy-ssh-keys-api-openapi.yml
   capability_id: BC-620.20
   capability_id_l1: BC-620
   capability_name: Identity & Access Management
   confidence: 0.8
-  evidence: '"createSSHKey  Register a new SSH public key to the logged in user"'
-  reason: Issuance and revocation of user access credentials for infrastructure access falls under identity
-    and access management.
-- tag: Slurm Node Pools
-  spec_file: crusoe-energy-slurm-node-pools-api-openapi.yml
+  evidence: createSSHKey 'Register a new SSH public key to the logged in user.'
+  reason: Issuance and lifecycle of user access credentials for infrastructure access is identity and
+    access management.
+- tag: Slurm Clusters
+  spec_file: crusoe-energy-slurm-clusters-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.8
-  evidence: POST /projects/{project_id}/slurm/nodepools createSlurmNodePool "Create a new slurm node pool
-    owned by the logged in user."
-  reason: Provisioning and lifecycle of compute node pools in a cloud platform — this is compute infrastructure
-    management (IT Infrastructure), not any industry-specific capability.
-- tag: VPC Networks
-  spec_file: crusoe-energy-vpc-networks-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.8
-  evidence: POST /projects/{project_id}/networking/vpc-networks createVPCNetwork "Create a new VPC network
-    owned by the logged in user."
-  reason: Virtual private cloud network provisioning within a cloud platform — IT network/cloud infrastructure
-    management, not carrier network operations.
-- tag: Disks
-  spec_file: crusoe-energy-disks-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.78
-  evidence: POST /projects/{project_id}/storage/disks  createDisk  Create a new disk owned by the logged
-    in user. ... PATCH .../{disk_id}  resizeDisk
-  reason: Lifecycle management of cloud block-storage volumes (DiskV1Alpha5, VMAttachmentV1Alpha5). Storage
-    provisioning is squarely IT Infrastructure Management (compute, storage, cloud).
-- tag: IB Networks
-  spec_file: crusoe-energy-ib-networks-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.78
-  evidence: GET /projects/{project_id}/networking/ib-networks  'Retrieve details for all Infiniband networks.'
-    schema IBNetworkCapacity
-  reason: Read access to Infiniband fabric resources within a cloud project — compute/storage/network
-    infrastructure provisioning and visibility, i.e. IT Infrastructure Management. Not telecom carrier
-    networking (no operator network elements, faults or service assurance).
-- tag: IB Partitions
-  spec_file: crusoe-energy-ib-partitions-api-openapi.yml
-  capability_id: BC-600.50
-  capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
-  confidence: 0.78
-  evidence: POST /projects/{project_id}/networking/ib-partitions  'Create a new Infiniband partition owned
-    by the logged in user.'
-  reason: CRUD over Infiniband network partitions in a cloud tenant — provisioning of data-centre network
-    infrastructure resources, mapping to IT Infrastructure Management rather than any telecom operator
-    capability.
+  evidence: createSlurmCluster 'Create a new slurm cluster owned by the logged in user.'
+  reason: Provisioning HPC compute clusters is cloud compute infrastructure management.
 - tag: Images
   spec_file: crusoe-energy-images-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
-  confidence: 0.75
-  evidence: GET /compute/images  'Lists all VM images available for use.'
-  reason: Catalogue of virtual-machine images used to launch cloud compute — an infrastructure resource
-    listing, i.e. IT Infrastructure Management. 'Images' here is not media or product content.
-- tag: Custom Images
-  spec_file: crusoe-energy-custom-images-api-openapi.yml
+  confidence: 0.78
+  evidence: GET /compute/images listImages 'Lists all VM images available for use.'
+  reason: VM image catalogue for provisioning compute — cloud compute infrastructure management, not a
+    saleable product catalogue.
+- tag: Snapshots
+  spec_file: crusoe-energy-snapshots-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
-  confidence: 0.72
-  evidence: GET /projects/{project_id}/compute/custom-images  listCustomImages  List all custom VM images
-    available for use. ... POST customImagePost  Create a custom image.
-  reason: Full CRUD over custom VM machine images used to provision cloud compute. This is stewardship
-    of compute infrastructure artefacts — IT Infrastructure Management for the consuming organisation.
+  confidence: 0.75
+  evidence: POST /projects/{project_id}/storage/snapshots createDiskSnapshot 'Create a new snapshot for
+    a disk owned by the logged in user.'
+  reason: Management of cloud block-storage disk snapshots — storage infrastructure administration. Backup/DR
+    reading is possible but the operations are plain storage resource CRUD.
 - tag: AutoClusters
   spec_file: crusoe-energy-autoclusters-api-openapi.yml
   capability_id: BC-600.50
   capability_id_l1: BC-600
   capability_name: IT Infrastructure Management
   confidence: 0.7
-  evidence: PATCH /projects/{project_id}/kubernetes/clusters/{cluster_id}/autoclusters/config  updateAutoClustersConfig
-    ... POST .../autoclusters/vms/{vm_id}/remediate  remediateVM  Trigger VM remediation.
-  reason: Configures Kubernetes cluster auto-scaling/auto-remediation for cloud compute (schemas RemediationConfig,
-    AutoRemediation). This is management of compute/cloud infrastructure for the consuming organisation
-    — IT Infrastructure Management. Vendor is a cloud/devtool provider, so cross-industry IT is the honest
-    frame.
-- tag: Snapshots
-  spec_file: crusoe-energy-snapshots-api-openapi.yml
-  capability_id: BC-600.50
+  evidence: updateAutoClustersConfig  Update the AutoClusters configuration for a specific cluster ...
+    remediateVM  Trigger VM remediation.
+  reason: Configures Kubernetes cluster auto-scaling/auto-remediation and triggers VM remediation — management
+    of cloud compute infrastructure. Could arguably touch IT operations/automation, hence moderate confidence
+    on the sub-capability.
+- tag: Billing
+  spec_file: crusoe-energy-billing-api-openapi.yml
+  capability_id: BC-600.80
   capability_id_l1: BC-600
-  capability_name: IT Infrastructure Management
+  capability_name: IT Financial Management
   confidence: 0.7
-  evidence: POST /projects/{project_id}/storage/snapshots createDiskSnapshot "Create a new snapshot for
-    a disk owned by the logged in user."
-  reason: Disk snapshot CRUD on cloud block storage — storage infrastructure management. Backup/DR reading
-    is possible but the surface is generic storage resource lifecycle, hence moderate confidence.
+  evidence: getBillingCosts  Get the daily spend for a specified organization by project ... getBillingExport  Return
+    the daily spend per resource.
+  reason: 'Read-only consumption cost reporting: daily spend by project and per resource, i.e. cloud cost
+    visibility and showback for the consuming organisation — IT Financial Management. It is not invoicing
+    or receivables (no invoice, payment, or dunning objects), so BC-200/BC-4250 do not fit.'
