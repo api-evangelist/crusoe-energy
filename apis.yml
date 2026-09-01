@@ -206,7 +206,7 @@ apis:
   humanURL: https://docs.crusoecloud.com/
   baseURL: https://api.crusoecloud.com/v1alpha5
   tags:
-  - Custom Images
+  - CustomImages
   tags_raw:
   - Custom Images
   properties:
@@ -416,7 +416,7 @@ apis:
   humanURL: https://docs.crusoecloud.com/
   baseURL: https://api.crusoecloud.com/v1alpha5
   tags:
-  - Load Balancers
+  - Load Balancer
   tags_raw:
   - Load Balancers
   properties:
