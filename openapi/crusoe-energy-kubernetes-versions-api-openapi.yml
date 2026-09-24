@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Kubernetes Versions API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Kubernetes Versions
 paths:
@@ -21,172 +15,186 @@ paths:
       summary: Retrieve information about available Kubernetes versions.
       operationId: listKubernetesVersions
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
-      - type: boolean
-        example: true
+        schema:
+          type: string
+      - example: true
         x-go-name: ShowDeprecated
         name: show_deprecated
         in: query
-      - type: string
-        example: a100.2x
+        schema:
+          type: boolean
+      - example: a100.2x
         x-go-name: ProductName
         name: product_name
         in: query
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/listKubernetesVersionsResponse'
+          $ref: '#/components/responses/listKubernetesVersionsResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  VersionDetails:
-    type: object
-    properties:
-      BuildVersion:
-        type: string
-      MajorMinorVersion:
-        type: string
-      PatchVersion:
-        type: string
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  KubernetesClustersVersionInfo:
-    type: object
-    required:
-    - cluster_version_name
-    - tags
-    - version_details
-    properties:
-      cluster_version_name:
-        description: The version name of Crusoe's Kubernetes clusters.
-        type: string
-        x-go-name: ClusterVersionName
-      tags:
-        description: A list of tags associated with the version.
-        type: array
-        items:
-          type: string
-        x-go-name: Tags
-      version_details:
-        $ref: '#/definitions/VersionDetails'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
-  KubernetesNodePoolsVersionInfo:
-    type: object
-    required:
-    - node_pool_version_name
-    - tags
-    - version_details
-    properties:
-      node_pool_version_name:
-        description: The version name of Crusoe's Kubernetes node pools.
-        type: string
-        x-go-name: NodePoolVersionName
-      tags:
-        description: A list of tags associated with the version.
-        type: array
-        items:
-          type: string
-        x-go-name: Tags
-      version_details:
-        $ref: '#/definitions/VersionDetails'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
-  ListKubernetesVersionsResponse:
-    type: object
-    required:
-    - kubernetes_cluster_versions
-    - kubernetes_node_pool_versions
-    properties:
-      kubernetes_cluster_versions:
-        description: The list of available Kubernetes cluster versions.
-        type: array
-        items:
-          $ref: '#/definitions/KubernetesClustersVersionInfo'
-        x-go-name: KubernetesClusterVersions
-      kubernetes_node_pool_versions:
-        description: The list of available Kubernetes node pool versions.
-        type: array
-        items:
-          $ref: '#/definitions/KubernetesNodePoolsVersionInfo'
-        x-go-name: KubernetesNodePoolVersions
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
-responses:
-  authError:
-    description: Error Authentication Failed
-    schema:
+          $ref: '#/components/responses/serverError'
+components:
+  schemas:
+    KubernetesClustersVersionInfo:
       type: object
       required:
-      - code
-      - message
+      - cluster_version_name
+      - tags
+      - version_details
       properties:
-        code:
+        cluster_version_name:
+          description: The version name of Crusoe's Kubernetes clusters.
           type: string
-          x-go-name: Code
-          example: '401'
-        message:
+          x-go-name: ClusterVersionName
+        tags:
+          description: A list of tags associated with the version.
+          type: array
+          items:
+            type: string
+          x-go-name: Tags
+        version_details:
+          $ref: '#/components/schemas/VersionDetails'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+    VersionDetails:
+      type: object
+      properties:
+        BuildVersion:
           type: string
-          x-go-name: Message
-          example: bad_credential
-  serverError:
-    description: Error Internal Server
-    schema:
+        MajorMinorVersion:
+          type: string
+        PatchVersion:
+          type: string
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListKubernetesVersionsResponse:
       type: object
       required:
-      - code
-      - message
+      - kubernetes_cluster_versions
+      - kubernetes_node_pool_versions
       properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '500'
-        message:
-          type: string
-          x-go-name: Message
-          example: internal_error
-  badReqError:
-    description: Error Bad Request
-    schema:
+        kubernetes_cluster_versions:
+          description: The list of available Kubernetes cluster versions.
+          type: array
+          items:
+            $ref: '#/components/schemas/KubernetesClustersVersionInfo'
+          x-go-name: KubernetesClusterVersions
+        kubernetes_node_pool_versions:
+          description: The list of available Kubernetes node pool versions.
+          type: array
+          items:
+            $ref: '#/components/schemas/KubernetesNodePoolsVersionInfo'
+          x-go-name: KubernetesNodePoolVersions
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+    KubernetesNodePoolsVersionInfo:
       type: object
       required:
-      - code
-      - message
+      - node_pool_version_name
+      - tags
+      - version_details
       properties:
-        code:
+        node_pool_version_name:
+          description: The version name of Crusoe's Kubernetes node pools.
           type: string
-          x-go-name: Code
-          example: '400'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_request
-  permissionsError:
-    description: Error Permissions
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '403'
-        message:
-          type: string
-          x-go-name: Message
-          example: unauthorized
-  listKubernetesVersionsResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListKubernetesVersionsResponse'
+          x-go-name: NodePoolVersionName
+        tags:
+          description: A list of tags associated with the version.
+          type: array
+          items:
+            type: string
+          x-go-name: Tags
+        version_details:
+          $ref: '#/components/schemas/VersionDetails'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/models
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    listKubernetesVersionsResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListKubernetesVersionsResponse'
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    permissionsError:
+      description: Error Permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '403'
+              message:
+                type: string
+                x-go-name: Message
+                example: unauthorized
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
 x-tagGroups:
 - name: Compute
   tags:

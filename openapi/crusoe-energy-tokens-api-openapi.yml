@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Tokens API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Tokens
 paths:
@@ -22,11 +16,11 @@ paths:
       operationId: getTokens
       responses:
         '200':
-          $ref: '#/responses/tokensGetResponse'
+          $ref: '#/components/responses/tokensGetResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     post:
       description: 'A successful response from this resource will contain json-encoded details of API token.
 
@@ -35,196 +29,208 @@ paths:
       - Tokens
       summary: Create a new token owned by the logged in user.
       operationId: createToken
-      parameters:
-      - name: Body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/CreateTokenRequest'
       responses:
         '200':
-          $ref: '#/responses/tokensPostResponse'
+          $ref: '#/components/responses/tokensPostResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokenRequest'
+        required: true
     delete:
       tags:
       - Tokens
       summary: Delete an API token owned by the logged in user.
       operationId: deleteToken
       parameters:
-      - type: string
-        example: WTUzcGibQ82y9_01h4MCdQ
+      - example: WTUzcGibQ82y9_01h4MCdQ
         x-go-name: AccessKey
         name: access_key
         in: query
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/emptyResponse'
+          $ref: '#/components/responses/emptyResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  TokenInfo:
-    description: These are the fields returned from a GET request.
-    type: object
-    title: TokenInfo contains the Traits Island stores for a Token inside of Kratos.
-    required:
-    - alias
-    - access_key
-    - created_at
-    - expires_at
-    - last_used
-    properties:
-      access_key:
-        type: string
-        x-go-name: AccessKey
-        example: Hm11C1coQZm2+Aihn9ofYg
-      alias:
-        type: string
-        x-go-name: Alias
-        example: token1
-      created_at:
-        type: string
-        x-go-name: CreatedAt
-        example: '2021-11-03T22:16:27Z'
-      expires_at:
-        type: string
-        x-go-name: ExpiresAt
-        example: '2021-12-03T19:58:34Z'
-      last_used:
-        type: string
-        x-go-name: LastUsed
-        example: '2021-11-03T22:22:55Z'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  CreateTokenRequest:
-    type: object
-    required:
-    - expires_at
-    properties:
-      alias:
-        type: string
-        x-go-name: Alias
-        example: token1
-      expires_at:
-        type: string
-        x-go-name: ExpiresAt
-        example: '2021-12-03T19:58:34Z'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  GeneratedToken:
-    description: These are the fields returned from a PUT request.
-    type: object
-    title: GeneratedToken contains the Traits Island stores for a Token inside of Kratos.
-    required:
-    - access_key
-    - secret_key
-    - created_at
-    - expires_at
-    properties:
-      access_key:
-        type: string
-        x-go-name: AccessKey
-        example: R7p5XctCQMuGlpVBmVdqzA
-      alias:
-        type: string
-        x-go-name: Alias
-        example: newtoken
-      created_at:
-        type: string
-        x-go-name: CreatedAt
-        example: '2021-11-03T22:16:27Z'
-      expires_at:
-        type: string
-        x-go-name: ExpiresAt
-        example: '2021-12-03T19:58:34Z'
-      secret_key:
-        type: string
-        x-go-name: SecretKey
-        example: HrbZ3VTUb2YNAq53Md1EsA
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListTokensResponseV1Alpha5:
-    type: object
-    required:
-    - items
-    properties:
-      items:
-        type: array
+          $ref: '#/components/responses/serverError'
+components:
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    emptyResponse:
+      description: Empty Response
+    tokensGetResponse:
+      description: A successful response from this resource will contain json-encoded array of token details, excluding the secret key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListTokensResponseV1Alpha5'
+    permissionsError:
+      description: Error Permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '403'
+              message:
+                type: string
+                x-go-name: Message
+                example: unauthorized
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+    tokensPostResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokensPostResponse'
+  schemas:
+    ListTokensResponseV1Alpha5:
+      type: object
+      required:
+      - items
+      properties:
         items:
-          $ref: '#/definitions/TokenInfo'
-        x-go-name: Items
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  TokensPostResponse:
-    type: object
-    required:
-    - token
-    properties:
-      token:
-        $ref: '#/definitions/GeneratedToken'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  emptyResponse:
-    description: Empty Response
-  serverError:
-    description: Error Internal Server
-    schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenInfo'
+          x-go-name: Items
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    GeneratedToken:
+      description: These are the fields returned from a PUT request.
+      type: object
+      title: GeneratedToken contains the Traits Island stores for a Token inside of Kratos.
+      required:
+      - access_key
+      - secret_key
+      - created_at
+      - expires_at
+      properties:
+        access_key:
+          type: string
+          x-go-name: AccessKey
+          example: R7p5XctCQMuGlpVBmVdqzA
+        alias:
+          type: string
+          x-go-name: Alias
+          example: newtoken
+        created_at:
+          type: string
+          x-go-name: CreatedAt
+          example: '2021-11-03T22:16:27Z'
+        expires_at:
+          type: string
+          x-go-name: ExpiresAt
+          example: '2021-12-03T19:58:34Z'
+        secret_key:
+          type: string
+          x-go-name: SecretKey
+          example: HrbZ3VTUb2YNAq53Md1EsA
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    CreateTokenRequest:
       type: object
       required:
-      - code
-      - message
+      - expires_at
       properties:
-        code:
+        alias:
           type: string
-          x-go-name: Code
-          example: '500'
-        message:
+          x-go-name: Alias
+          example: token1
+        expires_at:
           type: string
-          x-go-name: Message
-          example: internal_error
-  tokensPostResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/TokensPostResponse'
-  tokensGetResponse:
-    description: A successful response from this resource will contain json-encoded array of token details, excluding the secret key.
-    schema:
-      $ref: '#/definitions/ListTokensResponseV1Alpha5'
-  permissionsError:
-    description: Error Permissions
-    schema:
+          x-go-name: ExpiresAt
+          example: '2021-12-03T19:58:34Z'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    TokensPostResponse:
       type: object
       required:
-      - code
-      - message
+      - token
       properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '403'
-        message:
-          type: string
-          x-go-name: Message
-          example: unauthorized
-  authError:
-    description: Error Authentication Failed
-    schema:
+        token:
+          $ref: '#/components/schemas/GeneratedToken'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    TokenInfo:
+      description: These are the fields returned from a GET request.
       type: object
+      title: TokenInfo contains the Traits Island stores for a Token inside of Kratos.
       required:
-      - code
-      - message
+      - alias
+      - access_key
+      - created_at
+      - expires_at
+      - last_used
       properties:
-        code:
+        access_key:
           type: string
-          x-go-name: Code
-          example: '401'
-        message:
+          x-go-name: AccessKey
+          example: Hm11C1coQZm2+Aihn9ofYg
+        alias:
           type: string
-          x-go-name: Message
-          example: bad_credential
+          x-go-name: Alias
+          example: token1
+        created_at:
+          type: string
+          x-go-name: CreatedAt
+          example: '2021-11-03T22:16:27Z'
+        expires_at:
+          type: string
+          x-go-name: ExpiresAt
+          example: '2021-12-03T19:58:34Z'
+        last_used:
+          type: string
+          x-go-name: LastUsed
+          example: '2021-11-03T22:22:55Z'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:

@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Usage API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Usage
 paths:
@@ -21,132 +15,143 @@ paths:
       summary: Get project-level usage for products in Crusoe Cloud.
       operationId: getUsage
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: OrgID
         name: organization_id
         in: path
         required: true
-      - type: array
-        items:
+        schema:
           type: string
-        example:
+      - example:
         - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
         x-go-name: Projects
         name: projects
         in: query
         required: true
-      - type: array
-        items:
-          type: string
-        example:
+        schema:
+          type: array
+          items:
+            type: string
+      - example:
         - persistent-ssd
         - l40s-48gb.1x
         x-go-name: ResourceTypes
         name: resource_types
         in: query
         required: true
-      - type: array
-        items:
-          type: string
-        example:
+        schema:
+          type: array
+          items:
+            type: string
+      - example:
         - us-east1
         - us-southcentral1
         x-go-name: Regions
         name: regions
         in: query
         required: true
-      - type: string
-        example: '"2022-07-01"'
+        schema:
+          type: array
+          items:
+            type: string
+      - example: '"2022-07-01"'
         x-go-name: StartDate
         name: start_date
         in: query
         required: true
-      - type: string
-        example: '"2023-08-08"'
+        schema:
+          type: string
+      - example: '"2023-08-08"'
         x-go-name: EndDate
         name: end_date
         in: query
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/usageGetResponse'
+          $ref: '#/components/responses/usageGetResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
   /organizations/{organization_id}/usage/export:
     get:
-      produces:
-      - text/csv
       tags:
       - Usage
       summary: Get resource-level usage for products in Crusoe Cloud.
       operationId: getUsageExport
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: OrgID
         name: organization_id
         in: path
         required: true
-      - type: array
-        items:
+        schema:
           type: string
-        example:
+      - example:
         - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
         x-go-name: Projects
         name: projects
         in: query
         required: true
-      - type: array
-        items:
-          type: string
-        example:
+        schema:
+          type: array
+          items:
+            type: string
+      - example:
         - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
         x-go-name: Resources
         name: resources
         in: query
         required: true
-      - type: array
-        items:
-          type: string
-        example:
+        schema:
+          type: array
+          items:
+            type: string
+      - example:
         - persistent-ssd
         - l40s-48gb.1x
         x-go-name: ResourceTypes
         name: resource_types
         in: query
         required: true
-      - type: array
-        items:
-          type: string
-        example:
+        schema:
+          type: array
+          items:
+            type: string
+      - example:
         - us-east1
         - us-southcentral1
         x-go-name: Regions
         name: regions
         in: query
         required: true
-      - type: string
-        example: '"2022-07-01"'
+        schema:
+          type: array
+          items:
+            type: string
+      - example: '"2022-07-01"'
         x-go-name: StartDate
         name: start_date
         in: query
         required: true
-      - type: string
-        example: '"2023-08-08"'
+        schema:
+          type: string
+      - example: '"2023-08-08"'
         x-go-name: EndDate
         name: end_date
         in: query
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/usageExportGetResponse'
+          $ref: '#/components/responses/usageExportGetResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
   /organizations/{organization_id}/usage/options:
     get:
       tags:
@@ -154,181 +159,198 @@ paths:
       summary: Get options which exist for filters for /usage and /usage/export routes.
       operationId: getUsageOptions
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: OrgID
         name: organization_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/usageOptionsGetResponse'
+          $ref: '#/components/responses/usageOptionsGetResponse'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  UsageByProjectGetResponse:
-    type: object
-    title: UsageByProjectGetResponse is the response type for GET requests to the usage.usageByProject endpoint.
-    required:
-    - items
-    properties:
-      items:
-        type: array
+          $ref: '#/components/responses/serverError'
+components:
+  schemas:
+    UsageByProjectGetResponse:
+      type: object
+      title: UsageByProjectGetResponse is the response type for GET requests to the usage.usageByProject endpoint.
+      required:
+      - items
+      properties:
         items:
-          $ref: '#/definitions/ProjectUsageResponse'
-        x-go-name: Items
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ProjectUsageResponse:
-    type: object
-    required:
-    - resource_type
-    - project_id
-    - reservation_id
-    - region
-    - date
-    - quantity
-    - billable_metric
-    properties:
-      billable_metric:
-        type: string
-        x-go-name: Metric
-        example: '"gpu-hours"'
-      date:
-        type: string
-        x-go-name: Date
-        example: '"2022-07-01"'
-      project_id:
-        type: string
-        x-go-name: ProjectID
-        example: '"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"'
-      quantity:
-        type: number
-        format: double
-        x-go-name: Quantity
-        example: 2.123
-      region:
-        type: string
-        x-go-name: Region
-        example: '"us-southcentral1"'
-      reservation_id:
-        type: string
-        x-go-name: ReservationID
-        example: '"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"'
-      resource_type:
-        type: string
-        x-go-name: ResourceType
-        example: '"l40s-48gb.1x"'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  UsageOptions:
-    description: 'UsageOptions contains the values which exist for the fields which we allow filtering
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUsageResponse'
+          x-go-name: Items
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    UsageOptions:
+      description: 'UsageOptions contains the values which exist for the fields which we allow filtering
 
-      on for the usageByProjectGet endpoint.'
-    type: object
-    required:
-    - projects
-    - resource_types
-    - regions
-    - start_date
-    - end_date
-    properties:
-      end_date:
-        type: string
-        x-go-name: EndDate
-        example: '"2023-08-08"'
-      projects:
-        type: array
-        items:
-          type: string
-        x-go-name: Projects
-        example:
-        - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
-      regions:
-        type: array
-        items:
-          type: string
-        x-go-name: Regions
-        example:
-        - us-east1
-        - us-southcentral1
-      resource_types:
-        type: array
-        items:
-          type: string
-        x-go-name: ResourceTypes
-        example:
-        - persistent-ssd
-        - l40s-48gb.1x
-      start_date:
-        type: string
-        x-go-name: StartDate
-        example: '"2022-07-01"'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  usageGetResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/UsageByProjectGetResponse'
-  serverError:
-    description: Error Internal Server
-    schema:
+        on for the usageByProjectGet endpoint.'
       type: object
       required:
-      - code
-      - message
+      - projects
+      - resource_types
+      - regions
+      - start_date
+      - end_date
       properties:
-        code:
+        end_date:
           type: string
-          x-go-name: Code
-          example: '500'
-        message:
+          x-go-name: EndDate
+          example: '"2023-08-08"'
+        projects:
+          type: array
+          items:
+            type: string
+          x-go-name: Projects
+          example:
+          - d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb
+        regions:
+          type: array
+          items:
+            type: string
+          x-go-name: Regions
+          example:
+          - us-east1
+          - us-southcentral1
+        resource_types:
+          type: array
+          items:
+            type: string
+          x-go-name: ResourceTypes
+          example:
+          - persistent-ssd
+          - l40s-48gb.1x
+        start_date:
           type: string
-          x-go-name: Message
-          example: internal_error
-  usageExportGetResponse:
-    description: ''
-    headers:
-      metric:
-        type: string
-        example: instance-hours
-      project_id:
-        type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      quantity:
-        type: number
-        format: double
-        example: '261.271111'
-      region:
-        type: string
-        example: us-east1
-      resource_id:
-        type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      resource_type:
-        type: string
-        example: l40s-48gb.1x
-      usage_date:
-        type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-  usageOptionsGetResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/UsageOptions'
-  badReqError:
-    description: Error Bad Request
-    schema:
+          x-go-name: StartDate
+          example: '"2022-07-01"'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ProjectUsageResponse:
       type: object
       required:
-      - code
-      - message
+      - resource_type
+      - project_id
+      - reservation_id
+      - region
+      - date
+      - quantity
+      - billable_metric
       properties:
-        code:
+        billable_metric:
           type: string
-          x-go-name: Code
-          example: '400'
-        message:
+          x-go-name: Metric
+          example: '"gpu-hours"'
+        date:
           type: string
-          x-go-name: Message
-          example: bad_request
+          x-go-name: Date
+          example: '"2022-07-01"'
+        project_id:
+          type: string
+          x-go-name: ProjectID
+          example: '"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"'
+        quantity:
+          type: number
+          format: double
+          x-go-name: Quantity
+          example: 2.123
+        region:
+          type: string
+          x-go-name: Region
+          example: '"us-southcentral1"'
+        reservation_id:
+          type: string
+          x-go-name: ReservationID
+          example: '"d8f58dfd-dd86-4ee4-8f01-643e6d0f15bb"'
+        resource_type:
+          type: string
+          x-go-name: ResourceType
+          example: '"l40s-48gb.1x"'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  responses:
+    usageOptionsGetResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UsageOptions'
+    usageGetResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UsageByProjectGetResponse'
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+    usageExportGetResponse:
+      description: ''
+      headers:
+        metric:
+          example: instance-hours
+          schema:
+            type: string
+        project_id:
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+          schema:
+            type: string
+        quantity:
+          example: '261.271111'
+          schema:
+            type: number
+            format: double
+        region:
+          example: us-east1
+          schema:
+            type: string
+        resource_id:
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+          schema:
+            type: string
+        resource_type:
+          example: l40s-48gb.1x
+          schema:
+            type: string
+        usage_date:
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+          schema:
+            type: string
 x-tagGroups:
 - name: Compute
   tags:

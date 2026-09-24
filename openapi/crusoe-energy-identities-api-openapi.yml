@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Identities API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Identities
 paths:
@@ -22,175 +16,184 @@ paths:
       operationId: getUserIdentity
       responses:
         '200':
-          $ref: '#/responses/usersGetResponse'
+          $ref: '#/components/responses/usersGetResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     put:
       description: A successful response from this resource wil contain the updated user details.
       tags:
       - Identities
       summary: Update user details for the logged in user.
       operationId: updateUserIdentity
-      parameters:
-      - name: Body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/IdentityPutRequest'
       responses:
         '200':
-          $ref: '#/responses/usersPutResponse'
+          $ref: '#/components/responses/usersPutResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  Identity:
-    description: 'Identity contains the Traits Island stores for a User inside of Kratos. These are
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityPutRequest'
+        required: true
+components:
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    usersGetResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserResponse'
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+    usersPutResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserResponse'
+  schemas:
+    Identity:
+      description: 'Identity contains the Traits Island stores for a User inside of Kratos. These are
 
-      the fields returned from a GET or PUT request.'
-    type: object
-    required:
-    - id
-    - email
-    - name
-    - role
-    properties:
-      accepted_tos:
-        type: boolean
-        x-go-name: AcceptedTos
-        example: true
-      company_name:
-        type: string
-        x-go-name: CompanyName
-        example: Crusoe
-      email:
-        type: string
-        x-go-name: Email
-        example: john.doe@crusoeenergy.com
-      id:
-        type: string
-        x-go-name: ID
-      is_recovery:
-        type: boolean
-        x-go-name: IsRecoveryFlow
-        example: true
-      name:
-        type: string
-        x-go-name: Name
-        example: John Doe
-      registration_type:
-        type: string
-        x-go-name: RegistrationType
-        example: waitlist
-      role:
-        type: string
-        x-go-name: Role
-        example: Admin
-      user_state:
-        $ref: '#/definitions/UserStateEnum'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  IdentityPutRequest:
-    type: object
-    required:
-    - name
-    properties:
-      name:
-        type: string
-        x-go-name: Name
-        example: John Doe
-      role:
-        type: string
-        x-go-name: Role
-        example: Admin
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  UserResponse:
-    description: The Identity of a user is returned.
-    type: object
-    title: UserResponse is the return type from the GET and PUT handlers to User.
-    required:
-    - identity
-    properties:
-      credentials:
-        description: Credentials will be deprecated
-        type: array
-        items:
-          type: string
-        x-go-name: Credentials
-      credentials_map:
-        type: object
-        additionalProperties:
-          $ref: '#/definitions/IdentityCredential'
-        x-go-name: CredentialsMap
-      identity:
-        $ref: '#/definitions/Identity'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  UserStateEnum:
-    type: string
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/auth
-  IdentityCredential:
-    type: object
-    title: IdentityCredential represents a specific Kratos credential type, sanitized to expose to customers.
-    required:
-    - type
-    - created_at
-    - updated_at
-    properties:
-      created_at:
-        type: string
-        format: date-time
-        x-go-name: CreatedAt
-      type:
-        type: string
-        x-go-name: Type
-      updated_at:
-        type: string
-        format: date-time
-        x-go-name: UpdatedAt
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  usersPutResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/UserResponse'
-  authError:
-    description: Error Authentication Failed
-    schema:
+        the fields returned from a GET or PUT request.'
       type: object
       required:
-      - code
-      - message
+      - id
+      - email
+      - name
+      - role
       properties:
-        code:
+        accepted_tos:
+          type: boolean
+          x-go-name: AcceptedTos
+          example: true
+        company_name:
           type: string
-          x-go-name: Code
-          example: '401'
-        message:
+          x-go-name: CompanyName
+          example: Crusoe
+        email:
           type: string
-          x-go-name: Message
-          example: bad_credential
-  usersGetResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/UserResponse'
-  serverError:
-    description: Error Internal Server
-    schema:
+          x-go-name: Email
+          example: john.doe@crusoeenergy.com
+        id:
+          type: string
+          x-go-name: ID
+        is_recovery:
+          type: boolean
+          x-go-name: IsRecoveryFlow
+          example: true
+        name:
+          type: string
+          x-go-name: Name
+          example: John Doe
+        registration_type:
+          type: string
+          x-go-name: RegistrationType
+          example: waitlist
+        role:
+          type: string
+          x-go-name: Role
+          example: Admin
+        user_state:
+          $ref: '#/components/schemas/UserStateEnum'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    IdentityCredential:
+      type: object
+      title: IdentityCredential represents a specific Kratos credential type, sanitized to expose to customers.
+      required:
+      - type
+      - created_at
+      - updated_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: CreatedAt
+        type:
+          type: string
+          x-go-name: Type
+        updated_at:
+          type: string
+          format: date-time
+          x-go-name: UpdatedAt
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    UserStateEnum:
+      type: string
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/auth
+    IdentityPutRequest:
       type: object
       required:
-      - code
-      - message
+      - name
       properties:
-        code:
+        name:
           type: string
-          x-go-name: Code
-          example: '500'
-        message:
+          x-go-name: Name
+          example: John Doe
+        role:
           type: string
-          x-go-name: Message
-          example: internal_error
+          x-go-name: Role
+          example: Admin
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    UserResponse:
+      description: The Identity of a user is returned.
+      type: object
+      title: UserResponse is the return type from the GET and PUT handlers to User.
+      required:
+      - identity
+      properties:
+        credentials:
+          description: Credentials will be deprecated
+          type: array
+          items:
+            type: string
+          x-go-name: Credentials
+        credentials_map:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IdentityCredential'
+          x-go-name: CredentialsMap
+        identity:
+          $ref: '#/components/schemas/Identity'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:

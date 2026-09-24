@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Locations API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Locations
 paths:
@@ -22,62 +16,69 @@ paths:
       operationId: listLocations
       responses:
         '200':
-          $ref: '#/responses/locationsResponse'
+          $ref: '#/components/responses/locationsResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  ListLocationsResponseV1Alpha5:
-    type: object
-    required:
-    - items
-    properties:
-      items:
-        type: array
+          $ref: '#/components/responses/serverError'
+components:
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    locationsResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListLocationsResponseV1Alpha5'
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+  schemas:
+    ListLocationsResponseV1Alpha5:
+      type: object
+      required:
+      - items
+      properties:
         items:
-          type: string
-        x-go-name: Items
-        example:
-        - us-southcentral1-a
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  locationsResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListLocationsResponseV1Alpha5'
-  serverError:
-    description: Error Internal Server
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '500'
-        message:
-          type: string
-          x-go-name: Message
-          example: internal_error
-  authError:
-    description: Error Authentication Failed
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '401'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_credential
+          type: array
+          items:
+            type: string
+          x-go-name: Items
+          example:
+          - us-southcentral1-a
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:

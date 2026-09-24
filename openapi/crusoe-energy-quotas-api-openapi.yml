@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Quotas API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Quotas
 paths:
@@ -21,23 +15,24 @@ paths:
       summary: List max and currently used organization quotas.
       operationId: listOrgQuotas
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: OrgID
         name: organization_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/listOrgQuotasResponse'
+          $ref: '#/components/responses/listOrgQuotasResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
   /projects/{project_id}/quotas:
     get:
       tags:
@@ -45,198 +40,212 @@ paths:
       summary: List max and currently used project quotas.
       operationId: listProjectQuotas
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/listProjectQuotasResponse'
+          $ref: '#/components/responses/listProjectQuotasResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  OrgQuota:
-    type: object
-    properties:
-      available:
-        description: Available is the remaining quota available to the org
-        type: integer
-        format: int64
-        x-go-name: Available
-        example: 6
-      description:
-        description: Description is the customer-facing description of the quota
-        type: string
-        x-go-name: Description
-        example: Users
-      max:
-        description: Max is the maximum quota allowed for the resource in the org
-        type: integer
-        format: int64
-        x-go-name: Max
-        example: 10
-      programmatic_name:
-        description: ProgrammaticName is the external, human-friendly identifier for the quota
-        type: string
-        x-go-name: ProgrammaticName
-        example: users
-      type:
-        description: Type is the enum quota type. This is meant to be used internally
-        type: string
-        x-go-name: Type
-        example: ORG_QUOTAS_MAXIMUM_USERS
-      used:
-        description: Used is the current quota consumed by the org
-        type: integer
-        format: int64
-        x-go-name: Used
-        example: 4
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ProjectQuota:
-    type: object
-    properties:
-      available:
-        description: Used is the remaining quota available
-        type: integer
-        format: int64
-        x-go-name: Available
-        example: 6
-      category:
-        description: Category is the quota category
-        type: string
-        x-go-name: Category
-        example: GPU Instance, Storage
-      description:
-        description: Description is the customer-facing description of the quota
-        type: string
-        x-go-name: Description
-        example: A40 PCIe
-      max:
-        description: Max is the maximum quota allowed for the resource in the project
-        type: integer
-        format: int64
-        x-go-name: Max
-        example: 10
-      programmatic_name:
-        description: ProgrammaticName is the external name of the resource the quota applies to
-        type: string
-        x-go-name: ProgrammaticName
-        example: l40s
-      type:
-        description: Type is the enum quota type. This is meant to be used internally
-        type: string
-        x-go-name: Type
-        example: PROJECT_QUOTA_TYPE_MAXIMUM_VM_SLICES_VCPU_6_MEM_60_A40_PCIE_48GB_1
-      used:
-        description: Used is the current quota consumed by the project
-        type: integer
-        format: int64
-        x-go-name: Used
-        example: 4
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListOrgQuotasResponse:
-    type: object
-    title: ListOrgQuotasResponse is the response for listing a org's quotas.
-    properties:
-      quotas:
-        description: Quotas are all returned org quotas
-        type: array
-        items:
-          $ref: '#/definitions/OrgQuota'
-        x-go-name: Quotas
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListProjectQuotasResponse:
-    type: object
-    title: ListProjectQuotasResponse is the response for listing a project's quotas.
-    properties:
-      quotas:
-        description: Quotas are all returned project quotas
-        type: array
-        items:
-          $ref: '#/definitions/ProjectQuota'
-        x-go-name: Quotas
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  listProjectQuotasResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListProjectQuotasResponse'
-  listOrgQuotasResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListOrgQuotasResponse'
-  serverError:
-    description: Error Internal Server
-    schema:
+          $ref: '#/components/responses/serverError'
+components:
+  responses:
+    listProjectQuotasResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListProjectQuotasResponse'
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    listOrgQuotasResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListOrgQuotasResponse'
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    permissionsError:
+      description: Error Permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '403'
+              message:
+                type: string
+                x-go-name: Message
+                example: unauthorized
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+  schemas:
+    OrgQuota:
       type: object
-      required:
-      - code
-      - message
       properties:
-        code:
+        available:
+          description: Available is the remaining quota available to the org
+          type: integer
+          format: int64
+          x-go-name: Available
+          example: 6
+        description:
+          description: Description is the customer-facing description of the quota
           type: string
-          x-go-name: Code
-          example: '500'
-        message:
+          x-go-name: Description
+          example: Users
+        max:
+          description: Max is the maximum quota allowed for the resource in the org
+          type: integer
+          format: int64
+          x-go-name: Max
+          example: 10
+        programmatic_name:
+          description: ProgrammaticName is the external, human-friendly identifier for the quota
           type: string
-          x-go-name: Message
-          example: internal_error
-  badReqError:
-    description: Error Bad Request
-    schema:
+          x-go-name: ProgrammaticName
+          example: users
+        type:
+          description: Type is the enum quota type. This is meant to be used internally
+          type: string
+          x-go-name: Type
+          example: ORG_QUOTAS_MAXIMUM_USERS
+        used:
+          description: Used is the current quota consumed by the org
+          type: integer
+          format: int64
+          x-go-name: Used
+          example: 4
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListProjectQuotasResponse:
       type: object
-      required:
-      - code
-      - message
+      title: ListProjectQuotasResponse is the response for listing a project's quotas.
       properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '400'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_request
-  permissionsError:
-    description: Error Permissions
-    schema:
+        quotas:
+          description: Quotas are all returned project quotas
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectQuota'
+          x-go-name: Quotas
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ProjectQuota:
       type: object
-      required:
-      - code
-      - message
       properties:
-        code:
+        available:
+          description: Used is the remaining quota available
+          type: integer
+          format: int64
+          x-go-name: Available
+          example: 6
+        category:
+          description: Category is the quota category
           type: string
-          x-go-name: Code
-          example: '403'
-        message:
+          x-go-name: Category
+          example: GPU Instance, Storage
+        description:
+          description: Description is the customer-facing description of the quota
           type: string
-          x-go-name: Message
-          example: unauthorized
-  authError:
-    description: Error Authentication Failed
-    schema:
+          x-go-name: Description
+          example: A40 PCIe
+        max:
+          description: Max is the maximum quota allowed for the resource in the project
+          type: integer
+          format: int64
+          x-go-name: Max
+          example: 10
+        programmatic_name:
+          description: ProgrammaticName is the external name of the resource the quota applies to
+          type: string
+          x-go-name: ProgrammaticName
+          example: l40s
+        type:
+          description: Type is the enum quota type. This is meant to be used internally
+          type: string
+          x-go-name: Type
+          example: PROJECT_QUOTA_TYPE_MAXIMUM_VM_SLICES_VCPU_6_MEM_60_A40_PCIE_48GB_1
+        used:
+          description: Used is the current quota consumed by the project
+          type: integer
+          format: int64
+          x-go-name: Used
+          example: 4
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListOrgQuotasResponse:
       type: object
-      required:
-      - code
-      - message
+      title: ListOrgQuotasResponse is the response for listing a org's quotas.
       properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '401'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_credential
+        quotas:
+          description: Quotas are all returned org quotas
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgQuota'
+          x-go-name: Quotas
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:

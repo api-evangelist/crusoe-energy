@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Entities API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Entities
 paths:
@@ -22,11 +16,11 @@ paths:
       operationId: getOrganizations
       responses:
         '200':
-          $ref: '#/responses/organizationsGetResponse'
+          $ref: '#/components/responses/organizationsGetResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     put:
       description: A successful response from this resource will contain the updated organization details.
       tags:
@@ -34,262 +28,277 @@ paths:
       summary: Update details for an organization that the logged in user owns.
       operationId: updateOrganization
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: OrgID
         name: org_id
         in: query
         required: true
-      - name: Body
-        in: body
-        required: true
         schema:
-          $ref: '#/definitions/EntitiesPutPostRequest'
+          type: string
       responses:
         '200':
-          $ref: '#/responses/organizationsPutPostResponse'
+          $ref: '#/components/responses/organizationsPutPostResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  EntitiesPutPostResponse:
-    type: object
-    title: EntitiesPutPostResponse is the response type for PUT and POST requests to the entities endpoint.
-    required:
-    - entity
-    properties:
-      entity:
-        $ref: '#/definitions/Entity'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  Entity:
-    type: object
-    title: Entity contains identifying information for an organization.
-    required:
-    - id
-    - name
-    - relation
-    - billing
-    - features
-    - state
-    - state_reason
-    properties:
-      billing:
-        $ref: '#/definitions/Billing'
-      billing_addr:
-        $ref: '#/definitions/BillingAddress'
-      features:
-        type: object
-        additionalProperties: {}
-        x-go-name: Features
-      id:
-        type: string
-        x-go-name: ID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      mfa_methods:
-        type: array
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntitiesPutPostRequest'
+        required: true
+components:
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    organizationsGetResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListEntitiesResponseV1Alpha5'
+    organizationsPutPostResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntitiesPutPostResponse'
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    permissionsError:
+      description: Error Permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '403'
+              message:
+                type: string
+                x-go-name: Message
+                example: unauthorized
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+  schemas:
+    Entity:
+      type: object
+      title: Entity contains identifying information for an organization.
+      required:
+      - id
+      - name
+      - relation
+      - billing
+      - features
+      - state
+      - state_reason
+      properties:
+        billing:
+          $ref: '#/components/schemas/Billing'
+        billing_addr:
+          $ref: '#/components/schemas/BillingAddress'
+        features:
+          type: object
+          additionalProperties: {}
+          x-go-name: Features
+        id:
+          type: string
+          x-go-name: ID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        mfa_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationMFA'
+          x-go-name: MFAMethods
+        name:
+          type: string
+          x-go-name: Name
+          example: Crusoe Energy
+        organization_type:
+          type: string
+          enum:
+          - standard
+          - enterprise
+          x-go-name: OrganizationType
+        registration_type:
+          type: string
+          x-go-name: RegistrationType
+          example: waitlist
+        relation:
+          type: string
+          x-go-name: Relation
+          example: owner
+        state:
+          type: string
+          x-go-name: State
+        state_reason:
+          type: string
+          x-go-name: StateReason
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    BillingAddress:
+      type: object
+      title: BillingAddress contains sensitive information related to the billing address for an entity.
+      required:
+      - address_line1
+      - city
+      - state_or_region
+      - postal_code
+      - country
+      properties:
+        address_line1:
+          type: string
+          x-go-name: AddressLine1
+          example: 123 Main Street
+        address_line2:
+          type: string
+          x-go-name: AddressLine2
+          example: Suite 400
+        city:
+          type: string
+          x-go-name: City
+          example: Denver
+        country:
+          type: string
+          x-go-name: Country
+          example: US
+        postal_code:
+          type: string
+          x-go-name: PostalCode
+          example: '80202'
+        state_or_region:
+          type: string
+          x-go-name: StateOrRegion
+          example: Colorado
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    EntitiesPutPostResponse:
+      type: object
+      title: EntitiesPutPostResponse is the response type for PUT and POST requests to the entities endpoint.
+      required:
+      - entity
+      properties:
+        entity:
+          $ref: '#/components/schemas/Entity'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    Billing:
+      type: object
+      title: Billing contains information about the billing status of an organization.
+      required:
+      - balance
+      - has_valid_payment_method
+      - delinquent
+      properties:
+        balance:
+          type: string
+          x-go-name: Balance
+          example: $1000.00
+        delinquent:
+          type: boolean
+          x-go-name: Delinquent
+          example: false
+        has_valid_payment_method:
+          type: boolean
+          x-go-name: HasValidPaymentMethod
+          example: true
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    OrganizationMFA:
+      type: object
+      title: OrganizationMFA contains details about a single required MFA method.
+      required:
+      - method
+      - created_at
+      properties:
+        created_at:
+          type: string
+          x-go-name: CreatedAt
+          example: '2021-12-03T19:58:34Z'
+        method:
+          type: string
+          enum:
+          - totp
+          - webauthn
+          x-go-name: Method
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListEntitiesResponseV1Alpha5:
+      type: object
+      title: ListEntitiesResponseV1Alpha5 is the response type for GET requests to the entities endpoint.
+      required:
+      - items
+      properties:
         items:
-          $ref: '#/definitions/OrganizationMFA'
-        x-go-name: MFAMethods
-      name:
-        type: string
-        x-go-name: Name
-        example: Crusoe Energy
-      organization_type:
-        type: string
-        enum:
-        - standard
-        - enterprise
-        x-go-name: OrganizationType
-      registration_type:
-        type: string
-        x-go-name: RegistrationType
-        example: waitlist
-      relation:
-        type: string
-        x-go-name: Relation
-        example: owner
-      state:
-        type: string
-        x-go-name: State
-      state_reason:
-        type: string
-        x-go-name: StateReason
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  BillingAddress:
-    type: object
-    title: BillingAddress contains sensitive information related to the billing address for an entity.
-    required:
-    - address_line1
-    - city
-    - state_or_region
-    - postal_code
-    - country
-    properties:
-      address_line1:
-        type: string
-        x-go-name: AddressLine1
-        example: 123 Main Street
-      address_line2:
-        type: string
-        x-go-name: AddressLine2
-        example: Suite 400
-      city:
-        type: string
-        x-go-name: City
-        example: Denver
-      country:
-        type: string
-        x-go-name: Country
-        example: US
-      postal_code:
-        type: string
-        x-go-name: PostalCode
-        example: '80202'
-      state_or_region:
-        type: string
-        x-go-name: StateOrRegion
-        example: Colorado
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  OrganizationMFA:
-    type: object
-    title: OrganizationMFA contains details about a single required MFA method.
-    required:
-    - method
-    - created_at
-    properties:
-      created_at:
-        type: string
-        x-go-name: CreatedAt
-        example: '2021-12-03T19:58:34Z'
-      method:
-        type: string
-        enum:
-        - totp
-        - webauthn
-        x-go-name: Method
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  EntitiesPutPostRequest:
-    type: object
-    title: EntitiesPutPostRequest is the request type for PUT and POST requests to the entities endpoint.
-    properties:
-      billing_addr:
-        $ref: '#/definitions/BillingAddress'
-      organization_name:
-        type: string
-        x-go-name: OrganizationName
-        example: Crusoe Energy
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  Billing:
-    type: object
-    title: Billing contains information about the billing status of an organization.
-    required:
-    - balance
-    - has_valid_payment_method
-    - delinquent
-    properties:
-      balance:
-        type: string
-        x-go-name: Balance
-        example: $1000.00
-      delinquent:
-        type: boolean
-        x-go-name: Delinquent
-        example: false
-      has_valid_payment_method:
-        type: boolean
-        x-go-name: HasValidPaymentMethod
-        example: true
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListEntitiesResponseV1Alpha5:
-    type: object
-    title: ListEntitiesResponseV1Alpha5 is the response type for GET requests to the entities endpoint.
-    required:
-    - items
-    properties:
-      items:
-        type: array
-        items:
-          $ref: '#/definitions/Entity'
-        x-go-name: Items
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  serverError:
-    description: Error Internal Server
-    schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+          x-go-name: Items
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    EntitiesPutPostRequest:
       type: object
-      required:
-      - code
-      - message
+      title: EntitiesPutPostRequest is the request type for PUT and POST requests to the entities endpoint.
       properties:
-        code:
+        billing_addr:
+          $ref: '#/components/schemas/BillingAddress'
+        organization_name:
           type: string
-          x-go-name: Code
-          example: '500'
-        message:
-          type: string
-          x-go-name: Message
-          example: internal_error
-  organizationsGetResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListEntitiesResponseV1Alpha5'
-  badReqError:
-    description: Error Bad Request
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '400'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_request
-  organizationsPutPostResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/EntitiesPutPostResponse'
-  permissionsError:
-    description: Error Permissions
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '403'
-        message:
-          type: string
-          x-go-name: Message
-          example: unauthorized
-  authError:
-    description: Error Authentication Failed
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '401'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_credential
+          x-go-name: OrganizationName
+          example: Crusoe Energy
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:

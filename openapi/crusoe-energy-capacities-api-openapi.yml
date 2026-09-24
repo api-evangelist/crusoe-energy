@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Capacities API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Capacities
 paths:
@@ -21,143 +15,156 @@ paths:
       summary: Lists available Crusoe Cloud capacity with optional filters on location and product name.
       operationId: listSliceCapacities
       parameters:
-      - type: array
-        items:
-          type: string
-        example: '[l40s-48gb.1x, l40s-48gb.2x]'
+      - example: '[l40s-48gb.1x, l40s-48gb.2x]'
         x-go-name: ProductNames
         name: product_name
         in: query
-      - type: array
-        items:
-          type: string
-        example: '[us-southcentral1-a, us-east1-a]'
+        schema:
+          type: array
+          items:
+            type: string
+      - example: '[us-southcentral1-a, us-east1-a]'
         x-go-name: Locations
         name: location
         in: query
+        schema:
+          type: array
+          items:
+            type: string
       responses:
         '200':
-          $ref: '#/responses/capacitiesResponse'
+          $ref: '#/components/responses/capacitiesResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  CapacityV1Alpha5:
-    type: object
-    required:
-    - location
-    - quantity
-    properties:
-      location:
-        type: string
-        x-go-name: Location
-        example: us-east
-      num_slices:
-        description: NumSlices is the number of slices that make up the resource
-        type: integer
-        format: uint32
-        x-go-name: NumSlices
-        example: 1
-      quantity:
-        type: integer
-        format: uint32
-        x-go-name: Quantity
-        example: 8
-      quota_type:
-        description: QuotaType is the enum string for the quota type consumed by this resource
-        type: string
-        x-go-name: QuotaType
-        example: PROJECT_QUOTA_TYPE_MAXIMUM_VM_SLICES_VCPU_6_MEM_60_A40_PCIE_48GB_1
-      type:
-        type: string
-        x-go-name: Type
-        example: a100.2x
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListCapacitiesResponseV1Alpha5:
-    type: object
-    required:
-    - items
-    properties:
-      items:
-        type: array
+          $ref: '#/components/responses/serverError'
+components:
+  schemas:
+    CapacityV1Alpha5:
+      type: object
+      required:
+      - location
+      - quantity
+      properties:
+        location:
+          type: string
+          x-go-name: Location
+          example: us-east
+        num_slices:
+          description: NumSlices is the number of slices that make up the resource
+          type: integer
+          format: uint32
+          x-go-name: NumSlices
+          example: 1
+        quantity:
+          type: integer
+          format: uint32
+          x-go-name: Quantity
+          example: 8
+        quota_type:
+          description: QuotaType is the enum string for the quota type consumed by this resource
+          type: string
+          x-go-name: QuotaType
+          example: PROJECT_QUOTA_TYPE_MAXIMUM_VM_SLICES_VCPU_6_MEM_60_A40_PCIE_48GB_1
+        type:
+          type: string
+          x-go-name: Type
+          example: a100.2x
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListCapacitiesResponseV1Alpha5:
+      type: object
+      required:
+      - items
+      properties:
         items:
-          $ref: '#/definitions/CapacityV1Alpha5'
-        x-go-name: Items
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  serverError:
-    description: Error Internal Server
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '500'
-        message:
-          type: string
-          x-go-name: Message
-          example: internal_error
-  capacitiesResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListCapacitiesResponseV1Alpha5'
-  badReqError:
-    description: Error Bad Request
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '400'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_request
-  permissionsError:
-    description: Error Permissions
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '403'
-        message:
-          type: string
-          x-go-name: Message
-          example: unauthorized
-  authError:
-    description: Error Authentication Failed
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '401'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_credential
+          type: array
+          items:
+            $ref: '#/components/schemas/CapacityV1Alpha5'
+          x-go-name: Items
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    capacitiesResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListCapacitiesResponseV1Alpha5'
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    permissionsError:
+      description: Error Permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '403'
+              message:
+                type: string
+                x-go-name: Message
+                example: unauthorized
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
 x-tagGroups:
 - name: Compute
   tags:

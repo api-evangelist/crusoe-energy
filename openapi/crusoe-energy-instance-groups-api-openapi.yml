@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Instance Groups API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Instance Groups
 paths:
@@ -21,45 +15,48 @@ paths:
       summary: Lists all instance groups.
       operationId: listInstanceGroups
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/listInstanceGroupsResponse'
+          $ref: '#/components/responses/listInstanceGroupsResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     post:
       tags:
       - Instance Groups
       summary: Create an instance group.
       operationId: createInstanceGroup
       parameters:
-      - name: Body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/InstanceGroupPostRequest'
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/createInstanceGroupResponse'
+          $ref: '#/components/responses/createInstanceGroupResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstanceGroupPostRequest'
+        required: true
   /projects/{project_id}/compute/instance-groups/{instance_group_id}:
     get:
       tags:
@@ -67,305 +64,329 @@ paths:
       summary: Retrieve details about an instance group.
       operationId: getInstanceGroup
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: InstanceGroupID
         name: instance_group_id
         in: path
         required: true
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        schema:
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/getInstanceGroupResponse'
+          $ref: '#/components/responses/getInstanceGroupResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '404':
-          $ref: '#/responses/notFoundError'
+          $ref: '#/components/responses/notFoundError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     delete:
       tags:
       - Instance Groups
       summary: Delete an instance group.
       operationId: deleteInstanceGroup
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: InstanceGroupID
         name: instance_group_id
         in: path
         required: true
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        schema:
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/emptyResponse'
+          $ref: '#/components/responses/emptyResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     patch:
       tags:
       - Instance Groups
       summary: Update an instance group.
       operationId: patchInstanceGroup
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: InstanceGroupID
         name: instance_group_id
         in: path
         required: true
-      - name: Body
-        in: body
-        required: true
         schema:
-          $ref: '#/definitions/InstanceGroupPatchRequest'
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/patchInstanceGroupResponse'
+          $ref: '#/components/responses/patchInstanceGroupResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  InstanceGroupPatchRequest:
-    description: 'This is a separate type from InstanceGroupPostRequest for clearer documentation, as these fields are not required
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstanceGroupPatchRequest'
+        required: true
+components:
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    emptyResponse:
+      description: Empty Response
+    createInstanceGroupResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InstanceGroup'
+    patchInstanceGroupResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InstanceGroup'
+    notFoundError:
+      description: Error Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '404'
+              message:
+                type: string
+                x-go-name: Message
+                example: not_found
+    getInstanceGroupResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InstanceGroup'
+    listInstanceGroupsResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListInstanceGroupsResponse'
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+  schemas:
+    InstanceGroup:
+      type: object
+      title: InstanceGroup defines the specification of an instance group.
+      required:
+      - name
+      - id
+      - template_id
+      - created_at
+      - updated_at
+      - project_id
+      - running_instance_count
+      - instances
+      - desired_count
+      properties:
+        created_at:
+          description: Time the instance template was created.
+          type: string
+          x-go-name: CreatedAt
+          example: '2024-01-01T00:00:00Z'
+        desired_count:
+          description: Desired VM Count for the instance group.
+          type: integer
+          format: int64
+          x-go-name: DesiredCount
+          example: 3
+        id:
+          description: ID of the instance group.
+          type: string
+          x-go-name: ID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        instances:
+          description: A list of IDs of instances currently in the instance group.
+          type: array
+          items:
+            type: string
+          x-go-name: Instances
+          example:
+          - 066ce497-889e-4899-b53e-400df3fb7c0e
+        name:
+          description: Name of the instance group.
+          type: string
+          x-go-name: Name
+          example: my-instance-group
+        project_id:
+          description: Project ID of the project this instance template belongs to.
+          type: string
+          x-go-name: ProjectID
+          example: b67aec22-2908-4427-994c-4e32be87477e
+        running_instance_count:
+          description: The number of running instances currently in the Instance Group.
+          type: integer
+          format: int64
+          x-go-name: RunningInstanceCount
+          example: 3
+        template_id:
+          description: Instance Template ID currently associated with the instance group.
+          type: string
+          x-go-name: TemplateID
+          example: 7e6a6c5a-1314-409a-9e4f-3cc9f2a68fcc
+        updated_at:
+          description: Most recent time the instance group was updated.
+          type: string
+          x-go-name: UpdatedAt
+          example: '2024-01-01T00:00:00Z'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    DesiredCount:
+      type: object
+      title: DesiredCount defines a wrapper struct for the desired count of VMs in the instance group.
+      properties:
+        value:
+          type: integer
+          format: int64
+          x-go-name: Value
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    InstanceGroupPatchRequest:
+      description: 'This is a separate type from InstanceGroupPostRequest for clearer documentation, as these fields are not required
 
-      in the PATCH endpoint.'
-    type: object
-    title: InstanceGroupPatchRequest defines the specifications of the updates to be made to the instance group.
-    properties:
-      desired_count:
-        $ref: '#/definitions/DesiredCount'
-      name:
-        description: Name of the instance group.
-        type: string
-        x-go-name: Name
-        example: my-instance-group
-      template_id:
-        description: Instance Template ID to be associated with the instance group.
-        type: string
-        x-go-name: TemplateID
-        example: 7e6a6c5a-1314-409a-9e4f-3cc9f2a68fcc
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListInstanceGroupsResponse:
-    description: 'ListInstanceGroupsResponse is the resource response type for GET
+        in the PATCH endpoint.'
+      type: object
+      title: InstanceGroupPatchRequest defines the specifications of the updates to be made to the instance group.
+      properties:
+        desired_count:
+          $ref: '#/components/schemas/DesiredCount'
+        name:
+          description: Name of the instance group.
+          type: string
+          x-go-name: Name
+          example: my-instance-group
+        template_id:
+          description: Instance Template ID to be associated with the instance group.
+          type: string
+          x-go-name: TemplateID
+          example: 7e6a6c5a-1314-409a-9e4f-3cc9f2a68fcc
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    InstanceGroupPostRequest:
+      type: object
+      title: InstanceGroupPostRequest defines the specifications of the instance group to be created.
+      required:
+      - name
+      - template_id
+      - desired_count
+      properties:
+        desired_count:
+          description: Desired VM Count for the instance group.
+          type: integer
+          format: int64
+          x-go-name: DesiredCount
+          example: 3
+        name:
+          description: Name of the instance group.
+          type: string
+          x-go-name: Name
+          example: my-instance-group
+        template_id:
+          description: Instance Template ID to be associated with the instance group.
+          type: string
+          x-go-name: TemplateID
+          example: 7e6a6c5a-1314-409a-9e4f-3cc9f2a68fcc
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListInstanceGroupsResponse:
+      description: 'ListInstanceGroupsResponse is the resource response type for GET
 
-      requests to the InstanceGroup endpoint.'
-    type: object
-    required:
-    - items
-    properties:
-      items:
-        type: array
+        requests to the InstanceGroup endpoint.'
+      type: object
+      required:
+      - items
+      properties:
         items:
-          $ref: '#/definitions/InstanceGroup'
-        x-go-name: Items
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  InstanceGroup:
-    type: object
-    title: InstanceGroup defines the specification of an instance group.
-    required:
-    - name
-    - id
-    - template_id
-    - created_at
-    - updated_at
-    - project_id
-    - running_instance_count
-    - instances
-    - desired_count
-    properties:
-      created_at:
-        description: Time the instance template was created.
-        type: string
-        x-go-name: CreatedAt
-        example: '2024-01-01T00:00:00Z'
-      desired_count:
-        description: Desired VM Count for the instance group.
-        type: integer
-        format: int64
-        x-go-name: DesiredCount
-        example: 3
-      id:
-        description: ID of the instance group.
-        type: string
-        x-go-name: ID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      instances:
-        description: A list of IDs of instances currently in the instance group.
-        type: array
-        items:
-          type: string
-        x-go-name: Instances
-        example:
-        - 066ce497-889e-4899-b53e-400df3fb7c0e
-      name:
-        description: Name of the instance group.
-        type: string
-        x-go-name: Name
-        example: my-instance-group
-      project_id:
-        description: Project ID of the project this instance template belongs to.
-        type: string
-        x-go-name: ProjectID
-        example: b67aec22-2908-4427-994c-4e32be87477e
-      running_instance_count:
-        description: The number of running instances currently in the Instance Group.
-        type: integer
-        format: int64
-        x-go-name: RunningInstanceCount
-        example: 3
-      template_id:
-        description: Instance Template ID currently associated with the instance group.
-        type: string
-        x-go-name: TemplateID
-        example: 7e6a6c5a-1314-409a-9e4f-3cc9f2a68fcc
-      updated_at:
-        description: Most recent time the instance group was updated.
-        type: string
-        x-go-name: UpdatedAt
-        example: '2024-01-01T00:00:00Z'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  InstanceGroupPostRequest:
-    type: object
-    title: InstanceGroupPostRequest defines the specifications of the instance group to be created.
-    required:
-    - name
-    - template_id
-    - desired_count
-    properties:
-      desired_count:
-        description: Desired VM Count for the instance group.
-        type: integer
-        format: int64
-        x-go-name: DesiredCount
-        example: 3
-      name:
-        description: Name of the instance group.
-        type: string
-        x-go-name: Name
-        example: my-instance-group
-      template_id:
-        description: Instance Template ID to be associated with the instance group.
-        type: string
-        x-go-name: TemplateID
-        example: 7e6a6c5a-1314-409a-9e4f-3cc9f2a68fcc
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  DesiredCount:
-    type: object
-    title: DesiredCount defines a wrapper struct for the desired count of VMs in the instance group.
-    properties:
-      value:
-        type: integer
-        format: int64
-        x-go-name: Value
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  getInstanceGroupResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/InstanceGroup'
-  createInstanceGroupResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/InstanceGroup'
-  emptyResponse:
-    description: Empty Response
-  listInstanceGroupsResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListInstanceGroupsResponse'
-  serverError:
-    description: Error Internal Server
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '500'
-        message:
-          type: string
-          x-go-name: Message
-          example: internal_error
-  patchInstanceGroupResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/InstanceGroup'
-  notFoundError:
-    description: Error Not Found
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '404'
-        message:
-          type: string
-          x-go-name: Message
-          example: not_found
-  badReqError:
-    description: Error Bad Request
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '400'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_request
-  authError:
-    description: Error Authentication Failed
-    schema:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '401'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_credential
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceGroup'
+          x-go-name: Items
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:

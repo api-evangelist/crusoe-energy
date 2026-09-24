@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The API Gateway exposes all publicly available API endpoints for Crusoe Cloud products.
   title: Crusoe Cloud API Gateway Audit Logs Load Balancers API
   version: v1alpha5
-host: api.crusoecloud.com
-basePath: /v1alpha5
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.crusoecloud.com/v1alpha5
 tags:
 - name: Load Balancers
 paths:
@@ -21,34 +15,38 @@ paths:
       summary: Retrieve information about External Load Balancer belonging to the project.
       operationId: listExternalLoadBalancers
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
-      - type: string
-        example: us-east1
+        schema:
+          type: string
+      - example: us-east1
         x-go-name: Location
         name: location
         in: query
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        schema:
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: VPCNetworkID
         name: vpc_network_id
         in: query
-      - type: string
-        example: my-loadbalancer-test
+        schema:
+          type: string
+      - example: my-loadbalancer-test
         x-go-name: Name
         name: name
         in: query
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/listExternalLoadBalancersResponse'
+          $ref: '#/components/responses/listExternalLoadBalancersResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     post:
       description: This endpoint creates a new external load balancer in the specified project. The request must include the VPC ID, name, location, and at least one listen port with its associated backends.
       tags:
@@ -56,28 +54,30 @@ paths:
       summary: Create a new external load balancer.
       operationId: createExternalLoadBalancer
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         description: The project ID to which the external load balancer belongs.
         name: project_id
         in: path
         required: true
-      - description: Request body for creating the external load balancer.
-        name: Body
-        in: body
-        required: true
         schema:
-          $ref: '#/definitions/ExternalLoadBalancerPostRequest'
+          type: string
       responses:
         '200':
-          $ref: '#/responses/asyncOperationResponse'
+          $ref: '#/components/responses/asyncOperationResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalLoadBalancerPostRequest'
+        description: Request body for creating the external load balancer.
+        required: true
   /projects/{project_id}/networking/load-balancers/{load_balancer_id}:
     get:
       tags:
@@ -85,25 +85,27 @@ paths:
       summary: Retrieve information about a particular external load balancer belonging to the project.
       operationId: getExternalLoadBalancer
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         name: project_id
         in: path
         required: true
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        schema:
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: LoadBalancerID
         name: load_balancer_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/getExternalLoadBalancerResponse'
+          $ref: '#/components/responses/getExternalLoadBalancerResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     delete:
       description: This endpoint deletes an external load balancer identified by its ID within the specified project. No request body or query parameters are required.
       tags:
@@ -111,29 +113,31 @@ paths:
       summary: Delete an external load balancer.
       operationId: deleteExternalLoadBalancer
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         description: The project ID to which the external load balancer belongs.
         name: project_id
         in: path
         required: true
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        schema:
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: LoadBalancerID
         description: The ID of the external load balancer to delete.
         name: load_balancer_id
         in: path
         required: true
+        schema:
+          type: string
       responses:
         '200':
-          $ref: '#/responses/asyncOperationResponse'
+          $ref: '#/components/responses/asyncOperationResponse'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '403':
-          $ref: '#/responses/permissionsError'
+          $ref: '#/components/responses/permissionsError'
         '500':
-          $ref: '#/responses/serverError'
+          $ref: '#/components/responses/serverError'
     patch:
       description: This endpoint updates the configuration of an existing external load balancer. The request must include the load balancer ID and optionally the health check options and/or listen ports and associated backends.
       tags:
@@ -141,386 +145,406 @@ paths:
       summary: Update an existing external load balancer.
       operationId: updateExternalLoadBalancer
       parameters:
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: ProjectID
         description: The project ID to which the external load balancer belongs.
         name: project_id
         in: path
         required: true
-      - type: string
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        schema:
+          type: string
+      - example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
         x-go-name: LoadBalancerID
         description: The ID of the external load balancer to update.
         name: load_balancer_id
         in: path
         required: true
-      - description: Request body for updating the external load balancer.
-        name: Body
-        in: body
-        required: true
         schema:
-          $ref: '#/definitions/ExternalLoadBalancerPatchRequest'
+          type: string
       responses:
         '200':
-          $ref: '#/responses/asyncOperationResponse'
+          $ref: '#/components/responses/asyncOperationResponse'
         '400':
-          $ref: '#/responses/badReqError'
+          $ref: '#/components/responses/badReqError'
         '401':
-          $ref: '#/responses/authError'
+          $ref: '#/components/responses/authError'
         '404':
-          $ref: '#/responses/notFoundError'
+          $ref: '#/components/responses/notFoundError'
         '500':
-          $ref: '#/responses/serverError'
-definitions:
-  Operation:
-    description: 'Individual resources that use Operations should populate the `metadata` field
+          $ref: '#/components/responses/serverError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalLoadBalancerPatchRequest'
+        description: Request body for updating the external load balancer.
+        required: true
+components:
+  responses:
+    authError:
+      description: Error Authentication Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '401'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_credential
+    permissionsError:
+      description: Error Permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '403'
+              message:
+                type: string
+                x-go-name: Message
+                example: unauthorized
+    listExternalLoadBalancersResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListExternalLoadBalancersResponse'
+    getExternalLoadBalancerResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExternalLoadBalancer'
+    asyncOperationResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AsyncOperationResponse'
+    notFoundError:
+      description: Error Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '404'
+              message:
+                type: string
+                x-go-name: Message
+                example: not_found
+    badReqError:
+      description: Error Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '400'
+              message:
+                type: string
+                x-go-name: Message
+                example: bad_request
+    serverError:
+      description: Error Internal Server
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                x-go-name: Code
+                example: '500'
+              message:
+                type: string
+                x-go-name: Message
+                example: internal_error
+  schemas:
+    ListExternalLoadBalancersResponse:
+      type: object
+      required:
+      - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLoadBalancer'
+          x-go-name: Items
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    Operation:
+      description: 'Individual resources that use Operations should populate the `metadata` field
 
-      with resource-specific information.'
-    type: object
-    title: Operation contains the common fields for all Operation API objects.
-    required:
-    - operation_id
-    - state
-    - metadata
-    - started_at
-    - completed_at
-    properties:
-      completed_at:
-        type: string
-        x-go-name: CompletedAt
-        example: '2021-12-03T19:59:34Z'
-      metadata:
-        x-go-name: Metadata
-        example: '{}'
-      operation_id:
-        type: string
-        x-go-name: ID
-        example: F6EF489C-086E-458D-B812-7962964A28C9
-      result:
-        x-go-name: Result
-        example: '{}'
-      started_at:
-        type: string
-        x-go-name: StartedAt
-        example: '2021-12-03T19:58:34Z'
-      state:
-        type: string
-        enum:
-        - IN_PROGRESS
-        - SUCCEEDED
-        - FAILED
-        x-go-name: State
-        example: IN_PROGRESS
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  AsyncOperationResponse:
-    type: object
-    title: AsyncOperationResponse is the response type for endpoints which return async operations.
-    required:
-    - operation
-    properties:
-      operation:
-        $ref: '#/definitions/Operation'
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ExternalLoadBalancer:
-    type: object
-    title: ExternalLoadBalancer defines the specifications of the External Load Balancer.
-    required:
-    - id
-    - project_id
-    - vpc_id
-    - name
-    - location
-    - protocol
-    - vip
-    - listen_ports_and_backends
-    - health_check_options
-    properties:
-      health_check_options:
-        $ref: '#/definitions/HealthCheckOptionsExternalLB'
-      id:
-        description: ID of the External Load Balancer.
-        type: string
-        x-go-name: ID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      listen_ports_and_backends:
-        description: Listen ports and backends configuration.
-        type: array
-        items:
-          $ref: '#/definitions/ListenPortAndBackend'
-        x-go-name: ListenPortsAndBackends
-      location:
-        description: Location of the External Load Balancer.
-        type: string
-        x-go-name: Location
-      name:
-        description: Name of the External Load Balancer.
-        type: string
-        x-go-name: Name
-        example: my-external-load-balancer
-      project_id:
-        description: The ID of the project this External Load Balancer belongs to.
-        type: string
-        x-go-name: ProjectID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      protocol:
-        description: The protocol of the External Load Balancer.
-        type: string
-        x-go-name: Protocol
-      vip:
-        description: Virtual IP (VIP) of the External Load Balancer.
-        type: string
-        x-go-name: VIP
-        example: 192.168.1.1
-      vpc_id:
-        description: The ID of the vpc network this External Load Balancer belongs to.
-        type: string
-        x-go-name: VPCID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListenPortAndBackend:
-    type: object
-    title: ListenPortAndBackend defines a mapping of listen ports to backend configurations.
-    required:
-    - listen_port
-    - backends
-    properties:
-      backends:
-        description: List of backend configurations.
-        type: array
-        items:
-          $ref: '#/definitions/Backend'
-        x-go-name: Backends
-      listen_port:
-        description: Port on which the load balancer listens.
-        type: integer
-        format: int64
-        x-go-name: ListenPort
-        example: 80
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  HealthCheckOptionsExternalLB:
-    type: object
-    title: HealthCheckOptions defines the health check configuration.
-    required:
-    - failure_count
-    - interval
-    - success_count
-    - timeout
-    properties:
-      failure_count:
-        description: Number of allowed failures before considering the backend unhealthy.
-        type: integer
-        format: int64
-        x-go-name: FailureCount
-        example: 3
-      interval:
-        description: Interval between health checks (in seconds).
-        type: integer
-        format: int64
-        x-go-name: Interval
-        example: 10
-      success_count:
-        description: Number of successful checks required to consider the backend healthy.
-        type: integer
-        format: int64
-        x-go-name: SuccessCount
-        example: 2
-      timeout:
-        description: Timeout for health check responses (in seconds).
-        type: integer
-        format: int64
-        x-go-name: Timeout
-        example: 5
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ListExternalLoadBalancersResponse:
-    type: object
-    required:
-    - items
-    properties:
-      items:
-        type: array
-        items:
-          $ref: '#/definitions/ExternalLoadBalancer'
-        x-go-name: Items
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ExternalLoadBalancerPatchRequest:
-    type: object
-    title: ExternalLoadBalancerPatchRequest defines the structure of the request body for patching an external load balancer.
-    required:
-    - id
-    - listen_ports_and_backends
-    properties:
-      health_check_options:
-        $ref: '#/definitions/HealthCheckOptionsExternalLB'
-      id:
-        description: The ID of the External Load Balancer to update.
-        type: string
-        x-go-name: ID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-      listen_ports_and_backends:
-        description: Listen ports and associated backends configuration.
-        type: array
-        items:
-          $ref: '#/definitions/ListenPortAndBackend'
-        x-go-name: ListenPortsAndBackends
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  Backend:
-    type: object
-    title: Backend defines the backend server configuration.
-    required:
-    - ip
-    - port
-    - status
-    properties:
-      ip:
-        description: IP address of the backend server.
-        type: string
-        x-go-name: IP
-        example: 192.168.1.2
-      port:
-        description: Port on which the backend server listens.
-        type: integer
-        format: int64
-        x-go-name: Port
-        example: 8080
-      status:
-        description: Status of the backend server.
-        type: string
-        x-go-name: Status
-        example: ONLINE
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-  ExternalLoadBalancerPostRequest:
-    type: object
-    title: ExternalLoadBalancerPostRequest defines the structure of the request body for creating an external load balancer.
-    required:
-    - protocol
-    - vpc_id
-    - name
-    - location
-    - listen_ports_and_backends
-    properties:
-      health_check_options:
-        $ref: '#/definitions/HealthCheckOptionsExternalLB'
-      listen_ports_and_backends:
-        description: Listen ports and associated backends configuration.
-        type: array
-        items:
-          $ref: '#/definitions/ListenPortAndBackend'
-        x-go-name: ListenPortsAndBackends
-      location:
-        description: Location of the External Load Balancer.
-        type: string
-        x-go-name: Location
-        example: us-east1
-      name:
-        description: Name of the External Load Balancer.
-        type: string
-        x-go-name: Name
-        example: my-external-load-balancer
-      protocol:
-        description: The protocol of the External Load Balancer.
-        type: string
-        x-go-name: Protocol
-        example: tcp
-      vpc_id:
-        description: The ID of the VPC network this External Load Balancer belongs to.
-        type: string
-        x-go-name: VPCID
-        example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
-    x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
-responses:
-  listExternalLoadBalancersResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ListExternalLoadBalancersResponse'
-  serverError:
-    description: Error Internal Server
-    schema:
+        with resource-specific information.'
       type: object
+      title: Operation contains the common fields for all Operation API objects.
       required:
-      - code
-      - message
+      - operation_id
+      - state
+      - metadata
+      - started_at
+      - completed_at
       properties:
-        code:
+        completed_at:
           type: string
-          x-go-name: Code
-          example: '500'
-        message:
+          x-go-name: CompletedAt
+          example: '2021-12-03T19:59:34Z'
+        metadata:
+          x-go-name: Metadata
+          example: '{}'
+        operation_id:
           type: string
-          x-go-name: Message
-          example: internal_error
-  notFoundError:
-    description: Error Not Found
-    schema:
+          x-go-name: ID
+          example: F6EF489C-086E-458D-B812-7962964A28C9
+        result:
+          x-go-name: Result
+          example: '{}'
+        started_at:
+          type: string
+          x-go-name: StartedAt
+          example: '2021-12-03T19:58:34Z'
+        state:
+          type: string
+          enum:
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          x-go-name: State
+          example: IN_PROGRESS
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ListenPortAndBackend:
       type: object
+      title: ListenPortAndBackend defines a mapping of listen ports to backend configurations.
       required:
-      - code
-      - message
+      - listen_port
+      - backends
       properties:
-        code:
-          type: string
-          x-go-name: Code
-          example: '404'
-        message:
-          type: string
-          x-go-name: Message
-          example: not_found
-  badReqError:
-    description: Error Bad Request
-    schema:
+        backends:
+          description: List of backend configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend'
+          x-go-name: Backends
+        listen_port:
+          description: Port on which the load balancer listens.
+          type: integer
+          format: int64
+          x-go-name: ListenPort
+          example: 80
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ExternalLoadBalancerPatchRequest:
       type: object
+      title: ExternalLoadBalancerPatchRequest defines the structure of the request body for patching an external load balancer.
       required:
-      - code
-      - message
+      - id
+      - listen_ports_and_backends
       properties:
-        code:
+        health_check_options:
+          $ref: '#/components/schemas/HealthCheckOptionsExternalLB'
+        id:
+          description: The ID of the External Load Balancer to update.
           type: string
-          x-go-name: Code
-          example: '400'
-        message:
-          type: string
-          x-go-name: Message
-          example: bad_request
-  getExternalLoadBalancerResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/ExternalLoadBalancer'
-  asyncOperationResponse:
-    description: ''
-    schema:
-      $ref: '#/definitions/AsyncOperationResponse'
-  permissionsError:
-    description: Error Permissions
-    schema:
+          x-go-name: ID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        listen_ports_and_backends:
+          description: Listen ports and associated backends configuration.
+          type: array
+          items:
+            $ref: '#/components/schemas/ListenPortAndBackend'
+          x-go-name: ListenPortsAndBackends
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    Backend:
       type: object
+      title: Backend defines the backend server configuration.
       required:
-      - code
-      - message
+      - ip
+      - port
+      - status
       properties:
-        code:
+        ip:
+          description: IP address of the backend server.
           type: string
-          x-go-name: Code
-          example: '403'
-        message:
+          x-go-name: IP
+          example: 192.168.1.2
+        port:
+          description: Port on which the backend server listens.
+          type: integer
+          format: int64
+          x-go-name: Port
+          example: 8080
+        status:
+          description: Status of the backend server.
           type: string
-          x-go-name: Message
-          example: unauthorized
-  authError:
-    description: Error Authentication Failed
-    schema:
+          x-go-name: Status
+          example: ONLINE
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    AsyncOperationResponse:
       type: object
+      title: AsyncOperationResponse is the response type for endpoints which return async operations.
       required:
-      - code
-      - message
+      - operation
       properties:
-        code:
+        operation:
+          $ref: '#/components/schemas/Operation'
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ExternalLoadBalancer:
+      type: object
+      title: ExternalLoadBalancer defines the specifications of the External Load Balancer.
+      required:
+      - id
+      - project_id
+      - vpc_id
+      - name
+      - location
+      - protocol
+      - vip
+      - listen_ports_and_backends
+      - health_check_options
+      properties:
+        health_check_options:
+          $ref: '#/components/schemas/HealthCheckOptionsExternalLB'
+        id:
+          description: ID of the External Load Balancer.
           type: string
-          x-go-name: Code
-          example: '401'
-        message:
+          x-go-name: ID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        listen_ports_and_backends:
+          description: Listen ports and backends configuration.
+          type: array
+          items:
+            $ref: '#/components/schemas/ListenPortAndBackend'
+          x-go-name: ListenPortsAndBackends
+        location:
+          description: Location of the External Load Balancer.
           type: string
-          x-go-name: Message
-          example: bad_credential
+          x-go-name: Location
+        name:
+          description: Name of the External Load Balancer.
+          type: string
+          x-go-name: Name
+          example: my-external-load-balancer
+        project_id:
+          description: The ID of the project this External Load Balancer belongs to.
+          type: string
+          x-go-name: ProjectID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+        protocol:
+          description: The protocol of the External Load Balancer.
+          type: string
+          x-go-name: Protocol
+        vip:
+          description: Virtual IP (VIP) of the External Load Balancer.
+          type: string
+          x-go-name: VIP
+          example: 192.168.1.1
+        vpc_id:
+          description: The ID of the vpc network this External Load Balancer belongs to.
+          type: string
+          x-go-name: VPCID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    ExternalLoadBalancerPostRequest:
+      type: object
+      title: ExternalLoadBalancerPostRequest defines the structure of the request body for creating an external load balancer.
+      required:
+      - protocol
+      - vpc_id
+      - name
+      - location
+      - listen_ports_and_backends
+      properties:
+        health_check_options:
+          $ref: '#/components/schemas/HealthCheckOptionsExternalLB'
+        listen_ports_and_backends:
+          description: Listen ports and associated backends configuration.
+          type: array
+          items:
+            $ref: '#/components/schemas/ListenPortAndBackend'
+          x-go-name: ListenPortsAndBackends
+        location:
+          description: Location of the External Load Balancer.
+          type: string
+          x-go-name: Location
+          example: us-east1
+        name:
+          description: Name of the External Load Balancer.
+          type: string
+          x-go-name: Name
+          example: my-external-load-balancer
+        protocol:
+          description: The protocol of the External Load Balancer.
+          type: string
+          x-go-name: Protocol
+          example: tcp
+        vpc_id:
+          description: The ID of the VPC network this External Load Balancer belongs to.
+          type: string
+          x-go-name: VPCID
+          example: ab4a6b00-aa5f-408e-a9fb-ac6de5eb45ab
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
+    HealthCheckOptionsExternalLB:
+      type: object
+      title: HealthCheckOptions defines the health check configuration.
+      required:
+      - failure_count
+      - interval
+      - success_count
+      - timeout
+      properties:
+        failure_count:
+          description: Number of allowed failures before considering the backend unhealthy.
+          type: integer
+          format: int64
+          x-go-name: FailureCount
+          example: 3
+        interval:
+          description: Interval between health checks (in seconds).
+          type: integer
+          format: int64
+          x-go-name: Interval
+          example: 10
+        success_count:
+          description: Number of successful checks required to consider the backend healthy.
+          type: integer
+          format: int64
+          x-go-name: SuccessCount
+          example: 2
+        timeout:
+          description: Timeout for health check responses (in seconds).
+          type: integer
+          format: int64
+          x-go-name: Timeout
+          example: 5
+      x-go-package: gitlab.com/crusoeenergy/island/rest-gateway/internal/handlers
 x-tagGroups:
 - name: Compute
   tags:
